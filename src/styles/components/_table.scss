@@ -1,0 +1,74 @@
+.p-datatable {
+  position: static !important;
+  background-color: $color-background-dark;
+  font-weight: 700;
+  font-size: 1.4rem;
+  border-radius: 8px;
+}
+.p-paginator {
+  background-color: $color-background-dark;
+  border: none;
+}
+.p-datatable-wrapper {
+  background-color: $color-background-dark;
+}
+.p-datatable .p-sortable-column.p-highlight:hover,
+.p-datatable .p-sortable-column:not(.p-highlight):hover,
+.p-datatable .p-sortable-column.p-highlight {
+  color: #2196f3;
+  background-color: transparent;
+  border-radius: 50px;
+}
+.p-datatable .p-sortable-column:focus {
+  box-shadow: none;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+  background-color: transparent;
+}
+.p-datatable .p-datatable-thead > tr > th {
+  background-color: $color-background-dark;
+  color: $color-white-2;
+  border: none;
+}
+.p-datatable .p-datatable-tbody > tr > td {
+  background-color: $color-background-dark;
+  color: $color-white;
+  border: none;
+  border-bottom: 1px solid #302c3f;
+}
+.p-column-filter-overlay {
+  background-color: $color-background-dark;
+  color: $color-white;
+}
+.p-column-filter-overlay-menu .p-column-filter-operator {
+  background-color: $color-background-dark;
+  color: $color-white;
+}
+.p-datatable .p-datatable-header {
+  background: #302c3f;
+  box-shadow: inset 0px -1px 0px #302c3f;
+  border: none;
+  color: $color-white-2;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+.table {
+  &__header {
+    color: $color-white;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    i {
+      color: $color-primary;
+      margin-left: 2px;
+      cursor: pointer;
+    }
+  }
+  &__sub {
+    color: $color-white-2;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+  }
+}

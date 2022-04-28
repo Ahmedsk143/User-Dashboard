@@ -1,0 +1,103 @@
+.login-box {
+  width: 80%;
+  max-width: 552px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(29, 26, 39, 0.6);
+  border: 1px solid #302c3f;
+  box-shadow: 0px 5px 14px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  &--fixed-height {
+    height: 363px;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  &__title {
+    margin-bottom: 4rem;
+    text-align: start;
+    font-weight: 900;
+    font-size: 3.2rem;
+    line-height: 4rem;
+    &--left {
+      margin-right: auto;
+      span:first-child {
+        display: block;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      span:last-child {
+        font-weight: 400;
+        font-size: 1.6rem;
+        line-height: 2rem;
+      }
+    }
+  }
+  &__btn {
+    width: 100%;
+    margin-top: 1.6rem;
+  }
+  &__error {
+    font-weight: 400;
+    font-size: 1.6rem;
+    color: $color-error;
+    margin-top: 1.6rem;
+  }
+  &__forget {
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 1.9rem;
+    color: $color-primary;
+    margin-top: 3.4rem;
+    display: block;
+    &:hover {
+      cursor: pointer;
+      color: $color-primary-dark;
+    }
+  }
+  &__second-action {
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 1.9rem;
+    color: $color-primary;
+    margin-left: auto;
+    &:hover {
+      cursor: pointer;
+      color: $color-primary-dark;
+    }
+  }
+  &__icon {
+    background: #302c3f;
+    border-radius: 80px;
+    width: 88px;
+    height: 88px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.6rem;
+    i {
+      font-size: 3.5rem;
+      color: $color-primary;
+    }
+  }
+  &__sub {
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    color: $color-white-2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: -3.2rem;
+  }
+}

@@ -1,0 +1,39 @@
+.plan-form {
+  max-width: 50rem;
+  background: #1d1a27;
+  z-index: 999;
+  padding: 2.4rem;
+  margin-left: auto;
+  height: 100%;
+  form {
+    height: 86%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &__title {
+    font-weight: 700;
+    font-size: 2.4rem;
+    line-height: 3rem;
+  }
+  &__sub {
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    color: $color-white-2;
+  }
+  &__close {
+    background: rgba(48, 44, 63, 1);
+    cursor: pointer;
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    i {
+      color: rgb(177, 186, 211);
+    }
+  }
+}

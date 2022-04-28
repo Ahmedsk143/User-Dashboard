@@ -1,0 +1,142 @@
+<header class="dash-heading">
+  <h2 class="dash-heading__title">Mining devices</h2>
+  <p class="dash-heading__para">Manage & subscribe hashrate power plans</p>
+</header>
+<div class="dashboard-container">
+  <div class="row">
+    <div class="miners-header">
+      <h2 class="miners-header__title">Your Miners ({{ miners.length }})</h2>
+      <button
+        class="miners-header__btn btn btn--animated btn--light"
+        [routerLink]="['../choose-miner']"
+      >
+        <i class="fas fa-plus"></i>New Miner
+      </button>
+    </div>
+  </div>
+  <div class="row g-5">
+    <!-- col-xl-4 replaced by col-xl-5 in the below line-->
+    <div class="col-12 col-lg-6 col-xl-4" *ngFor="let miner of miners">
+      <ng-container>
+        <div
+          class="miner"
+          [ngClass]="{
+            'miner--online': miner.asicStatus == true,
+            'miner--offline':
+              miner.asicStatus == false && miner.expired == true,
+            'miner--demand': miner.asicStatus == false && miner.expired == false
+          }"
+        >
+          <span class="miner__online" *ngIf="miner.asicStatus == true"
+            >Online</span
+          >
+          <span
+            class="miner__offline"
+            *ngIf="miner.asicStatus == false && miner.expired == true"
+            >Offline</span
+          >
+          <span
+            class="miner__demand"
+            *ngIf="miner.asicStatus == false && miner.expired == false"
+            >On Demand</span
+          >
+          <h3 class="miner__title">{{ miner.asicName }}</h3>
+
+          <img class="miner__img" src="../../../assets/miner.svg" alt="" />
+          <div class="miner__details row g-3">
+            <div
+              class="col-12"
+              style="
+                font-weight: 400;
+                font-size: 1.4re;
+                color: #b7b4c7;
+                margin-bottom: 1rem;
+              "
+            >
+              Device Bought on: {{ miner.startDate | date }}
+            </div>
+            <div class="col-6">
+              <span class="miner__details__title">Host Fees</span>
+              <span class="miner__details__sub">{{ miner.hostFees }}%</span>
+            </div>
+            <div class="col-6">
+              <span class="miner__details__title">Worker ID</span>
+              <span class="miner__details__sub">{{ miner.workerID }}</span>
+            </div>
+            <div class="col-6">
+              <span class="miner__details__title">Total Mined</span>
+              <span class="miner__details__sub">{{ miner.totalMined }}</span>
+            </div>
+            <div class="col-6">
+              <span class="miner__details__title">Expiration</span>
+              <span class="miner__details__sub">{{
+                miner.expired ? "expired" : "still valid"
+              }}</span>
+            </div>
+            <div class="col-12">
+              <span class="miner__details__title">Address</span>
+              <span
+                class="miner__details__sub"
+                style="overflow-wrap: anywhere"
+                >{{ miner.address }}</span
+              >
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <!-- <ng-container *ngIf="checkLength()">
+        <div
+          class="miner"
+          [ngClass]="{
+            'miner--online': miner.asicStatus,
+            'miner--offline': miner.asicStatus
+          }"
+        >
+          
+          <h3 class="miner__title">{{ miner.asicName }}</h3>
+          <div class="miner__sub"></div>
+          <img class="miner__img" src="../../../assets/miner.svg" alt="" />
+          <div class="miner__details row g-3">
+            <div class="col-6">
+              <span class="miner__details__title">Contract Start</span>
+              <span class="miner__details__sub">{{ miner.startDate }}</span>
+            </div>
+            <div class="col-6">
+              <span class="miner__details__title">Asic status</span>
+              <span class="miner__details__sub">{{ miner.asicStatus }}</span>
+            </div>
+            <div class="col-6">
+              <span class="miner__details__title">hostFees</span>
+              <span class="miner__details__sub">{{ miner.hostFees }}%</span>
+            </div>
+            <div class="col-6">
+              <span class="miner__details__title">expiration</span>
+              <span class="miner__details__sub">{{ miner.expired }}</span>
+            </div>
+            <div class="col-6">
+              <span class="miner__details__title">Total Mined </span>
+              <span class="miner__details__sub">{{ miner.totalMined }}</span>
+            </div>
+            <div class="col-6">
+              <span class="miner__details__title">Worker ID </span>
+              <span class="miner__details__sub">{{ miner.workerID }}</span>
+            </div>
+            <div class="col-12">
+              <span class="miner__details__title d-block">Address: </span>
+              <span class="miner__details__sub"> {{ miner.address }}</span>
+            </div>
+          </div>
+        </div>
+      </ng-container> -->
+    </div>
+    <div
+      class="col-12 col-lg-6 col-xl-4"
+      [ngClass]="{ 'offset-4': !checkLength() }"
+    >
+      <div class="miner--add" [routerLink]="['../choose-miner']">
+        <img class="miner--add__img" src="../../../assets/plus.svg" alt="" />
+        <span class="miner--add__title">Add New Miner </span>
+      </div>
+    </div>
+  </div>
+</div>

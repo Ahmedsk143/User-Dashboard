@@ -1,0 +1,131 @@
+.custom-taps {
+  background: #1d1a27;
+  box-shadow: 0px 5px 14px rgba(0, 0, 0, 0.1);
+  border-radius: 1.2rem;
+  padding: 1.3rem 1.6rem;
+  color: #fff;
+  &--trans {
+    background: transparent;
+    box-shadow: none;
+  }
+  &--chart-size {
+    height: 416px;
+  }
+  &__heading {
+    box-shadow: 0px -1px 0px 0px rgba(48, 44, 63, 1) inset;
+    padding-bottom: 1.6rem;
+    &--trans {
+      box-shadow: none;
+    }
+    &__title {
+      font-size: 2rem;
+      font-weight: 700;
+      padding: 1.6rem;
+    }
+    &__taps {
+      &__tap {
+        font-weight: 700;
+        font-size: 1.4rem;
+        cursor: pointer;
+        color: #b7b4c7;
+        padding: 1.1rem 1.6rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 16rem;
+        &--basic {
+          background: #1d1a27;
+        }
+        &--active {
+          background: #302c3f;
+          color: #fff;
+        }
+      }
+    }
+    .icon {
+      cursor: default;
+      i {
+        color: rgb(177, 186, 211);
+      }
+    }
+    .close {
+      cursor: pointer;
+      color: rgb(177, 186, 211);
+    }
+  }
+  &__body {
+    padding: 2rem 0.5rem;
+    &--chart {
+      height: 31.8rem;
+      overflow: hidden;
+      @include respond(sm) {
+        height: auto;
+        overflow: auto;
+      }
+    }
+    &--small {
+      max-width: 55rem;
+      margin: 0 auto;
+    }
+  }
+}
+.horizontal-taps {
+  background: $color-background-dark;
+  border: 1px solid rgba(13, 23, 66, 0.1);
+  box-sizing: border-box;
+  border-radius: 8px;
+  margin-top: 2rem;
+  &__heading {
+    display: flex;
+    justify-content: flex-start;
+    box-shadow: inset 0px -1px 0px #302c3f;
+    &__item {
+      width: 17rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.3s;
+      padding: 2.4rem 0;
+      font-weight: 700;
+      font-size: 1.6rem;
+      line-height: 2rem;
+      &:hover,
+      &--active {
+        color: $color-primary;
+        box-shadow: inset 0px -1px 0px $color-primary;
+      }
+    }
+  }
+  &__body {
+    &__title {
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 25px;
+      padding: 2.4rem;
+    }
+  }
+}
+
+//   .taps-header {
+//     margin-top: 10px;
+//     background-color: #0f212e;
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     padding: 5px;
+//     width: 70%;
+//     margin: 20px auto;
+//     border-radius: 3rem;
+//     .tap {
+//       padding: 15px;
+//       border-radius: 100px;
+//       cursor: pointer;
+//       transition: all 0.3s ease-in-out;
+//       &:hover {
+//         background-color: #344b5c;
+//       }
+//     }
+//   }
+// }
+// .active {
+//   background-color: #344b5c;
+// }

@@ -1,0 +1,100 @@
+<div class="login-box">
+  <h1 class="login-box__title">Create new account</h1>
+  <form (ngSubmit)="onSignup()" [formGroup]="signupForm">
+    <div class="input-field-group">
+      <label class="input-field-group__label" for="name">User name</label>
+      <input
+        class="input-field-group__input"
+        placeholder="Enter your User Name"
+        id="name"
+        name="name"
+        type="text"
+        formControlName="name"
+        [ngClass]="{
+          'input-field-group__input--invalid':
+            signupForm.get('name')?.invalid && signupForm.get('name')?.dirty
+        }"
+      />
+    </div>
+    <div class="input-field-group">
+      <label class="input-field-group__label" for="email">Email</label>
+      <input
+        class="input-field-group__input"
+        placeholder="Enter your email"
+        id="email"
+        name="email"
+        type="text"
+        formControlName="email"
+        [ngClass]="{
+          'input-field-group__input--invalid':
+            signupForm.get('email')?.invalid && signupForm.get('email')?.dirty
+        }"
+      />
+      <!-- <div
+          class="input-field-group__error"
+          *ngIf="
+            signupForm.get('email')?.invalid && signupForm.get('email')?.touched
+          "
+        >
+          *invalid input
+        </div> -->
+    </div>
+    <div class="input-field-group">
+      <label class="input-field-group__label" for="phone">phone</label>
+      <input
+        class="input-field-group__input"
+        placeholder="Enter your phone"
+        id="phone"
+        name="phone"
+        type="text"
+        formControlName="phone"
+        [ngClass]="{
+          'input-field-group__input--invalid':
+            signupForm.get('phone')?.invalid && signupForm.get('phone')?.dirty
+        }"
+      />
+    </div>
+    <div class="input-field-group">
+      <label class="input-field-group__label" for="passowrd">Password</label>
+      <input
+        class="input-field-group__input"
+        placeholder="Enter your password"
+        type="password"
+        id="password"
+        formControlName="password"
+        [ngClass]="{
+          'input-field-group__input--invalid':
+            signupForm.get('password')?.invalid &&
+            signupForm.get('password')?.dirty
+        }"
+        #input
+      />
+      <i
+        class="fas fa-eye input-field-group__eye"
+        (click)="changeInput(input)"
+        *ngIf="!passwordShown"
+      ></i>
+      <i
+        class="fas fa-eye-slash input-field-group__eye"
+        (click)="changeInput(input)"
+        *ngIf="passwordShown"
+      ></i>
+
+      <!-- <div
+          class="input-field-group__error"
+          *ngIf="
+            signupForm.get('password')?.invalid &&
+            signupForm.get('password')?.touched
+          "
+        >
+          *input required
+        </div> -->
+    </div>
+    <button type="submit" class="login-box__btn btn btn--light btn--animated">
+      Signup
+    </button>
+    <!-- <span class="login-box__error" *ngIf="signupForm.invalid"
+      >The email or password you entered is incorrect. Please try again</span
+    > -->
+  </form>
+</div>

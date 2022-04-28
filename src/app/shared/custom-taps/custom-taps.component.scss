@@ -1,0 +1,44 @@
+// .custom-tabs {
+//   width: 500px;
+//   position: relative;
+//   background-color: #1a2c38;
+//   padding: 21px;
+//   color: #fff;
+//   .popup-heading {
+//     display: flex;
+//     justify-content: space-between;
+//     .icon {
+//       cursor: default;
+//       i {
+//         color: rgb(177, 186, 211);
+//       }
+//     }
+//     .close {
+//       cursor: pointer;
+//       color: rgb(177, 186, 211);
+//     }
+//   }
+//   .tabs-header {
+//     margin-top: 10px;
+//     background-color: #0f212e;
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     padding: 5px;
+//     width: 70%;
+//     margin: 20px auto;
+//     border-radius: 3rem;
+//     .tab {
+//       padding: 15px;
+//       border-radius: 100px;
+//       cursor: pointer;
+//       transition: all 0.3s ease-in-out;
+//       &:hover {
+//         background-color: #344b5c;
+//       }
+//     }
+//   }
+// }
+// .active {
+//   background-color: #344b5c;
+// }

@@ -1,0 +1,445 @@
+<div class="dashboard-container dashboard-container--admin">
+  <!-- Header of the page -->
+  <div class="row">
+    <!-- title -->
+    <div class="col-8">
+      <h2 class="dash-heading__title">Company Farm</h2>
+    </div>
+    <!-- new plan button -->
+    <div class="col-4">
+      <button
+        class="btn btn--animated btn--light d-block ml-auto"
+        style="margin: 0 0 2.4rem auto; padding: 1.8rem 2.4rem"
+        (click)="newWorkerOpend = true"
+      >
+        <i class="fas fa-plus mr-4"></i>
+        <span style="font-weight: 700; font-size: 1.6rem"> New Worker</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="horizontal-taps">
+    <div class="horizontal-taps__heading">
+      <span
+        class="horizontal-taps__heading__item"
+        (click)="selectedTap = 'tap1'"
+        [ngClass]="{
+          'horizontal-taps__heading__item--active': selectedTap == 'tap1'
+        }"
+        >Active Workers</span
+      >
+      <span
+        class="horizontal-taps__heading__item"
+        (click)="selectedTap = 'tap2'"
+        [ngClass]="{
+          'horizontal-taps__heading__item--active': selectedTap == 'tap2'
+        }"
+      >
+        Inactive Workers</span
+      >
+    </div>
+    <!-- Active Workers  -->
+    <div class="horizontal-taps__body pt-5" *ngIf="selectedTap == 'tap1'">
+      <div class="horizontal-taps__body__title">
+        Online Workers ({{ activeWorkersLength }})
+      </div>
+      <div class="row p-3 gy-5">
+        <div
+          class="col-12 col-lg-6 col-xl-4"
+          *ngFor="let worker of activeWorkers"
+        >
+          <ng-container>
+            <div
+              class="miner"
+              [ngClass]="{
+                'miner--online': worker.workerStatus == true,
+                'miner--offline': worker.workerStatus == false
+              }"
+              style="height: 50.9rem"
+            >
+              <div class="row align-self-start w-100 justify-content-between">
+                <div class="col-10">
+                  <span
+                    class="miner__online justify-self-center"
+                    *ngIf="worker.workerStatus == true"
+                    style="margin-left: 50%"
+                    >Online</span
+                  >
+                  <span
+                    class="miner__offline"
+                    *ngIf="worker.workerStatus == false"
+                    style="margin-left: 50%"
+                    >Offline</span
+                  >
+                </div>
+                <div class="miner__menu col-1">
+                  <div
+                    class="miner__menu__btn"
+                    (click)="checkSelected(worker)"
+                    style="background: none"
+                  >
+                    <i class="fas fa-ellipsis-v"></i>
+                  </div>
+                  <!-- The menu shows only when the selected miner = the clicked miner name -->
+                  <div
+                    class="miner__menu__body"
+                    *ngIf="selectedWorker._id == worker._id"
+                  >
+                    <div
+                      class="miner__menu__body__item"
+                      (click)="endConfirmOpend = true; checkSelected(worker)"
+                    >
+                      End
+                    </div>
+                    <div
+                      class="miner__menu__body__item"
+                      (click)="deleteConfirmOpend = true; checkSelected(worker)"
+                    >
+                      Delete
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h3 class="miner__title">{{ worker.workerName }}</h3>
+              <!-- <div class="miner__sub">
+                    <i class="fab fa-btc md" style="margin-right: 8px"></i>
+                    Bitcoin — SHA-256
+                  </div> -->
+              <img
+                class="miner__img"
+                src="../../../assets/rig.svg"
+                alt="workerRig"
+                *ngIf="checkRig(worker) == 'rig'"
+              />
+              <img
+                src="../../../../assets/chooseminer.svg"
+                alt="Workerimg"
+                class="miner__img"
+                *ngIf="checkRig(worker) == 'asic'"
+              />
+              <div class="miner__details row g-3">
+                <div
+                  class="col-12"
+                  style="
+                    font-weight: 400;
+                    font-size: 1.4re;
+                    color: #b7b4c7;
+                    margin-bottom: 1rem;
+                  "
+                >
+                  Device Bought on: {{ worker.createdAt | date }}
+                </div>
+
+                <div class="col-6">
+                  <span class="miner__details__title">Pool</span>
+                  <span class="miner__details__sub">{{ worker.pool }}</span>
+                </div>
+                <div class="col-6">
+                  <span class="miner__details__title">Worker ID</span>
+                  <span class="miner__details__sub">{{ worker.workerID }}</span>
+                </div>
+                <div class="col-12">
+                  <span class="miner__details__title">Owned By </span>
+                  <span class="miner__details__sub">{{ worker.owner }}</span>
+                </div>
+                <div class="col-12">
+                  <span class="miner__details__title">Address</span>
+                  <span
+                    class="miner__details__sub"
+                    style="overflow-wrap: anywhere"
+                    >{{ worker.address }}</span
+                  >
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <!-- Inactive Workers  -->
+    <div class="horizontal-taps__body pt-5" *ngIf="selectedTap == 'tap2'">
+      <div class="horizontal-taps__body__title">
+        Offline Workers ({{ inactiveWorkersLength }})
+      </div>
+      <div class="row p-3 gy-5">
+        <div
+          class="col-12 col-lg-6 col-xl-4"
+          *ngFor="let worker of inactiveWorkers"
+        >
+          <ng-container>
+            <div
+              class="miner"
+              [ngClass]="{
+                'miner--online': worker.workerStatus == true,
+                'miner--offline': worker.workerStatus == false
+              }"
+              style="height: 50.9rem"
+            >
+              <div class="row align-self-start w-100 justify-content-between">
+                <div class="col-10">
+                  <span
+                    class="miner__online justify-self-center"
+                    *ngIf="worker.workerStatus == true"
+                    style="margin-left: 50%"
+                    >Online</span
+                  >
+                  <span
+                    class="miner__offline"
+                    *ngIf="worker.workerStatus == false"
+                    style="margin-left: 50%"
+                    >Offline</span
+                  >
+                </div>
+                <div class="miner__menu col-1">
+                  <div
+                    class="miner__menu__btn"
+                    (click)="checkSelected(worker)"
+                    style="background: none"
+                  >
+                    <i class="fas fa-ellipsis-v"></i>
+                  </div>
+                  <!-- The menu shows only when the selected miner = the clicked miner name -->
+                  <div
+                    class="miner__menu__body"
+                    *ngIf="selectedWorker._id == worker._id"
+                  >
+                    <div
+                      class="miner__menu__body__item"
+                      (click)="deleteConfirmOpend = true; checkSelected(worker)"
+                    >
+                      Delete
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h3 class="miner__title">{{ worker.workerName }}</h3>
+
+              <img
+                class="miner__img"
+                src="../../../assets/rig.svg"
+                alt="workerRig"
+                *ngIf="checkRig(worker) == 'rig'"
+              />
+              <img
+                src="../../../../assets/chooseminer.svg"
+                alt="Workerimg"
+                class="miner__img"
+                *ngIf="checkRig(worker) == 'asic'"
+              />
+              <div class="miner__details row g-3">
+                <div
+                  class="col-12"
+                  style="
+                    font-weight: 400;
+                    font-size: 1.4re;
+                    color: #b7b4c7;
+                    margin-bottom: 1rem;
+                  "
+                >
+                  Device Bought on: {{ worker.createdAt | date }}
+                </div>
+
+                <div class="col-6">
+                  <span class="miner__details__title">Pool</span>
+                  <span class="miner__details__sub">{{ worker.pool }}</span>
+                </div>
+                <div class="col-6">
+                  <span class="miner__details__title">Worker ID</span>
+                  <span class="miner__details__sub">{{ worker.workerID }}</span>
+                </div>
+                <div class="col-12">
+                  <span class="miner__details__title">Owned By </span>
+                  <span class="miner__details__sub">{{ worker.owner }}</span>
+                </div>
+                <div class="col-12">
+                  <span class="miner__details__title">Address</span>
+                  <span
+                    class="miner__details__sub"
+                    style="overflow-wrap: anywhere"
+                    >{{ worker.address }}</span
+                  >
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--------------------------------- the new miner form ---------------------------------->
+  <div class="new-plan" *ngIf="newWorkerOpend == true">
+    <div class="plan-form">
+      <div class="row">
+        <div class="col-10">
+          <h3 class="plan-form__title">Add new worker</h3>
+        </div>
+        <div class="col-2">
+          <div class="plan-form__close" (click)="newWorkerOpend = false">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+      </div>
+      <div class="divider my-5"></div>
+      <form (ngSubmit)="onNew()" [formGroup]="newWorkerForm">
+        <div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="workerName"
+              >Worker Name</label
+            >
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="text"
+              id="workerName"
+              formControlName="workerName"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newWorkerForm.get('workerName')?.invalid &&
+                  newWorkerForm.get('workerName')?.dirty
+              }"
+            />
+          </div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="workerID"
+              >Worker ID</label
+            >
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="text"
+              id="workerID"
+              formControlName="workerID"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newWorkerForm.get('workerID')?.invalid &&
+                  newWorkerForm.get('workerID')?.dirty
+              }"
+            />
+          </div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="address"
+              >Address</label
+            >
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="text"
+              id="address"
+              formControlName="address"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newWorkerForm.get('address')?.invalid &&
+                  newWorkerForm.get('address')?.dirty
+              }"
+            />
+          </div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="pool">Pool</label>
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="text"
+              id="pool"
+              formControlName="pool"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newWorkerForm.get('pool')?.invalid &&
+                  newWorkerForm.get('pool')?.dirty
+              }"
+            />
+          </div>
+        </div>
+        <div>
+          <span class="input-field-group__error" *ngIf="newFormError != ''">{{
+            newFormError
+          }}</span>
+          <button
+            type="submit"
+            class="login-box__btn btn btn--light btn--animated"
+          >
+            Create
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!---------------------------------- The delete confirmation  ------------------------->
+  <div
+    class="confirmation--overlay"
+    *ngIf="deleteConfirmOpend"
+    (click)="deleteConfirmOpend = false"
+  ></div>
+  <div class="confirmation" *ngIf="deleteConfirmOpend">
+    <div class="confirmation__heading">
+      <div class="row">
+        <div class="col-10">
+          <h3 class="plan-form__title">Delete ‘Lite Miners’</h3>
+        </div>
+        <div class="col-2">
+          <div class="plan-form__close" (click)="deleteConfirmOpend = false">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="confirmation__body">
+      <div class="confirmation__body__warning">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <div class="confirmation__body__title">
+        Are you sure you want to delete this worker
+      </div>
+      <div class="confirmation__body__sub">
+        You will not be able to recover this worker details
+      </div>
+    </div>
+    <div class="confirmation__footer">
+      <div
+        class="btn btn--darker btn--animated"
+        (click)="deleteConfirmOpend = false"
+      >
+        Cancel
+      </div>
+      <div class="btn btn--red btn--animated" (click)="onDelete()">Delete</div>
+    </div>
+  </div>
+</div>
+
+<div class="confirmation confirmation--lighter" *ngIf="endConfirmOpend">
+  <div class="confirmation__heading">
+    <div class="row">
+      <div class="col-10">
+        <h3 class="plan-form__title">Confirm to continue</h3>
+      </div>
+      <div class="col-2">
+        <div class="plan-form__close" (click)="endConfirmOpend = false">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="confirmation__body">
+    <div class="confirmation__body__warning">
+      <i class="fas fa-exclamation-triangle"></i>
+    </div>
+    <div class="confirmation__body__title">
+      Are you sure you want to end this worker!?
+    </div>
+    <!-- <div class="confirmation__body__sub">
+        You will not be able to recover this plan details
+      </div> -->
+  </div>
+  <div class="confirmation__footer">
+    <div
+      class="btn btn--darker btn--animated"
+      (click)="endConfirmOpend = false"
+    >
+      Cancel
+    </div>
+    <div class="btn btn--light btn--animated" (click)="onEndWorker()">
+      Continue
+    </div>
+  </div>
+</div>

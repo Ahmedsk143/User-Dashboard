@@ -1,0 +1,103 @@
+<div class="dashboard-container dashboard-container--admin">
+  <h2 class="dash-heading__title mb-5">Subscribed users</h2>
+
+  <div class="table">
+    <p-table
+      [value]="usersData"
+      responsiveLayout="stack"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[10, 15, 20]"
+      sortField="createdAt"
+      [sortOrder]="-1"
+    >
+      <ng-template pTemplate="caption">
+        Subscribed users ({{ usersLength }})
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="createdAt">
+            Joined date
+            <p-columnFilter
+              type="date"
+              field="createdAt"
+              display="menu"
+            ></p-columnFilter>
+            <p-sortIcon field="createdAt"></p-sortIcon>
+          </th>
+          <th pSortableColumn="userName">
+            User info
+            <p-columnFilter
+              type="text"
+              field="userName"
+              display="menu"
+            ></p-columnFilter>
+            <p-sortIcon field="userName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="phone">
+            Phone number
+            <p-columnFilter
+              type="text"
+              field="phone"
+              display="menu"
+            ></p-columnFilter>
+            <p-sortIcon field="phone"></p-sortIcon>
+          </th>
+          <th pSortableColumn="activePlans">
+            Subscribed Hashrate plans
+            <p-columnFilter
+              type="text"
+              field="activePlans"
+              display="menu"
+            ></p-columnFilter>
+            <p-sortIcon field="activePlans"></p-sortIcon>
+          </th>
+          <th pSortableColumn="devices">
+            Mining devices
+            <p-columnFilter
+              type="text"
+              field="devices"
+              display="menu"
+            ></p-columnFilter>
+            <p-sortIcon field="devices"></p-sortIcon>
+          </th>
+          <th>Action</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>
+            <span class="p-column-title"> Joined date </span>
+            <span class="table__sub">{{ user.createdAt | date }}</span>
+          </td>
+          <td>
+            <span class="p-column-title"> User info</span>
+            <div class="table__header">{{ user.userName }}</div>
+            <div class="table__sub">{{ user.email }}</div>
+          </td>
+          <td>
+            <span class="p-column-title"> Phone number</span>
+            <span class="table__header">{{ user.phone }}</span>
+          </td>
+          <td>
+            <span class="p-column-title"> Subscribed Hashrate plans</span>
+            <span class="table__header">{{ user.activePlans }}</span>
+          </td>
+          <td>
+            <span class="p-column-title">Mining devices</span>
+            <span class="table__header">{{ user.devices }}</span>
+          </td>
+          <td>
+            <span class="p-column-title">Action</span>
+            <button
+              class="btn btn--darker btn--animated"
+              routerLink="../profile/{{ user._id }}"
+            >
+              See Profile
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

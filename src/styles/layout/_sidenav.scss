@@ -1,0 +1,125 @@
+#logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #13111a;
+  box-shadow: inset -1px -1px 0px rgba(255, 255, 255, 0.12);
+  padding: 2.3rem;
+  width: 100%;
+  height: $top-nav-height;
+  cursor: pointer;
+  span {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  @include respond(xl) {
+    width: $sidenav-width-collapsed;
+  }
+}
+.side-nav {
+  background-color: rgba(19, 17, 26, 0.5);
+  box-shadow: -1px 0px 0px 0px rgba(48, 44, 63, 1) inset;
+  width: 100%;
+  height: calc(100% - 7.2rem);
+  z-index: 999;
+  font-size: $default-font-size;
+  &__content {
+    padding: 3.8rem 1rem 0rem 0.8rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    &__item {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      min-height: 5.2rem;
+      padding: 1rem;
+      a {
+        text-decoration: none;
+      }
+      i {
+        margin-right: 1.2rem;
+      }
+      i.arrow {
+        margin-left: auto;
+      }
+      &:hover,
+      &--highlight {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 0.8rem;
+        cursor: pointer;
+        a,
+        i {
+          color: #fff;
+          transition: all ease-out 0.3s;
+        }
+      }
+      &--collapsed {
+        color: $color-white-2;
+        margin-left: 2.5rem;
+        &:hover,
+        &--highlight {
+          background-color: transparent;
+          color: $color-white;
+          border-radius: 0.8rem;
+          cursor: pointer;
+          a,
+          i {
+            color: #fff;
+            transition: all ease-out 0.3s;
+          }
+        }
+      }
+    }
+  }
+  @include respond(xl) {
+    width: $sidenav-width-collapsed;
+    height: 100vh;
+    transition: width 0.3s ease-out;
+    &__content {
+      padding: 3.8rem 1.8rem;
+      &__item {
+        justify-content: center;
+        a {
+          display: none;
+        }
+        i {
+          margin-right: 0rem;
+        }
+        .arrow {
+          display: none;
+        }
+      }
+    }
+    &:hover {
+      position: absolute;
+      top: 7.2rem;
+      height: 100vh;
+      z-index: 9;
+      width: 24.8rem;
+      backdrop-filter: blur(0.3rem);
+      ul {
+        padding: 3.8rem 1rem 0rem 0.8rem;
+        li {
+          justify-content: flex-start !important;
+          width: auto;
+          height: auto;
+          a {
+            display: inline;
+          }
+          i {
+            margin-right: 1.2rem !important;
+          }
+          .arrow {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+  @include respond(sm) {
+    display: none;
+    width: $sidenav-width-collapsed;
+  }
+}

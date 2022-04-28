@@ -1,0 +1,618 @@
+<div class="dashboard-container dashboard-container--admin">
+  <button
+    class="btn btn--animated btn--dark d-flex align-items-center"
+    [routerLink]="['../../subscribed-users']"
+  >
+    <i class="fas fa-angle-left mx-3"></i> View all customers
+  </button>
+  <div class="profile">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex align-items-center">
+        <div class="profile__user-icon">
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="profile__name">{{ userData.userName }}</div>
+        <!-- <div class="profile__edit">
+          <i class="far fa-edit"></i>Edit Customer
+        </div> -->
+      </div>
+      <!-- <div class="profile__action miner__menu__btn">
+        <i class="fas fa-ellipsis-v"></i>
+      </div> -->
+    </div>
+    <div class="profile__details">
+      <div>
+        <div class="profile__details__title">Email</div>
+        <div class="profile__details__value">{{ userData.email }}</div>
+      </div>
+      <div>
+        <div class="profile__details__title">Phone</div>
+        <div class="profile__details__value">{{ userData.phone }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="wallet__balance">
+    <div class="row g-1">
+      <div
+        class="col-12 col-md-6 col-xl-3"
+        *ngFor="let balance of userBalances"
+      >
+        <div class="wallet__balance__box">
+          <div class="wallet__balance__box__icon">
+            <i class="fab fa-btc lg" *ngIf="balance.cryptoName === 'BTC'"></i>
+            <i
+              class="fab fa-ethereum lg"
+              *ngIf="balance.cryptoName === 'ETH'"
+            ></i>
+            <img
+              src="../../../assets/LTCT-Crypto.png"
+              alt="LTCT"
+              *ngIf="balance.cryptoName === 'LTCT'"
+              class="icon--md"
+            />
+            <img
+              src="../../../assets/RVN-Crypto.svg"
+              alt="RVN"
+              *ngIf="balance.cryptoName === 'RVN'"
+              class="icon--md"
+            />
+          </div>
+          <div>
+            <h4 class="wallet__balance__box__name">
+              {{ balance.cryptoName }} Balance
+            </h4>
+            <p class="wallet__balance__box__value">
+              {{ balance.value }} {{ balance.cryptoName }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="horizontal-taps">
+    <div class="horizontal-taps__heading">
+      <span
+        class="horizontal-taps__heading__item"
+        (click)="selectedTap = 'tap1'"
+        [ngClass]="{
+          'horizontal-taps__heading__item--active': selectedTap == 'tap1'
+        }"
+        >Hashrate plans</span
+      >
+      <span
+        class="horizontal-taps__heading__item"
+        (click)="selectedTap = 'tap2'"
+        [ngClass]="{
+          'horizontal-taps__heading__item--active': selectedTap == 'tap2'
+        }"
+        >Mining devices</span
+      >
+      <span
+        class="horizontal-taps__heading__item"
+        (click)="selectedTap = 'tap3'"
+        [ngClass]="{
+          'horizontal-taps__heading__item--active': selectedTap == 'tap3'
+        }"
+        >Transactions logs</span
+      >
+    </div>
+    <div class="horizontal-taps__body" *ngIf="selectedTap == 'tap1'">
+      <div class="horizontal-taps__body__title">
+        Hashrate Plans ({{ totalPlansLength }})
+      </div>
+      <!-- Active plans table -->
+      <div class="table">
+        <p-table
+          [value]="activeUserPlans"
+          responsiveLayout="stack"
+          [paginator]="true"
+          [rows]="4"
+          [rowsPerPageOptions]="[4, 8, 12]"
+          sortField="startDate"
+          [sortOrder]="-1"
+        >
+          <ng-template pTemplate="caption">
+            Active plans ({{ activePlansLength }})
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="startDate">
+                Booking Date
+                <p-columnFilter
+                  type="date"
+                  field="startDate"
+                  display="menu"
+                ></p-columnFilter>
+                <p-sortIcon field="startDate"></p-sortIcon>
+              </th>
+              <th pSortableColumn="_id">
+                Contract ID
+                <p-columnFilter
+                  type="text"
+                  field="_id"
+                  display="menu"
+                ></p-columnFilter>
+                <p-sortIcon field="_id"></p-sortIcon>
+              </th>
+              <th pSortableColumn="totalMined">
+                Total Mined
+                <p-sortIcon field="totalMined"></p-sortIcon>
+              </th>
+              <th pSortableColumn="hashPower">
+                Current Hashpower
+                <p-sortIcon field="hashPower"></p-sortIcon>
+              </th>
+              <th pSortableColumn="endDate">
+                Expires on
+                <p-columnFilter
+                  type="date"
+                  field="endDate"
+                  display="menu"
+                ></p-columnFilter>
+                <p-sortIcon field="endDate"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-plan>
+            <tr>
+              <td>
+                <span class="p-column-title">Booking Date</span>
+                <span class="table__sub">{{ plan.startDate | date }}</span>
+              </td>
+              <td>
+                <span class="p-column-title">Contract ID</span>
+                <span class="table__header">{{ plan._id }} </span>
+              </td>
+              <td>
+                <span class="p-column-title">Total Mined</span>
+                <span class="table__header">{{ plan.totalMined }}</span>
+              </td>
+              <td>
+                <span class="p-column-title">Hash power</span>
+                <span class="table__header">{{ plan.hashPower }} GH/S</span>
+              </td>
+
+              <td>
+                <span class="p-column-title">Expired on</span>
+                <span class="table__sub">{{ plan.endDate | date }}</span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+      <!-- Expired plans table  -->
+      <div class="table">
+        <p-table
+          [value]="expiredUserPlans"
+          responsiveLayout="stack"
+          [paginator]="true"
+          [rows]="4"
+          [rowsPerPageOptions]="[4, 8, 12]"
+          sortField="startDate"
+          [sortOrder]="-1"
+        >
+          <ng-template pTemplate="caption">
+            Expired plans ({{ expiredPlansLength }})
+          </ng-template>
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="startDate">
+                Booking Date
+                <p-columnFilter
+                  type="date"
+                  field="startDate"
+                  display="menu"
+                ></p-columnFilter>
+                <p-sortIcon field="startDate"></p-sortIcon>
+              </th>
+              <th pSortableColumn="_id">
+                Contract ID
+                <p-columnFilter
+                  type="text"
+                  field="_id"
+                  display="menu"
+                ></p-columnFilter>
+                <p-sortIcon field="_id"></p-sortIcon>
+              </th>
+              <th pSortableColumn="totalMined">
+                Total Mined
+                <p-sortIcon field="totalMined"></p-sortIcon>
+              </th>
+              <th pSortableColumn="hashPower">
+                Current Hashpower
+                <p-sortIcon field="hashPower"></p-sortIcon>
+              </th>
+              <th pSortableColumn="endDate">
+                Expired on
+                <p-columnFilter
+                  type="date"
+                  field="endDate"
+                  display="menu"
+                ></p-columnFilter>
+                <p-sortIcon field="endDate"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-plan>
+            <tr>
+              <td>
+                <span class="p-column-title">Booking Date</span>
+                <span class="table__sub">{{ plan.startDate | date }}</span>
+              </td>
+              <td>
+                <span class="p-column-title">Contract ID</span>
+                <span class="table__header">{{ plan._id }} </span>
+              </td>
+              <td>
+                <span class="p-column-title">Total Mined</span>
+                <span class="table__header">{{ plan.totalMined }}</span>
+              </td>
+              <td>
+                <span class="p-column-title">Hash power</span>
+                <span class="table__header">{{ plan.hashPower }} GH/S</span>
+              </td>
+
+              <td>
+                <span class="p-column-title">Expired on</span>
+                <span class="table__sub">{{ plan.endDate | date }}</span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    <div class="user-info__body" *ngIf="selectedTap == 'tap2'">
+      <div class="horizontal-taps__body__title">
+        Mining devices ({{ userAsicsLength }})
+      </div>
+      <div class="row p-3 gy-5">
+        <div class="col-12 col-lg-6 col-xl-4" *ngFor="let miner of userAsics">
+          <ng-container>
+            <div
+              class="miner"
+              [ngClass]="{
+                'miner--online': miner.asicStatus == true,
+                'miner--offline':
+                  miner.asicStatus == false && miner.expired == true,
+                'miner--demand':
+                  miner.asicStatus == false && miner.expired == false
+              }"
+              style="height: 50.9rem"
+            >
+              <span class="miner__online" *ngIf="miner.asicStatus == true"
+                >Online</span
+              >
+              <span
+                class="miner__offline"
+                *ngIf="miner.asicStatus == false && miner.expired == true"
+                >Offline</span
+              >
+              <span
+                class="miner__demand"
+                *ngIf="miner.asicStatus == false && miner.expired == false"
+                >On Demand</span
+              >
+              <h3 class="miner__title">{{ miner.asicName }}</h3>
+              <!-- <div class="miner__sub">
+                <i class="fab fa-btc md" style="margin-right: 8px"></i>
+                Bitcoin — SHA-256
+              </div> -->
+              <img class="miner__img" src="../../../assets/miner.svg" alt="" />
+              <div class="miner__details row g-3">
+                <div
+                  class="col-12"
+                  style="
+                    font-weight: 400;
+                    font-size: 1.4re;
+                    color: #b7b4c7;
+                    margin-bottom: 1rem;
+                  "
+                >
+                  Device Bought on: {{ miner.createdAt | date }}
+                </div>
+                <div
+                  class="col-12"
+                  *ngIf="miner.asicStatus == false && miner.expired == false"
+                >
+                  <span class="miner__details__title">Start Date</span>
+                  <span class="miner__details__sub">{{
+                    miner.startDate | date: "medium"
+                  }}</span>
+                </div>
+
+                <div
+                  class="col-12"
+                  *ngIf="miner.asicStatus == false && miner.expired == false"
+                >
+                  <span class="miner__details__title">Asic ID</span>
+                  <span class="miner__details__sub">{{ miner.asicID }}</span>
+                </div>
+                <div
+                  class="col-12"
+                  *ngIf="miner.asicStatus == false && miner.expired == false"
+                >
+                  <span class="miner__details__title"><br /></span>
+                  <span class="miner__details__sub"><br /></span>
+                </div>
+                <div
+                  class="col-6"
+                  *ngIf="!(miner.asicStatus == false && miner.expired == false)"
+                >
+                  <span class="miner__details__title">Host Fees</span>
+                  <span class="miner__details__sub">{{ miner.hostFees }}%</span>
+                </div>
+                <div
+                  class="col-6"
+                  *ngIf="!(miner.asicStatus == false && miner.expired == false)"
+                >
+                  <span class="miner__details__title">Worker ID</span>
+                  <span class="miner__details__sub">{{ miner.workerID }}</span>
+                </div>
+                <div
+                  class="col-6"
+                  *ngIf="!(miner.asicStatus == false && miner.expired == false)"
+                >
+                  <span class="miner__details__title">Total Mined</span>
+                  <span class="miner__details__sub">{{
+                    miner.totalMined
+                  }}</span>
+                </div>
+                <div
+                  class="col-6"
+                  *ngIf="!(miner.asicStatus == false && miner.expired == false)"
+                >
+                  <span class="miner__details__title">Pool</span>
+                  <span class="miner__details__sub">{{ miner.pool }}</span>
+                </div>
+                <div
+                  class="col-12"
+                  *ngIf="!(miner.asicStatus == false && miner.expired == false)"
+                >
+                  <span class="miner__details__title">Address</span>
+                  <span
+                    class="miner__details__sub"
+                    style="overflow-wrap: anywhere"
+                    >{{ miner.address }}</span
+                  >
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="horizontal-taps__body" *ngIf="selectedTap == 'tap3'">
+      <div class="horizontal-taps">
+        <div class="horizontal-taps__heading">
+          <span
+            class="horizontal-taps__heading__item"
+            (click)="selectedTap3 = 'tap3-1'"
+            [ngClass]="{
+              'horizontal-taps__heading__item--active': selectedTap3 == 'tap3-1'
+            }"
+            >Deposit logs</span
+          >
+          <span
+            class="horizontal-taps__heading__item"
+            (click)="selectedTap3 = 'tap3-2'"
+            [ngClass]="{
+              'horizontal-taps__heading__item--active': selectedTap3 == 'tap3-2'
+            }"
+            >Withdrawals logs</span
+          >
+        </div>
+        <!-- Depsits logs  -->
+        <div
+          class="horizontal-taps__body pt-5"
+          *ngIf="selectedTap3 == 'tap3-1'"
+        >
+          <div class="table">
+            <p-table
+              [value]="depositLogs"
+              responsiveLayout="stack"
+              [paginator]="true"
+              [rows]="8"
+              [rowsPerPageOptions]="[8, 16, 24]"
+              sortField="createdAt"
+              [sortOrder]="-1"
+            >
+              <ng-template pTemplate="caption">
+                Total Logs ({{ depositLogsLength }})
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>
+                    Reference ID
+                    <p-columnFilter
+                      type="text"
+                      field="_id"
+                      display="menu"
+                    ></p-columnFilter>
+                  </th>
+                  <th>
+                    Deposit Source
+                    <p-columnFilter
+                      type="text"
+                      field="depositSource"
+                      display="menu"
+                    ></p-columnFilter>
+                  </th>
+                  <th pSortableColumn="createdAt">
+                    Time
+                    <p-columnFilter
+                      type="date"
+                      field="createdAt"
+                      display="menu"
+                    ></p-columnFilter>
+                    <p-sortIcon field="createdAt"></p-sortIcon>
+                  </th>
+                  <th pSortableColumn="amount">
+                    Amount
+                    <p-columnFilter
+                      type="text"
+                      field="amount"
+                      display="menu"
+                    ></p-columnFilter>
+                    <p-sortIcon field="amount"></p-sortIcon>
+                  </th>
+                  <th>Status</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-log>
+                <tr>
+                  <td>
+                    <span class="p-column-title"> Reference ID </span>
+                    <span class="table__header">{{ log._id }}</span>
+                  </td>
+                  <td>
+                    <span class="p-column-title"> Deposit Source </span>
+                    <span class="table__header">{{ log.depositSource }}</span>
+                  </td>
+                  <td>
+                    <span class="p-column-title">Time</span>
+                    <span class="table__header"
+                      >{{ log.createdAt | date: "medium" }}
+                    </span>
+                  </td>
+                  <td>
+                    <span class="p-column-title">Amount</span>
+                    <span class="table__header"
+                      >{{ log.amount }} {{ log.currency }}</span
+                    >
+                  </td>
+                  <td>
+                    <span class="p-column-title">Status</span>
+                    <span
+                      class="btn"
+                      [ngClass]="{
+                        'btn--success': log.transactionStatus == 'SUCCESS',
+                        'btn--failed': log.transactionStatus == 'FAILED',
+                        'btn--pending': log.transactionStatus == 'PENDING'
+                      }"
+                      >{{ log.transactionStatus | titlecase }}</span
+                    >
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+        <!-- Withdraws logs -->
+        <div
+          class="horizontal-taps__body pt-5"
+          *ngIf="selectedTap3 == 'tap3-2'"
+        >
+          <div class="table">
+            <p-table
+              [value]="withdrawLogs"
+              responsiveLayout="stack"
+              [paginator]="true"
+              [rows]="8"
+              [rowsPerPageOptions]="[8, 16, 24]"
+              sortField="createdAt"
+              [sortOrder]="-1"
+            >
+              <ng-template pTemplate="caption">
+                Total Logs ({{ withdrawLogsLength }})
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>
+                    Reference ID
+                    <p-columnFilter
+                      type="text"
+                      field="_id"
+                      display="menu"
+                    ></p-columnFilter>
+                  </th>
+                  <th pSortableColumn="createdAt">
+                    Time
+                    <p-columnFilter
+                      type="date"
+                      field="createdAt"
+                      display="menu"
+                    ></p-columnFilter>
+                    <p-sortIcon field="createdAt"></p-sortIcon>
+                  </th>
+                  <th>
+                    Address
+                    <p-columnFilter
+                      type="date"
+                      field="address"
+                      display="menu"
+                    ></p-columnFilter>
+                  </th>
+                  <!-- <th>
+                    Transaction ID
+                    <p-columnFilter
+                      type="date"
+                      field="txn_id"
+                      display="menu"
+                    ></p-columnFilter>
+                  </th> -->
+                  <th pSortableColumn="amount">
+                    Amount
+                    <p-columnFilter
+                      type="text"
+                      field="amount"
+                      display="menu"
+                    ></p-columnFilter>
+                    <p-sortIcon field="amount"></p-sortIcon>
+                  </th>
+                  <th>Status</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-log>
+                <tr>
+                  <td>
+                    <span class="p-column-title"> Reference ID </span>
+                    <span class="table__header">{{ log._id }}</span>
+                  </td>
+                  <td>
+                    <span class="p-column-title">Time</span>
+                    <span class="table__header"
+                      >{{ log.createdAt | date: "medium" }}
+                    </span>
+                  </td>
+                  <td>
+                    <span class="p-column-title">Address</span>
+                    <span class="table__header">{{ log.address }}</span>
+                  </td>
+                  <!-- <td>
+                    <span class="p-column-title"> Transaction ID</span>
+                    <span
+                      class="table__header"
+                      style="text-overflow: ellipsis"
+                      >{{ log.txn_id }}</span
+                    >
+                  </td> -->
+
+                  <td>
+                    <span class="p-column-title">Amount</span>
+                    <span class="table__header"
+                      >{{ log.amount }} {{ log.currency }}</span
+                    >
+                  </td>
+                  <td>
+                    <span class="p-column-title">Status</span>
+                    <span
+                      class="btn"
+                      [ngClass]="{
+                        'btn--success': log.transactionStatus == 'SUCCESS',
+                        'btn--failed': log.transactionStatus == 'FAILED',
+                        'btn--pending': log.transactionStatus == 'PENDING'
+                      }"
+                      >{{ log.transactionStatus | titlecase }}</span
+                    >
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

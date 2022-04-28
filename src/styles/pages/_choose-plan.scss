@@ -1,0 +1,117 @@
+.dash-heading {
+  &__title {
+    display: flex;
+  }
+  i {
+    height: 4rem;
+    width: 4rem;
+    color: rgba(183, 180, 199, 1);
+    background-color: rgba(29, 26, 39, 1);
+    font-size: 3.5rem;
+    padding: 8px;
+    border: 1px solid #302c3f;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.6rem;
+    cursor: pointer;
+  }
+}
+.contract {
+  background: rgba(29, 26, 39, 0.6);
+  border: 1px solid rgba(13, 23, 66, 0.2);
+  box-sizing: border-box;
+  border-radius: 8px;
+  &__period {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2.4rem;
+    border-bottom: 1px solid rgba(48, 44, 63, 1);
+    &__title {
+      font-weight: 900;
+      font-size: 3.2rem;
+      line-height: 4rem;
+      text-align: center;
+    }
+    &__sub {
+      font-weight: 700;
+      font-size: 1.8rem;
+      line-height: 2.3rem;
+      color: #b7b4c7; // $color-white-2
+      text-align: center;
+      margin: 1.6rem;
+    }
+    &__options {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+  }
+
+  &__currency {
+    &__title {
+      color: #b7b4c7; // $color-white-2
+      font-weight: 700;
+      font-size: 1.8rem;
+      line-height: 2.3rem;
+      text-align: center;
+      margin: 2.4rem auto 0.8rem auto;
+    }
+    .plan {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      background: #1d1a27;
+      box-shadow: 0px 5px 14px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      max-width: 35rem;
+      padding: 2.4rem;
+      &__title {
+        font-weight: 700;
+        font-size: 2.7rem;
+        line-height: 3.5rem;
+      }
+      &__img {
+        display: block;
+        width: 9rem;
+        height: 7.5rem;
+        margin: 1.8rem auto 4.1rem auto;
+      }
+      &__box {
+        padding: 16px;
+        width: 100%;
+        text-align: center;
+        margin: 0px;
+        &:nth-of-type(even) {
+          border-top: 1px solid rgba(48, 44, 63, 1);
+          border-bottom: 1px solid rgba(48, 44, 63, 1);
+        }
+        &__sub {
+          font-weight: 400;
+          font-size: 1.4rem;
+          line-height: 1.8rem;
+          color: #b7b4c7; //$color-white-2
+          margin-bottom: 0.4rem;
+        }
+        &__sub-value {
+          font-weight: 700;
+          font-size: 1.6rem;
+          line-height: 2rem;
+          &--large {
+            font-weight: 900;
+            font-size: 3.2rem;
+            line-height: 4rem;
+          }
+        }
+      }
+      &__btn {
+        width: 100%;
+        height: 4.8rem;
+      }
+    }
+  }
+}

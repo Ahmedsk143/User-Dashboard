@@ -1,0 +1,403 @@
+<header class="dash-heading">
+  <h2 class="dash-heading__title">Hashrate plans</h2>
+  <p class="dash-heading__para">Manage & subscribe hashrate power plans</p>
+</header>
+<div class="dashboard-container">
+  <div class="row g-4">
+    <div class="col-12 col-lg-4">
+      <div class="hashrate-active">
+        <h3 class="hashrate-active__title">Active Hashrate Power</h3>
+
+        <div class="hashrate-active__item" *ngFor="let power of activeHash">
+          <div class="hashrate-active__item__name">
+            <div>
+              <!-- this is the hashrate power icons -->
+              <img
+                *ngIf="power.crypto == 'ETH'"
+                src="../../../assets/ETH-Crypto.svg"
+                alt=""
+                style="
+                  vertical-align: middle;
+                  background: white;
+                  border-radius: 50%;
+                  width: 45px;
+                  padding: 4%;
+                  margin-right: 6px;
+                  height: 43px;
+                "
+              />
+              <img
+                *ngIf="power.crypto == 'BTC'"
+                src="../../../assets/BTC-Crypto.svg"
+                alt=""
+                style="
+                  vertical-align: middle;
+                  background: white;
+                  border-radius: 50%;
+                  width: 45px;
+                  padding: 4%;
+                  margin-right: 6px;
+                  height: 43px;
+                "
+              />
+              <img
+                *ngIf="power.crypto == 'RVN'"
+                src="../../../assets/RVN-Crypto.svg"
+                alt=""
+                style="
+                  vertical-align: middle;
+                  background: white;
+                  border-radius: 50%;
+                  width: 45px;
+                  padding: 4%;
+                  margin-right: 6px;
+                  height: 43px;
+                "
+              />
+              <img
+                *ngIf="power.crypto == 'LTCT'"
+                src="../../../assets/LTCT-Crypto.png"
+                alt=""
+                style="
+                  vertical-align: middle;
+                  background: white;
+                  border-radius: 50%;
+                  width: 45px;
+                  padding: 4%;
+                  margin-right: 6px;
+                  height: 43px;
+                "
+              />
+            </div>
+            <div style="display: flex; flex-direction: column">
+              <ng-container *ngIf="_reload">
+                <span>{{ power.crypto }}</span>
+                <span></span>
+              </ng-container>
+            </div>
+          </div>
+          <div class="hashrate-active__item__value">
+            <ng-container *ngIf="_reload"></ng-container>
+            <span
+              >{{ power.speed }} {{ power.crypto == "BTC" ? "GH/S" : "GH/S" }}
+            </span>
+            <ng-container *ngIf="_reload"></ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-8">
+      <div class="hashrate-chart">
+        <div class="custom-taps custom-taps--chart">
+          <div class="custom-taps__heading tex-center row align-items-center">
+            <h4
+              class="custom-taps__heading__title col-12 col-lg-5 text-sm-start mb-sm-3 mb-md-0"
+            >
+              Currency Mining Details
+            </h4>
+            <div
+              class="custom-taps__heading__taps d-flex justify-content-end col-12 col-lg-7"
+            >
+              <div
+                class="custom-taps__heading__taps__tap"
+                (click)="minedChartTap1()"
+                [ngClass]="{
+                  'custom-taps__heading__taps__tap--active':
+                    minedChartTapOpend == 'tap1'
+                }"
+              >
+                <img
+                  _ngcontent-lsl-c207=""
+                  src="../../../assets/BTC-Crypto.svg"
+                  alt=""
+                  style="
+                    vertical-align: middle;
+                    background: white;
+                    border-radius: 50%;
+                    width: 27px;
+                    padding: 2%;
+                    margin-right: 7px;
+                    height: 26px;
+                  "
+                />
+                BTC
+              </div>
+              <div
+                class="custom-taps__heading__taps__tap"
+                (click)="minedChartTap2()"
+                [ngClass]="{
+                  'custom-taps__heading__taps__tap--active':
+                    minedChartTapOpend == 'tap2'
+                }"
+              >
+                <img
+                  _ngcontent-lsl-c207=""
+                  src="../../../assets/ETH-Crypto.svg"
+                  alt=""
+                  style="
+                    vertical-align: middle;
+                    background: white;
+                    border-radius: 50%;
+                    width: 27px;
+                    padding: 2%;
+                    margin-right: 7px;
+                    height: 26px;
+                  "
+                />
+                ETH
+              </div>
+              <div
+                class="custom-taps__heading__taps__tap"
+                (click)="minedChartTap3()"
+                [ngClass]="{
+                  'custom-taps__heading__taps__tap--active':
+                    minedChartTapOpend == 'tap3'
+                }"
+              >
+                <img
+                  _ngcontent-lsl-c207=""
+                  src="../../../assets/RVN-Crypto.svg"
+                  alt=""
+                  style="
+                    vertical-align: middle;
+                    background: white;
+                    border-radius: 50%;
+                    width: 27px;
+                    padding: 2%;
+                    margin-right: 7px;
+                    height: 26px;
+                  "
+                />
+                RVN
+              </div>
+              <div
+                class="custom-taps__heading__taps__tap"
+                (click)="minedChartTap4()"
+                [ngClass]="{
+                  'custom-taps__heading__taps__tap--active':
+                    minedChartTapOpend == 'tap4'
+                }"
+              >
+                <img
+                  _ngcontent-lsl-c207=""
+                  src="../../../assets/LTCT-Crypto.png"
+                  alt=""
+                  style="
+                    vertical-align: middle;
+                    background: white;
+                    border-radius: 50%;
+                    width: 27px;
+                    padding: 2%;
+                    margin-right: 7px;
+                    height: 26px;
+                  "
+                />
+                LTCT
+              </div>
+            </div>
+          </div>
+          <div
+            class="custom-taps__body custom-taps__body--chart"
+            *ngIf="minedChartTapOpend == 'tap1'"
+          >
+            <p-chart
+              height="300px"
+              type="line"
+              [data]="tap1Data"
+              [options]="basicOptions"
+              [responsive]="true"
+            ></p-chart>
+          </div>
+          <div
+            class="custom-taps__body custom-taps__body--chart"
+            *ngIf="minedChartTapOpend == 'tap2'"
+          >
+            <p-chart
+              height="300px"
+              type="line"
+              [data]="tap2Data"
+              [options]="basicOptions"
+            ></p-chart>
+          </div>
+          <div
+            class="custom-taps__body custom-taps__body--chart"
+            *ngIf="minedChartTapOpend == 'tap3'"
+          >
+            <p-chart
+              height="300px"
+              type="line"
+              [data]="tap3Data"
+              [options]="basicOptions"
+            ></p-chart>
+          </div>
+          <div
+            class="custom-taps__body custom-taps__body--chart"
+            *ngIf="minedChartTapOpend == 'tap4'"
+          >
+            <p-chart
+              height="300px"
+              type="line"
+              [data]="tap4Data"
+              [options]="basicOptions"
+            ></p-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button
+    class="btn btn--animated btn--light d-block ml-auto"
+    [routerLink]="['../choose-plan']"
+    style="margin: 5.6rem 0 2.4rem auto; padding: 1.8rem 2.4rem"
+  >
+    <i class="fas fa-plus mr-3"></i>
+    <span style="font-weight: 700; font-size: 1.6rem"> New Hashrate Plan</span>
+  </button>
+  <!-- Active plans table -->
+  <div class="table">
+    <p-table
+      [value]="activePlanData"
+      responsiveLayout="stack"
+      [paginator]="true"
+      [rows]="4"
+      [rowsPerPageOptions]="[4, 8, 12]"
+    >
+      <ng-template pTemplate="caption">
+        Active plans ({{ activePlanData.length }})
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th pSortableColumn="date">
+            Booking Date
+            <p-columnFilter
+              type="date"
+              field="date"
+              display="menu"
+            ></p-columnFilter>
+            <p-sortIcon field="date"></p-sortIcon>
+          </th>
+          <th pSortableColumn="id">
+            Contract ID
+            <p-columnFilter
+              type="id"
+              field="id"
+              display="menu"
+            ></p-columnFilter>
+            <p-sortIcon field="id"></p-sortIcon>
+          </th>
+          <th pSortableColumn="total">
+            Total Mined
+            <p-sortIcon field="total"></p-sortIcon>
+          </th>
+          <th pSortableColumn="hashPower">
+            Current HashPower
+            <p-sortIcon field="hashPower"></p-sortIcon>
+          </th>
+
+          <th pSortableColumn="expire">
+            Expire on
+            <p-columnFilter
+              type="date"
+              field="expire"
+              display="menu"
+            ></p-columnFilter>
+            <p-sortIcon [field]="'expire'"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-plan let-columns="displayedColumns">
+        <tr>
+          <td>
+            <span class="p-column-title">Date</span
+            >{{ plan.date | date: "dd MMM yyyy" }}
+          </td>
+          <td><span class="p-column-title">Name</span>{{ plan.name }}</td>
+          <td><span class="p-column-title">Total</span>{{ plan.total }}</td>
+          <td>
+            <span class="p-column-title">hashPower</span
+            >{{ plan.hashPower }} GH/S
+          </td>
+
+          <td>
+            <span class="p-column-title">Expire</span
+            >{{ plan.expire | date: "dd MMM yyyy" }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <!-- Expired plans table  -->
+  <div class="table">
+    <p-table
+      [value]="expiredPlanData"
+      responsiveLayout="stack"
+      [paginator]="true"
+      [rows]="4"
+      [rowsPerPageOptions]="[4, 8, 12]"
+    >
+      <ng-template pTemplate="caption">
+        Expired plans ({{ expiredPlanData.length }})
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th pSortableColumn="date">
+            Booking Date
+            <p-columnFilter
+              type="date"
+              field="date"
+              display="menu"
+            ></p-columnFilter>
+            <p-sortIcon field="date"></p-sortIcon>
+          </th>
+          <th pSortableColumn="id">
+            Contract ID
+            <p-columnFilter
+              type="id"
+              field="id"
+              display="menu"
+            ></p-columnFilter>
+            <p-sortIcon field="id"></p-sortIcon>
+          </th>
+          <th pSortableColumn="total">
+            Total Mined
+            <p-sortIcon field="total"></p-sortIcon>
+          </th>
+          <th pSortableColumn="hashPower">
+            Current hashPower
+            <p-sortIcon field="hashPower"></p-sortIcon>
+          </th>
+          <th pSortableColumn="expire">
+            Expire on
+            <p-columnFilter
+              type="date"
+              field="expire"
+              display="menu"
+            ></p-columnFilter>
+            <p-sortIcon [field]="'expire'"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-plan>
+        <tr>
+          <td>
+            <span class="p-column-title">Date</span
+            >{{ plan.date | date: "dd MMM yyyy" }}
+          </td>
+          <td><span class="p-column-title">Name</span>{{ plan.name }}</td>
+          <td><span class="p-column-title">Total</span>{{ plan.total }}</td>
+          <td>
+            <span class="p-column-title">hashPower</span
+            >{{ plan.hashPower }} GH/S
+          </td>
+
+          <td>
+            <span class="p-column-title">Expire</span
+            >{{ plan.expire | date: "dd MMM yyyy" }}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

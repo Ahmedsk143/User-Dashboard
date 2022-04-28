@@ -1,0 +1,209 @@
+<div class="dashboard-container dashboard-container--admin">
+  <h2 class="dash-heading__title mb-4">Overview</h2>
+  <div class="row g-5">
+    <!-- The total  ----------------------------------->
+    <div class="col-12 col-lg-8">
+      <div class="row g-4">
+        <div class="col-12 col-md-6">
+          <div class="total-box">
+            <div class="total-box__title">Total Users</div>
+            <div class="total-box__value">{{ totalUsers }}</div>
+            <i
+              class="fas fa-spinner total-box__value"
+              *ngIf="!totalUsers && !(totalUsers == 0)"
+            ></i>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="total-box">
+            <div class="total-box__title">total Asics</div>
+            <div class="total-box__value">{{ totalAsics }}</div>
+            <i
+              class="fas fa-spinner total-box__value"
+              *ngIf="!totalAsics && !(totalAsics == 0)"
+            ></i>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="total-box">
+            <div class="total-box__title">total Plans</div>
+            <div class="total-box__value">{{ totalPlans }}</div>
+            <i
+              class="fas fa-spinner total-box__value"
+              *ngIf="!totalPlans && !(totalPlans == 0)"
+            ></i>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="total-box">
+            <div class="total-box__title">total Plan Contarcts</div>
+            <div class="total-box__value">
+              {{ totalPlanContarcts }}
+            </div>
+            <i
+              class="fas fa-spinner total-box__value"
+              *ngIf="!totalPlanContarcts && !(totalPlanContarcts == 0)"
+            ></i>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="total-box">
+            <div class="total-box__title">total Active Asic Contarcts</div>
+            <div class="total-box__value">
+              {{ totalActiveAsicContarcts }}
+            </div>
+            <i
+              class="fas fa-spinner total-box__value"
+              *ngIf="
+                !totalActiveAsicContarcts && !(totalActiveAsicContarcts == 0)
+              "
+            ></i>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="total-box">
+            <div class="total-box__title">total Asic Contarcts On Demand</div>
+            <div class="total-box__value">
+              {{ totalAsicContarctsOnDemand }}
+            </div>
+            <i
+              class="fas fa-spinner total-box__value"
+              *ngIf="
+                !totalAsicContarctsOnDemand &&
+                !(totalAsicContarctsOnDemand == 0)
+              "
+            ></i>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="total-box">
+            <div class="total-box__title">total Withdrawals</div>
+            <div class="total-box__value">
+              {{ totalWithdrawals }}
+            </div>
+            <i
+              class="fas fa-spinner total-box__value"
+              *ngIf="!totalWithdrawals && !(totalWithdrawals == 0)"
+            ></i>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="total-box">
+            <div class="total-box__title">total Deposits</div>
+            <div class="total-box__value">
+              {{ totalDeposits }}
+            </div>
+            <i
+              class="fas fa-spinner total-box__value"
+              *ngIf="!totalDeposits && !(totalDeposits == 0)"
+            ></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- The balances --------------------------------------->
+    <div class="col-12 col-lg-4">
+      <div class="balance-box">
+        <div class="balance-box__title">Company balance</div>
+        <div class="balance-box__item">
+          <div class="balance-box__item__icon">
+            <i class="fab fa-btc md"></i>
+            BTC
+          </div>
+          <div class="balance-box__item__value">
+            <!-- <i class="fas fa-spinner" *ngIf="!btc"></i> -->
+            <span *ngIf="!btc">0.00000000</span>
+            <span *ngIf="btc"> {{ btc }} </span>BTC
+          </div>
+        </div>
+        <div class="balance-box__item">
+          <div class="balance-box__item__icon">
+            <i class="fab fa-ethereum md"></i>
+            ETH
+          </div>
+          <div class="balance-box__item__value">
+            <span *ngIf="!eth">0.00000000</span>
+            <span *ngIf="eth"> {{ eth }} </span>ETH
+          </div>
+        </div>
+        <div class="balance-box__item">
+          <div class="balance-box__item__icon">
+            <img
+              src="../../../assets/LTCT-Crypto.png"
+              alt="LTCT"
+              class="icon icon--sm"
+            />
+            LTCT
+          </div>
+          <div class="balance-box__item__value">
+            <span *ngIf="!ltct">0.00000000</span>
+            <span *ngIf="ltct"> {{ ltct }} </span>LTCT
+          </div>
+        </div>
+        <div class="balance-box__item">
+          <div class="balance-box__item__icon">
+            <img
+              src="../../../assets/RVN-Crypto.svg"
+              alt="RVN"
+              class="icon icon--sm"
+            />
+            RVN
+          </div>
+          <div class="balance-box__item__value">
+            <!-- <i class="fas fa-spinner" *ngIf="!btc"></i> -->
+            <span *ngIf="!rvn">0.00000000</span>
+            <span *ngIf="rvn"> {{ rvn }} </span>RVN
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hashrate plans -->
+  <div class="d-flex justify-content-between my-5">
+    <h2 class="dash-heading__title">Hashrate Plans</h2>
+    <button
+      class="btn btn--darker btn--animated"
+      routerLink="../hashrate-plans"
+    >
+      <span style="margin-right: 12px">See more</span
+      ><i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+  <div class="row gy-4">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let plan of plansSubs">
+      <div class="plan-box">
+        <div class="plan-box__title">{{ plan.planName }}</div>
+        <div class="plan-box__sub">Total Subscribers</div>
+        <div class="plan-box__value">{{ plan.numOfSubscribtions }}</div>
+        <div class="row">
+          <div class="col-6">
+            <div class="plan-box__sub">Crypto Name</div>
+            <div class="plan-box__value">{{ plan.cryptoName }}</div>
+          </div>
+          <div class="col-6">
+            <div class="plan-box__sub">Plan Type</div>
+            <div class="plan-box__value">{{ plan.planType | titlecase }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Mining devices -->
+  <div class="d-flex justify-content-between my-5">
+    <h2 class="dash-heading__title">Mining devices</h2>
+    <button class="btn btn--darker btn--animated" routerLink="../miners">
+      <span style="margin-right: 12px">See more</span
+      ><i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+  <div class="row gy-4">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let miner of minersSubs">
+      <div class="plan-box">
+        <div class="plan-box__title">{{ miner.asicName }}</div>
+        <div class="plan-box__sub">Total Subscribers</div>
+        <div class="plan-box__value">{{ miner.numOfSubscribtions }}</div>
+      </div>
+    </div>
+  </div>
+</div>

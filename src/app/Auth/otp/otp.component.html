@@ -1,0 +1,25 @@
+<div class="login-box">
+  <h1 class="login-box__title">OTP Two Factor Authentication</h1>
+  <form (ngSubmit)="onProcess()" [formGroup]="otpForm">
+    <div class="input-field-group">
+      <label class="input-field-group__label" for="text"
+        >Check your linked E-Mail's mails😊👌</label
+      >
+      <br />
+      <label class="input-field-group__label" for="text">OTP</label>
+      <input
+        class="input-field-group__input"
+        placeholder="Enter the OTP code"
+        id="otp"
+        name="otp"
+        type="text"
+        formControlName="otp"
+      />
+    </div>
+
+    <button type="submit" class="login-box__btn btn btn--light btn--animated">
+      Process
+    </button>
+    <a class="login-box__forget" (click)="resendOtp()">Resend OTP </a>
+  </form>
+</div>

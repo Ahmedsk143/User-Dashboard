@@ -1,0 +1,35 @@
+<div class="popup">
+  <div class="popup-heading">
+    <div class="icon">
+      <i class="fas fa-wallet"></i>
+      Wallet
+    </div>
+    <div class="close" mat-dialog-close><i class="fas fa-times"></i></div>
+  </div>
+  <div class="tabs-header">
+    <div
+      class="deposit tab"
+      (click)="opend = 'deposit'"
+      [ngClass]="{ active: opend == 'deposit' }"
+    >
+      Deposit
+    </div>
+    <div
+      class="withdraw tab"
+      (click)="opend = 'withdraw'"
+      [ngClass]="{ active: opend == 'withdraw' }"
+    >
+      withdraw
+    </div>
+    <div
+      class="buy tab"
+      (click)="opend = 'buy'"
+      [ngClass]="{ active: opend == 'buy' }"
+    >
+      Buy Crypto
+    </div>
+  </div>
+  <div class="tabs-body" *ngIf="opend == 'deposit'">deposit details</div>
+  <div class="tabs-body" *ngIf="opend == 'withdraw'">withdraw details</div>
+  <div class="tabs-body" *ngIf="opend == 'buy'">buy crypto details</div>
+</div>

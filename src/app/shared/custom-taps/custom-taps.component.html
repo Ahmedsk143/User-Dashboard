@@ -1,0 +1,47 @@
+<div class="custom-taps">
+  <div class="custom-taps__heading">
+    <h4 class="custom-taps__heading__title">heading title</h4>
+    <div class="custom-taps__heading__taps">
+      <div
+        class="custom-taps__heading__taps__tap"
+        (click)="opend = 'tap1'"
+        [ngClass]="{
+          'custom-taps__heading__taps__tap--active': opend == 'tap1'
+        }"
+      >
+        <i class="fab fa-btc sm"></i> BTC
+      </div>
+      <div
+        class="custom-taps__heading__taps__tap"
+        (click)="opend = 'tap2'"
+        [ngClass]="{
+          'custom-taps__heading__taps__tap--active': opend == 'tap2'
+        }"
+      >
+        tap2
+      </div>
+      <div
+        class="custom-taps__heading__taps__tap"
+        (click)="opend = 'tap3'"
+        [ngClass]="{
+          'custom-taps__heading__taps__tap--active': opend == 'tap3'
+        }"
+      >
+        tap3
+      </div>
+      <div
+        class="custom-taps__heading__taps__tap"
+        (click)="opend = 'tap4'"
+        [ngClass]="{
+          'custom-taps__heading__taps__tap--active': opend == 'tap4'
+        }"
+      >
+        tap4
+      </div>
+    </div>
+  </div>
+  <div class="custom-taps__body" *ngIf="opend == 'tap1'">tap 1 details</div>
+  <div class="custom-taps__body" *ngIf="opend == 'tap2'">tap 2 details</div>
+  <div class="custom-taps__body" *ngIf="opend == 'tap3'">tap 3 details</div>
+  <div class="custom-taps__body" *ngIf="opend == 'tap4'">tap 4 details</div>
+</div>

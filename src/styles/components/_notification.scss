@@ -1,0 +1,33 @@
+.notification {
+  display: flex;
+  column-gap: 1rem;
+  align-items: center;
+  padding: 2.2rem;
+  position: fixed;
+  bottom: 4rem;
+  left: 4rem;
+  background-color: rgba(48, 44, 63, 1);
+  box-shadow: 0px 5px 14px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+
+  &__success {
+    font-size: 2rem;
+    color: rgba(56, 193, 114, 1);
+  }
+  &__error {
+    font-size: 3rem;
+    color: $color-error;
+  }
+
+  &__close {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $color-white-2;
+    background: #1d1a27;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}

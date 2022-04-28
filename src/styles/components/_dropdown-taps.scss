@@ -1,0 +1,71 @@
+.dropdown-taps {
+  position: relative;
+  &__trigger {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.8rem;
+    &__title {
+      font-weight: 400;
+      font-size: 1.4rem;
+      line-height: 1.8rem;
+      color: $color-white-2;
+    }
+    &__btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba($color-background, 0.9);
+      color: $color-white-2;
+      padding: 1.5rem 1.2rem;
+      height: 4.8rem;
+      font-weight: 400;
+      font-size: 1.4rem;
+      line-height: 1.8rem;
+      .arrow {
+        margin-left: 1.1rem;
+      }
+      &__text {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+  &__body {
+    background-color: rgba($color-background, 0.8);
+    padding: 1rem 0.5rem;
+    width: 12rem;
+    color: $color-white-2;
+    border-radius: 8px;
+    margin: 4px 1px 0 auto;
+    position: absolute;
+    top: 5rem;
+    right: 0;
+    z-index: 9;
+    cursor: pointer;
+    &__item {
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &:hover {
+        background-color: #bbbbbb38;
+        border-radius: 0.8rem;
+        color: #fff;
+      }
+    }
+    &::before {
+      content: "";
+      border: solid rgba($color-background, 0.8);
+      border-width: 0 5px 4px 0;
+      display: inline-block;
+      padding: 3px;
+      transform: rotate(-135deg);
+      -webkit-transform: rotate(-135deg);
+      position: absolute;
+      top: -2px;
+      right: 6.5rem;
+    }
+  }
+}

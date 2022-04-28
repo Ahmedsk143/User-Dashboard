@@ -1,0 +1,45 @@
+.hashrate-active {
+  display: flex;
+  flex-direction: column;
+  background: rgba(29, 26, 39, 0.6);
+  border-radius: 12px;
+  padding: 0rem;
+  &__title {
+    padding: 2.4rem;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 2.5rem;
+    box-shadow: inset 0px -1px 0px #302c3f;
+  }
+  &__item {
+    padding: 2.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &:not(:last-of-type) {
+      box-shadow: inset 0px -1px 0px #302c3f;
+    }
+    font-weight: bold;
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    &__name {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      span:last-child {
+        color: $color-primary;
+        font-size: 1.4rem;
+        line-height: 1.8rem;
+      }
+    }
+    // &__value {
+    // }
+  }
+}
+.hashrate-chart {
+  background: rgba(29, 26, 39, 0.6);
+  border-radius: 12px;
+}
+.table {
+}

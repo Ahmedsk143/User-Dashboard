@@ -1,0 +1,10 @@
+<div class="notification">
+  <div>
+    <i class="fas fa-check notification__success" *ngIf="!error"></i>
+    <i class="fas fa-times-circle notification__error" *ngIf="error"></i>
+  </div>
+  <div>{{ message }}</div>
+  <div class="notification__close" (click)="closeNotif()">
+    <i class="fas fa-times"></i>
+  </div>
+</div>

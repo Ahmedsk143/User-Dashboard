@@ -1,0 +1,50 @@
+*,
+*::after,
+*::before {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: inherit;
+}
+html {
+  // 100% is 16px so 62.5% is 10px ... 1 rem = 10px; 10px/16px = 62.5%
+  font-size: 62.5%; //
+
+  @include respond(md) {
+    font-size: 50%; //1 rem = 8px, 8/16 = 50%
+  }
+
+  @include respond(sm) {
+    font-size: 40%;
+  }
+  @include respond(xxl) {
+    // font-size: 75%; //1rem = 12, 12/16
+  }
+}
+body {
+  box-sizing: border-box;
+}
+
+a {
+  list-style: none;
+}
+ul,
+li {
+  list-style: none;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

@@ -1,0 +1,9 @@
+<router-outlet></router-outlet> <app-spinner *ngIf="isLoading"></app-spinner>
+<app-notification *ngIf="showNotification"></app-notification>
+
+<qrcode
+  *ngIf="QR"
+  [qrdata]="'33Jcuhv5crViFto69jHNapgi7NpwrdiiyM'"
+  [width]="170"
+  [errorCorrectionLevel]="'H'"
+></qrcode>

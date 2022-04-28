@@ -1,0 +1,55 @@
+// header {
+//   margin-top: -24px;
+//   padding-top: 128px;
+//   height: 227px;
+// }
+.miners-power {
+  display: flex;
+  flex-direction: column;
+  background: rgba(29, 26, 39, 0.6);
+  border-radius: 12px;
+  &__title {
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 2.5rem;
+    padding: 2.4rem;
+    box-shadow: inset 0px -1px 0px #302c3f;
+  }
+  &__item {
+    padding: 2.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &:not(:last-of-type) {
+      box-shadow: inset 0px -1px 0px #302c3f;
+    }
+    &__sub {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &__text {
+        display: flex;
+        flex-direction: column;
+        margin-left: 0.8rem;
+        font-weight: 700;
+        font-size: 1.6rem;
+        line-height: 2rem;
+        &__active {
+          font-size: 1.4rem;
+          line-height: 1.8rem;
+          color: $color-primary;
+        }
+        &__inactive {
+          font-size: 1.4rem;
+          line-height: 1.8rem;
+          color: $color-white-2;
+        }
+      }
+      &__value {
+        font-weight: 700;
+        font-size: 1.6rem;
+        line-height: 2rem;
+      }
+    }
+  }
+}

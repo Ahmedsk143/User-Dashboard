@@ -1,0 +1,103 @@
+mat-tab-group {
+  background: #1d1a27;
+  /* drop-shadow/short */
+
+  box-shadow: 0px 5px 14px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+.fab.lg {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fa-btc {
+  background-color: #f7931a;
+  color: #fff;
+  float: left;
+  transform: rotate(15deg);
+}
+.fa-ethereum {
+  background-color: #eef3fb;
+  color: #393939;
+}
+// .details {
+//   margin: 0px 32px 0px 32px;
+//   background-color: #fff;
+//   padding: 23px;
+//   border: 1px solid rgba(13, 23, 66, 0.2);
+//   border-radius: 8px;
+//   color: #032f4a;
+
+.fab.sm {
+  border-radius: 50%;
+  height: 24px;
+  width: 24px;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+}
+.fas {
+  color: #154ed5;
+  margin-right: 10px;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+.fa-plus {
+  background-color: #eef3fb;
+  padding: 6px;
+  margin-left: 6px;
+}
+.btc-details {
+  padding-top: 50px;
+  display: flex;
+  justify-content: space-evenly;
+
+  .btc-item-1,
+  .btc-item-2,
+  .btc-item-3 {
+    text-align: center;
+    font-weight: bold;
+  }
+  .btc-item-1 h4 {
+    display: inline-block;
+  }
+}
+.center {
+  margin-top: 32px;
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
+}
+// }
+.padding-right {
+  box-sizing: border-box;
+  border-right: 24px solid transparent;
+  background-clip: padding-box;
+}
+.padding-right:last-child {
+  border-right: 0px solid transparent;
+}
+
+//for large screen
+@media only screen and (min-width: 1206px) {
+  #details-header {
+    margin-bottom: -38px;
+  }
+}
+//for md and smaller screens
+@media only screen and (max-width: 768px) {
+  .btc-item-1,
+  .btc-item-2,
+  .btc-item-3 {
+    margin-bottom: 20px;
+  }
+  .details button {
+    width: 100%;
+  }
+}

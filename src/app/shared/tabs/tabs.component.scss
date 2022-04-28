@@ -1,0 +1,115 @@
+// //Tabs Styles
+// #shortPlans,
+// #longPlans {
+//   .mat-tab-header .mat-tab-labels {
+//     justify-content: center;
+//     padding: 8px 0px 32px 0px;
+//     border-bottom: none;
+//   }
+//   .mat-tab-header {
+//     border-bottom: none !important;
+//   }
+// }
+// .mat-tab-header .mat-tab-labels {
+//   justify-content: flex-end;
+//   padding: 12px 24px;
+//   border-bottom: 1px solid #302c3f;
+// }
+// .mat-tab-label {
+//   color: #fff !important;
+//   min-width: 88px !important;
+//   padding: 0px !important;
+// }
+// .mat-tab-label-active {
+//   background: #78777e;
+//   border-radius: 160px;
+//   color: #fff;
+// }
+// .mat-ink-bar {
+//   background: linear-gradient(270deg, #ff4980 0%, #4f56ff 100%);
+//   display: none;
+// }
+// .mat-tab-nav-bar:active {
+//   color: #ffffff !important;
+// }
+
+// //mined details styles
+
+// .fa-btc {
+//   background-color: #f7931a;
+//   color: #fff;
+//   float: left;
+//   transform: rotate(15deg);
+// }
+// .fa-ethereum {
+//   background-color: #eef3fb;
+//   color: #393939;
+//   float: left;
+// }
+
+// .fa-plus {
+//   background-color: #eef3fb;
+//   padding: 5px;
+//   margin-left: 6px;
+//   border-radius: 50%;
+// }
+// .btc-details {
+//   padding-top: 24px;
+//   display: flex;
+//   justify-content: space-evenly;
+//   i {
+//     color: rgba(255, 73, 128, 1);
+//     margin-right: 6px;
+//   }
+//   .btc-item-1,
+//   .btc-item-2,
+//   .btc-item-3 {
+//     text-align: center;
+//     font-weight: bold;
+//   }
+//   .btc-item-1 h4 {
+//     display: inline-block;
+//   }
+// }
+// .center {
+//   margin-top: 30px;
+//   display: flex;
+//   justify-content: center;
+//   column-gap: 15px;
+// }
+// // }
+// button {
+//   width: 28%;
+//   margin: 20px auto 0px auto !important;
+//   vertical-align: middle;
+//   background: linear-gradient(rgba(29, 26, 39, 1), rgba(29, 26, 39, 1))
+//       padding-box,
+//     linear-gradient(to right, rgba(79, 86, 255, 1), rgba(255, 73, 128, 1))
+//       border-box !important;
+
+//   .fab {
+//     margin-top: 4px !important;
+//   }
+// }
+
+// //mined chart styles
+
+// //gains chart styles
+// //
+// //for large screen
+// // @media only screen and (min-width: 1206px) {
+// //   #details-header {
+// //     margin-bottom: -38px;
+// //   }
+// // }
+// //for md and smaller screens
+// // @media only screen and (max-width: 768px) {
+// //   .btc-item-1,
+// //   .btc-item-2,
+// //   .btc-item-3 {
+// //     margin-bottom: 20px;
+// //   }
+// //   .details button {
+// //     width: 100%;
+// //   }
+// // }

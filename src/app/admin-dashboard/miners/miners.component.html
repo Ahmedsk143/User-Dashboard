@@ -1,0 +1,537 @@
+<div class="dashboard-container dashboard-container--admin">
+  <!-- Header of the page -->
+  <div class="row">
+    <!-- title -->
+    <div class="col-8">
+      <h2 class="dash-heading__title">Mining devices ({{ minersLength }})</h2>
+    </div>
+    <!-- new plan button -->
+    <div class="col-4">
+      <button
+        class="btn btn--animated btn--light d-block ml-auto"
+        style="margin: 0 0 2.4rem auto; padding: 1.8rem 2.4rem"
+        (click)="newFormOpend = true"
+      >
+        <i class="fas fa-plus mr-4"></i>
+        <span style="font-weight: 700; font-size: 1.6rem"> New Miner</span>
+      </button>
+    </div>
+  </div>
+  <!-- choose currency menu -->
+  <div class="dropdown-taps row g-0">
+    <!-- the visiable trigger button -->
+    <div class="dropdown-taps__trigger">
+      <span class="dropdown-taps__trigger__title"> Currency:</span>
+      <button
+        class="btn dropdown-taps__trigger__btn"
+        (click)="dropCollapsed = !dropCollapsed"
+      >
+        <div
+          class="dropdown-taps__trigger__btn__text"
+          *ngIf="selected == 'all'"
+        >
+          <a>All Currency</a>
+        </div>
+        <div
+          class="dropdown-taps__trigger__btn__text"
+          *ngIf="selected == 'tap1'"
+        >
+          <i class="fab fa-btc sm"></i> <a>BTC</a>
+        </div>
+        <div
+          class="dropdown-taps__trigger__btn__text"
+          *ngIf="selected == 'tap2'"
+        >
+          <i class="fab fa-ethereum sm"></i> <a>ETH</a>
+        </div>
+        <div
+          class="dropdown-taps__trigger__btn__text"
+          *ngIf="selected == 'tap3'"
+        >
+          <img
+            src="../../../assets/RVN-Crypto.svg"
+            alt="RVN"
+            class="icon icon--xs"
+          />
+          <a>RVN</a>
+        </div>
+        <div
+          class="dropdown-taps__trigger__btn__text"
+          *ngIf="selected == 'tap4'"
+        >
+          <img
+            src="../../../assets/LTCT-Crypto.png"
+            alt="LTCT"
+            class="icon icon--xs"
+          />
+          <a>LTCT</a>
+        </div>
+        <i class="fas fa-angle-down arrow" *ngIf="!dropCollapsed"></i>
+        <i class="fas fa-angle-up arrow" *ngIf="dropCollapsed"></i>
+      </button>
+    </div>
+    <!-- the toggable menu  -->
+    <ul class="dropdown-taps__body" *ngIf="dropCollapsed">
+      <li
+        class="dropdown-taps__body__item"
+        (click)="selected = 'all'; dropCollapsed = !dropCollapsed"
+      >
+        <a>All Currency</a>
+      </li>
+      <li
+        class="dropdown-taps__body__item"
+        (click)="selected = 'tap1'; dropCollapsed = !dropCollapsed"
+      >
+        <i class="fab fa-btc sm"></i> <a>BTC</a>
+      </li>
+      <li
+        class="dropdown-taps__body__item"
+        (click)="selected = 'tap2'; dropCollapsed = !dropCollapsed"
+      >
+        <i class="fab fa-ethereum sm"></i> <a>ETH</a>
+      </li>
+      <li
+        class="dropdown-taps__body__item"
+        (click)="selected = 'tap3'; dropCollapsed = !dropCollapsed"
+      >
+        <img
+          src="../../../assets/RVN-Crypto.svg"
+          alt="RVN"
+          class="icon icon--xs"
+        />
+        <a>RVN</a>
+      </li>
+      <li
+        class="dropdown-taps__body__item"
+        (click)="selected = 'tap4'; dropCollapsed = !dropCollapsed"
+      >
+        <img
+          src="../../../assets/LTCT-Crypto.png"
+          alt="LTCT"
+          class="icon icon--xs"
+        /><a>LTCT</a>
+      </li>
+    </ul>
+  </div>
+  <!-- the list of all miners avaliable -->
+  <div class="row row g-4 mt-4">
+    <ng-container *ngFor="let miner of miners">
+      <!-- check if the miner belongs to tap 1,2,3,4, or all  "-->
+      <div class="col-12 col-md-6 col-xl-4" *ngIf="checkDisplayedminers(miner)">
+        <div class="miner align-self-center">
+          <div class="row align-self-start w-100 justify-content-between">
+            <div class="col-10">
+              <h3 class="miner__title">{{ miner.asicName }}</h3>
+              <span class="miner__sub"
+                >Added on: {{ miner.createdAt | date }}</span
+              >
+            </div>
+            <!-- The edit/delete menu trigger -->
+            <div class="miner__menu col-1">
+              <div class="miner__menu__btn" (click)="checkSelected(miner)">
+                <i class="fas fa-ellipsis-v"></i>
+              </div>
+              <!-- The menu shows only when the selected miner = the clicked miner name -->
+              <div
+                class="miner__menu__body"
+                *ngIf="selectedMiner._id == miner._id"
+              >
+                <div
+                  class="miner__menu__body__item"
+                  (click)="editFormOpend = true; checkSelected(miner)"
+                >
+                  Edit
+                </div>
+                <div
+                  class="miner__menu__body__item"
+                  (click)="deleteConfirmOpend = true; checkSelected(miner)"
+                >
+                  Delete
+                </div>
+              </div>
+            </div>
+          </div>
+          <img
+            src="../../../../assets/chooseminer.svg"
+            alt="minerimg"
+            class="miner__img"
+          />
+          <div class="miner__box">
+            <h6 class="miner__box__title">Mining Currency</h6>
+            <p class="miner__box__sub">{{ miner.cryptoName }}</p>
+          </div>
+          <div class="miner__box">
+            <h6 class="miner__box__title">Algorithm</h6>
+            <p class="miner__box__sub">{{ miner.algorithm }}</p>
+          </div>
+          <div class="miner__box">
+            <h6 class="miner__box__title">Power</h6>
+            <p class="miner__box__sub">{{ miner.hashPower }} GH/S</p>
+          </div>
+
+          <div class="miner__box">
+            <h6 class="miner__box__title">Unit Price</h6>
+            <p class="miner__box__sub">{{ miner.price }}$</p>
+          </div>
+          <div class="miner__box">
+            <h6 class="miner__box__title">Host Fees</h6>
+            <p class="miner__box__sub--large">{{ miner.hostFees }}%</p>
+            <div class="miner__box__active row justify-content-between">
+              <div class="col-2 d-flex flex-column">
+                <span class="miner__box__active__name">Status</span>
+                <span class="miner__box__active__value">Active</span>
+              </div>
+              <section class="toggle-btn col-3">
+                <div class="checkbox">
+                  <input
+                    type="checkbox"
+                    [ngModel]="miner.availability"
+                    (change)="updateAval(miner)"
+                  />
+                  <label></label>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div style="margin: 0 auto" *ngIf="minersLength == 0">
+      <div class="miner--add" (click)="newFormOpend = true">
+        <img class="miner--add__img" src="../../../assets/plus.svg" alt="" />
+        <span class="miner--add__title">Add New Plan </span>
+      </div>
+    </div>
+  </div>
+
+  <!--------------------------------- the new miner form ---------------------------------->
+  <div class="new-plan" *ngIf="newFormOpend == true">
+    <div class="plan-form">
+      <div class="row">
+        <div class="col-10">
+          <h3 class="plan-form__title">Add new miner</h3>
+        </div>
+        <div class="col-2">
+          <div class="plan-form__close" (click)="newFormOpend = false">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+      </div>
+      <div class="divider my-5"></div>
+      <form (ngSubmit)="onNew()" [formGroup]="newMinerForm">
+        <div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="asicName"
+              >Miner Name</label
+            >
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="text"
+              id="asicName"
+              formControlName="asicName"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newMinerForm.get('asicName')?.invalid &&
+                  newMinerForm.get('asicName')?.dirty
+              }"
+            />
+          </div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="cryptoName"
+              >Mining Currency</label
+            >
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="text"
+              id="cryptoName"
+              formControlName="cryptoName"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newMinerForm.get('cryptoName')?.invalid &&
+                  newMinerForm.get('cryptoName')?.dirty
+              }"
+            />
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <div class="input-field-group">
+                <label class="input-field-group__label" for="algorithm"
+                  >Algorithm</label
+                >
+                <input
+                  class="input-field-group__input"
+                  placeholder=""
+                  type="text"
+                  id="algorithm"
+                  formControlName="algorithm"
+                  [ngClass]="{
+                    'input-field-group__input--invalid':
+                      newMinerForm.get('algorithm')?.invalid &&
+                      newMinerForm.get('algorithm')?.dirty
+                  }"
+                />
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="input-field-group">
+                <label class="input-field-group__label" for="hashPower"
+                  >Power</label
+                >
+                <input
+                  class="input-field-group__input"
+                  placeholder=""
+                  type="number"
+                  id="hashPower"
+                  formControlName="hashPower"
+                  [ngClass]="{
+                    'input-field-group__input--invalid':
+                      newMinerForm.get('hashPower')?.invalid &&
+                      newMinerForm.get('hashPower')?.dirty
+                  }"
+                />
+                <div class="input-field-group__icon"></div>
+              </div>
+            </div>
+          </div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="price">Price</label>
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="number"
+              id="price"
+              formControlName="price"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newMinerForm.get('price')?.invalid &&
+                  newMinerForm.get('price')?.dirty
+              }"
+            />
+            <div class="input-field-group__icon">$</div>
+          </div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="hostFees"
+              >Host fees</label
+            >
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="number"
+              id="hostFees"
+              formControlName="hostFees"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newMinerForm.get('hostFees')?.invalid &&
+                  newMinerForm.get('hostFees')?.dirty
+              }"
+            />
+            <div class="input-field-group__icon">%</div>
+          </div>
+        </div>
+        <div>
+          <span class="input-field-group__error" *ngIf="newFormError != ''">{{
+            newFormError
+          }}</span>
+          <button
+            type="submit"
+            class="login-box__btn btn btn--light btn--animated"
+          >
+            Create
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!---------------------------------- the edit miner form ------------------------->
+  <div class="new-plan" *ngIf="editFormOpend == true">
+    <div class="plan-form">
+      <div class="row">
+        <div class="col-10">
+          <h3 class="plan-form__title">
+            Edit '{{ minerToEdit.asicName }}' miner
+          </h3>
+          <p class="plan-form__sub">
+            Added on: {{ minerToEdit.createdAt | date }}
+          </p>
+        </div>
+        <div class="col-2">
+          <div class="plan-form__close" (click)="editFormOpend = false">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+      </div>
+      <div class="divider my-5"></div>
+      <form (ngSubmit)="onUpdate()" [formGroup]="editMinerForm">
+        <div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="asicName"
+              >Miner Name</label
+            >
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="text"
+              id="asicName"
+              formControlName="asicName"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newMinerForm.get('asicName')?.invalid &&
+                  newMinerForm.get('asicName')?.dirty
+              }"
+            />
+          </div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="cryptoName"
+              >Mining Currency</label
+            >
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="text"
+              id="cryptoName"
+              formControlName="cryptoName"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newMinerForm.get('cryptoName')?.invalid &&
+                  newMinerForm.get('cryptoName')?.dirty
+              }"
+            />
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <div class="input-field-group">
+                <label class="input-field-group__label" for="algorithm"
+                  >Algorithm</label
+                >
+                <input
+                  class="input-field-group__input"
+                  placeholder=""
+                  type="text"
+                  id="algorithm"
+                  formControlName="algorithm"
+                  [ngClass]="{
+                    'input-field-group__input--invalid':
+                      newMinerForm.get('algorithm')?.invalid &&
+                      newMinerForm.get('algorithm')?.dirty
+                  }"
+                />
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="input-field-group">
+                <label class="input-field-group__label" for="hashPower"
+                  >Power</label
+                >
+                <input
+                  class="input-field-group__input"
+                  placeholder=""
+                  type="number"
+                  id="hashPower"
+                  formControlName="hashPower"
+                  [ngClass]="{
+                    'input-field-group__input--invalid':
+                      newMinerForm.get('hashPower')?.invalid &&
+                      newMinerForm.get('hashPower')?.dirty
+                  }"
+                />
+                <div class="input-field-group__icon"></div>
+              </div>
+            </div>
+          </div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="price">Price</label>
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="number"
+              id="price"
+              formControlName="price"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newMinerForm.get('price')?.invalid &&
+                  newMinerForm.get('price')?.dirty
+              }"
+            />
+            <div class="input-field-group__icon">$</div>
+          </div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="hostFees"
+              >Host fees</label
+            >
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="number"
+              id="hostFees"
+              formControlName="hostFees"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newMinerForm.get('hostFees')?.invalid &&
+                  newMinerForm.get('hostFees')?.dirty
+              }"
+            />
+            <div class="input-field-group__icon">%</div>
+          </div>
+        </div>
+        <div>
+          <span
+            class="input-field-group__error"
+            *ngIf="updateFormError != ''"
+            >{{ updateFormError }}</span
+          >
+          <button
+            type="submit"
+            class="login-box__btn btn btn--light btn--animated"
+          >
+            Update
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!---------------------------------- The delete confirmation  ------------------------->
+
+  <div
+    class="confirmation--overlay"
+    *ngIf="deleteConfirmOpend"
+    (click)="deleteConfirmOpend = false"
+  ></div>
+  <div class="confirmation" *ngIf="deleteConfirmOpend">
+    <div class="confirmation__heading">
+      <div class="row">
+        <div class="col-10">
+          <h3 class="plan-form__title">Delete ‘Lite Miners’</h3>
+        </div>
+        <div class="col-2">
+          <div class="plan-form__close" (click)="deleteConfirmOpend = false">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="confirmation__body">
+      <div class="confirmation__body__warning">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <div class="confirmation__body__title">
+        Are you sure you want to delete this miner
+      </div>
+      <div class="confirmation__body__sub">
+        You will not be able to recover this miner details
+      </div>
+    </div>
+    <div class="confirmation__footer">
+      <div
+        class="btn btn--darker btn--animated"
+        (click)="deleteConfirmOpend = false"
+      >
+        Cancel
+      </div>
+      <div class="btn btn--red btn--animated" (click)="onDelete()">Delete</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="login-box">
+  <h1 class="login-box__title">Login</h1>
+  <form (ngSubmit)="onSignin()" [formGroup]="signinForm">
+    <div class="input-field-group">
+      <label class="input-field-group__label" for="userName">User name</label>
+      <input
+        class="input-field-group__input"
+        placeholder="Enter your User name"
+        id="userName"
+        name="userName"
+        type="text"
+        formControlName="userName"
+        [ngClass]="{
+          'input-field-group__input--invalid':
+            signinForm.get('userName')?.invalid &&
+            signinForm.get('userName')?.dirty
+        }"
+      />
+    </div>
+    <div class="input-field-group">
+      <label class="input-field-group__label" for="passowrd">Password</label>
+      <input
+        class="input-field-group__input"
+        placeholder="Enter your password"
+        type="password"
+        id="password"
+        formControlName="password"
+        [ngClass]="{
+          'input-field-group__input--invalid':
+            signinForm.get('password')?.invalid &&
+            signinForm.get('password')?.dirty
+        }"
+        #input
+      />
+      <i
+        class="fas fa-eye input-field-group__eye"
+        (click)="changeInput(input)"
+        *ngIf="!passwordShown"
+      ></i>
+      <i
+        class="fas fa-eye-slash input-field-group__eye"
+        (click)="changeInput(input)"
+        *ngIf="passwordShown"
+      ></i>
+    </div>
+    <button type="submit" class="login-box__btn btn btn--light btn--animated">
+      Login
+    </button>
+    <span
+      class="login-box__error"
+      *ngIf="
+        (signinForm.get('password')?.invalid &&
+          signinForm.get('password')?.dirty) ||
+        (signinForm.get('userName')?.invalid &&
+          signinForm.get('userName')?.dirty)
+      "
+      >The userName or password you entered is incorrect. Please try again</span
+    >
+    <a class="login-box__forget" routerLink="../reset-your-password"
+      >Forgot password?
+    </a>
+  </form>
+</div>

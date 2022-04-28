@@ -1,0 +1,84 @@
+<div class="main-nav main-nav--trans fixed-top">
+  <h3 class="main-nav__title">{{ currentRoute }}</h3>
+  <div class="main-nav__user">
+    <span
+      class="main-nav__user__name"
+      (click)="logout()"
+      style="cursor: pointer"
+      >Logout</span
+    >
+    <div
+      class="main-nav__user__icon"
+      (click)="logout()"
+      style="cursor: pointer"
+    >
+      <i class="fas fa-sign-out-alt"></i>
+    </div>
+    <!-- <div
+      class="main-nav__user__icon main-nav__user__icon--menu"
+      (click)="toggleMenu = !toggleMenu"
+    >
+      <i class="fas fa-user"></i>
+    </div> -->
+    <div
+      class="main-nav__user__icon main-nav__user__icon--menu"
+      (click)="toggleMenu = !toggleMenu"
+    >
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul class="menu-nav" *ngIf="toggleMenu">
+      <li
+        class="menu-nav__item"
+        routerLink="overview"
+        routerLinkActive="side-nav__content__item--highlight"
+      >
+        <i class="fas fa-home"></i> <a>Overview</a>
+      </li>
+
+      <li
+        class="menu-nav__item"
+        routerLinkActive="--highlight"
+        routerLink="hashrate-plans"
+      >
+        <i class="fas fa-clipboard-list"></i>
+        <a>Hashrate plans</a>
+        <a routerLink="choose-plan" style="visibility: hidden"></a>
+      </li>
+      <li
+        class="menu-nav__item"
+        routerLink="mining-devices"
+        routerLinkActive="--highlight"
+      >
+        <i class="fas fa-server"></i> <a>Mining devices</a>
+        <a routerLink="choose-miner" style="visibility: hidden"></a>
+      </li>
+      <li
+        class="menu-nav__item"
+        routerLinkActive="--highlight"
+        (click)="collapsed = !collapsed"
+      >
+        <i class="fas fa-wallet"></i> <a> Wallet</a>
+        <i class="fas fa-angle-down arrow" *ngIf="!collapsed"></i>
+        <i class="fas fa-angle-up arrow" *ngIf="collapsed"></i>
+        <a routerLink="withdraw" style="visibility: hidden"></a>
+        <a routerLink="deposit" style="visibility: hidden"></a>
+      </li>
+      <li
+        class="menu-nav__item"
+        routerLink="withdraw"
+        routerLinkActive="--collapsed--highlight"
+        *ngIf="collapsed"
+      >
+        <a>Withdraw</a>
+      </li>
+      <li
+        class="menu-nav__item"
+        routerLink="deposit"
+        routerLinkActive="side-nav__content__item--collapsed--highlight"
+        *ngIf="collapsed"
+      >
+        <a>Deposit</a>
+      </li>
+    </ul>
+  </div>
+</div>

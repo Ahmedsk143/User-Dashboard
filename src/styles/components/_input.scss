@@ -1,0 +1,53 @@
+.input-field-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  &__label {
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    margin-bottom: 0.4rem;
+  }
+  &__input {
+    background: #302c3f;
+    border: 2px solid rgba(255, 255, 255, 0.27);
+    border-radius: 8px;
+    padding: 8px 16px;
+    color: $color-white;
+    transition: all 0.3s;
+    margin-bottom: 2.4rem;
+    &::placeholder {
+      color: $color-white-2;
+    }
+    &:hover {
+      background: #1d1a27;
+    }
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      border: 2px solid $color-secondary;
+    }
+    &--invalid {
+      border: 2px solid $color-error !important;
+    }
+  }
+  &__error {
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    color: $color-error;
+    margin-top: -2rem;
+  }
+  &__eye {
+    position: absolute;
+    right: 1.6rem;
+    top: 3.9rem;
+    cursor: pointer;
+  }
+  &__icon {
+    position: absolute;
+    right: 1.6rem;
+    top: 3.5rem;
+  }
+}

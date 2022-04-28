@@ -1,0 +1,26 @@
+<div class="login-box">
+  <h1 class="login-box__title">Verification Code</h1>
+  <form (ngSubmit)="onProcess()" [formGroup]="verifyCodeForm">
+    <div class="input-field-group">
+      <label class="input-field-group__label" for="code"
+        >Check your linked E-Mail's mails😊👌</label
+      >
+      <br />
+      <label class="input-field-group__label" for="code"
+        >Verification code</label
+      >
+      <input
+        class="input-field-group__input"
+        placeholder="Enter the verfication code"
+        id="code"
+        name="code"
+        type="text"
+        formControlName="code"
+      />
+    </div>
+
+    <button type="submit" class="login-box__btn btn btn--light btn--animated">
+      Process
+    </button>
+  </form>
+</div>

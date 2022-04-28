@@ -1,0 +1,655 @@
+<header class="dash-heading">
+  <h2 class="dash-heading__title">
+    <i class="fas fa-angle-left" [routerLink]="['../hashrate-plans']"></i>Choose
+    hashrate plan
+  </h2>
+</header>
+<div class="dashboard-container">
+  <div class="contract">
+    <div class="contract__period">
+      <h3 class="contract__period__title">Select desired plan</h3>
+      <p class="contract__period__sub">Contract period</p>
+      <div class="contract__period__options">
+        <button
+          class="btn btn--disabled"
+          (click)="short = true"
+          [ngClass]="{ 'btn--darker--2': short }"
+        >
+          <span> Short Plans</span> <span class="offer"></span>
+        </button>
+        <button
+          class="btn btn--disabled"
+          (click)="short = false"
+          [ngClass]="{ 'btn--darker--2': !short }"
+        >
+          <span>Long Plans</span> <span class="offer">30% off</span>
+        </button>
+      </div>
+    </div>
+    <div class="contract__currency">
+      <h4 class="contract__currency__title">Choose Currency</h4>
+      <div *ngIf="short" class="custom-taps custom-taps--trans">
+        <div
+          class="custom-taps__heading custom-taps__heading--trans row align-items-center justify-content-center"
+        >
+          <div
+            class="custom-taps__heading__taps d-flex justify-content-center col-12 col-lg-8"
+          >
+            <div
+              class="custom-taps__heading__taps__tap custom-taps__heading__taps__tap--basic"
+              (click)="shortPlansTap1()"
+              [ngClass]="{
+                'custom-taps__heading__taps__tap--active ':
+                  shortPlansOpend == 'tap1'
+              }"
+            >
+              <img
+                src="../../../assets/BTC-Crypto.svg"
+                alt=""
+                style="
+                  vertical-align: middle;
+                  background: white;
+                  border-radius: 50%;
+                  width: 32px;
+                  padding: 2%;
+                  margin-right: 6px;
+                  height: 30px;
+                "
+              />
+              BTC
+            </div>
+            <div
+              class="custom-taps__heading__taps__tap custom-taps__heading__taps__tap--basic"
+              (click)="shortPlansTap2()"
+              [ngClass]="{
+                'custom-taps__heading__taps__tap--active':
+                  shortPlansOpend == 'tap2'
+              }"
+            >
+              <img
+                src="../../../assets/ETH-Crypto.svg"
+                alt=""
+                style="
+                  vertical-align: middle;
+                  background: white;
+                  border-radius: 50%;
+                  width: 32px;
+                  padding: 2%;
+                  margin-right: 6px;
+                  height: 30px;
+                "
+              />
+              ETH
+            </div>
+            <div
+              class="custom-taps__heading__taps__tap custom-taps__heading__taps__tap--basic"
+              (click)="shortPlansTap3()"
+              [ngClass]="{
+                'custom-taps__heading__taps__tap--active':
+                  shortPlansOpend == 'tap3'
+              }"
+            >
+              <img
+                src="../../../assets/RVN-Crypto.svg"
+                alt=""
+                style="
+                  vertical-align: middle;
+                  background: white;
+                  border-radius: 50%;
+                  width: 32px;
+                  padding: 2%;
+                  margin-right: 6px;
+                  height: 30px;
+                "
+              />
+              RVN
+            </div>
+            <div
+              class="custom-taps__heading__taps__tap custom-taps__heading__taps__tap--basic"
+              (click)="shortPlansTap4()"
+              [ngClass]="{
+                'custom-taps__heading__taps__tap--active':
+                  shortPlansOpend == 'tap4'
+              }"
+            >
+              <img
+                src="../../../assets/LTCT-Crypto.png"
+                alt=""
+                style="
+                  vertical-align: middle;
+                  background: white;
+                  border-radius: 50%;
+                  width: 32px;
+                  padding: 2%;
+                  margin-right: 6px;
+                  height: 30px;
+                "
+              />
+              LTCT
+            </div>
+          </div>
+        </div>
+        <div class="custom-taps__body" *ngIf="shortPlansOpend == 'tap1'">
+          <div class="row g-4">
+            <div
+              class="col-12 col-md-6 col-xl-3"
+              *ngFor="let plan of BTCPlansShort"
+            >
+              <div class="plan">
+                <h4 class="plan__title">{{ plan.planName }}</h4>
+                <img
+                  class="plan__img"
+                  src="../../../../assets/Miners.svg"
+                  alt="Miners image"
+                />
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining Currency</h6>
+                  <p class="plan__box__sub-value">{{ plan.cryptoName }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining algorithm</h6>
+                  <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Power</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.hashrate.toFixed(8) }} GH/S
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">planDuration</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.planDuration }}
+                    {{ plan.planDuration == "1" ? "Month" : "Months" }}
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Profitability</h6>
+                  <p class="plan__box__sub-value">{{ plan.profitability }} %</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Price</h6>
+                  <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
+                </div>
+                <button
+                  (click)="buying([plan.id])"
+                  class="btn btn--animated btn--light plan__btn"
+                  [disabled]="!plan.availability"
+                >
+                  {{ plan.availability ? "Buy Plan" : "Plan is not available" }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="custom-taps__body" *ngIf="shortPlansOpend == 'tap2'">
+          <div class="row g-4 justify-content-center">
+            <div
+              class="col-7 col-md-6 col-xl-3"
+              *ngFor="let plan of ETHPlansShort"
+            >
+              <div class="plan">
+                <h4 class="plan__title">{{ plan.planName }}</h4>
+                <img
+                  class="plan__img"
+                  src="../../../../assets/Miners.svg"
+                  alt="Miners image"
+                />
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining Currency</h6>
+                  <p class="plan__box__sub-value">{{ plan.cryptoName }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining algorithm</h6>
+                  <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Power</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.hashrate.toFixed(8) }} GH/S
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">planDuration</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.planDuration }} Months
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Profitability</h6>
+                  <p class="plan__box__sub-value">{{ plan.profitability }} %</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Price</h6>
+                  <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
+                </div>
+                <button
+                  (click)="buying([plan.id])"
+                  class="btn btn--animated btn--light plan__btn"
+                  [disabled]="!plan.availability"
+                >
+                  {{ plan.availability ? "Buy Plan" : "Plan is not available" }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="custom-taps__body" *ngIf="shortPlansOpend == 'tap3'">
+          <div class="row g-4 justify-content-center">
+            <div
+              class="col-7 col-md-6 col-xl-3"
+              *ngFor="let plan of RVNPlansShort"
+            >
+              <div class="plan">
+                <h4 class="plan__title">{{ plan.planName }}</h4>
+                <img
+                  class="plan__img"
+                  src="../../../../assets/Miners.svg"
+                  alt="Miners image"
+                />
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining Currency</h6>
+                  <p class="plan__box__sub-value">{{ plan.cryptoName }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining algorithm</h6>
+                  <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Power</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.hashrate.toFixed(8) }} GH/S
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">planDuration</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.planDuration }} Months
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Profitability</h6>
+                  <p class="plan__box__sub-value">{{ plan.profitability }} %</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Price</h6>
+                  <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
+                </div>
+                <button
+                  (click)="buying([plan.id])"
+                  class="btn btn--animated btn--light plan__btn"
+                  [disabled]="!plan.availability"
+                >
+                  {{ plan.availability ? "Buy Plan" : "Plan is not available" }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="custom-taps__body" *ngIf="shortPlansOpend == 'tap4'">
+          <div class="row g-4 justify-content-center">
+            <div
+              class="col-7 col-md-6 col-xl-3"
+              *ngFor="let plan of LTCTPlansShort"
+            >
+              <div class="plan">
+                <h4 class="plan__title">{{ plan.planName }}</h4>
+                <img
+                  class="plan__img"
+                  src="../../../../assets/Miners.svg"
+                  alt="Miners image"
+                />
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining Currency</h6>
+                  <p class="plan__box__sub-value">{{ plan.cryptoName }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining algorithm</h6>
+                  <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Power</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.hashrate.toFixed(8) }} GH/S
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">planDuration</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.planDuration }} Months
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Profitability</h6>
+                  <p class="plan__box__sub-value">{{ plan.profitability }} %</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Price</h6>
+                  <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
+                </div>
+                <button
+                  (click)="buying([plan.id])"
+                  class="btn btn--animated btn--light plan__btn"
+                  [disabled]="!plan.availability"
+                >
+                  {{ plan.availability ? "Buy Plan" : "Plan is not available" }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- the long plans start here -->
+      <div *ngIf="!short" class="custom-taps custom-taps--trans">
+        <div
+          class="custom-taps__heading custom-taps__heading--trans row align-items-center justify-content-center"
+        >
+          <div
+            class="custom-taps__heading__taps d-flex justify-content-center col-12 col-lg-8"
+          >
+            <div
+              class="custom-taps__heading__taps__tap custom-taps__heading__taps__tap--basic"
+              (click)="longPlansTap1()"
+              [ngClass]="{
+                'custom-taps__heading__taps__tap--active ':
+                  longPlansOpend == 'tap1'
+              }"
+            >
+              <img
+                src="../../../assets/BTC-Crypto.svg"
+                alt=""
+                style="
+                  vertical-align: middle;
+                  background: white;
+                  border-radius: 50%;
+                  width: 30px;
+                  padding: 4%;
+                  margin-right: 6px;
+                  height: 28px;
+                "
+              />
+              BTC
+            </div>
+            <div
+              class="custom-taps__heading__taps__tap custom-taps__heading__taps__tap--basic"
+              (click)="longPlansTap2()"
+              [ngClass]="{
+                'custom-taps__heading__taps__tap--active':
+                  longPlansOpend == 'tap2'
+              }"
+            >
+              <img
+                src="../../../assets/ETH-Crypto.svg"
+                alt=""
+                style="
+                  vertical-align: middle;
+                  background: white;
+                  border-radius: 50%;
+                  width: 30px;
+                  padding: 4%;
+                  margin-right: 6px;
+                  height: 28px;
+                "
+              />
+              ETH
+            </div>
+            <div
+              class="custom-taps__heading__taps__tap custom-taps__heading__taps__tap--basic"
+              (click)="longPlansTap3()"
+              [ngClass]="{
+                'custom-taps__heading__taps__tap--active':
+                  longPlansOpend == 'tap3'
+              }"
+            >
+              <img
+                src="../../../assets/RVN-Crypto.svg"
+                alt=""
+                style="
+                  vertical-align: middle;
+                  background: white;
+                  border-radius: 50%;
+                  width: 30px;
+                  padding: 4%;
+                  margin-right: 6px;
+                  height: 28px;
+                "
+              />RVN
+            </div>
+            <div
+              class="custom-taps__heading__taps__tap custom-taps__heading__taps__tap--basic"
+              (click)="longPlansTap4()"
+              [ngClass]="{
+                'custom-taps__heading__taps__tap--active':
+                  longPlansOpend == 'tap4'
+              }"
+            >
+              <img
+                src="../../../assets/LTCT-Crypto.png"
+                alt=""
+                style="
+                  vertical-align: middle;
+                  background: white;
+                  border-radius: 50%;
+                  width: 30px;
+                  padding: 4%;
+                  margin-right: 6px;
+                  height: 28px;
+                "
+              />
+              LTCT
+            </div>
+          </div>
+        </div>
+        <div class="custom-taps__body" *ngIf="longPlansOpend == 'tap1'">
+          <div class="row g-4 justify-content-center">
+            <div
+              class="col-7 col-md-6 col-xl-3"
+              *ngFor="let plan of BTCPlansLong"
+            >
+              <div class="plan">
+                <h4 class="plan__title">{{ plan.planName }}</h4>
+                <img
+                  class="plan__img"
+                  src="../../../../assets/Miners.svg"
+                  alt="Miners image"
+                />
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining Currency</h6>
+                  <p class="plan__box__sub-value">{{ plan.cryptoName }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining algorithm</h6>
+                  <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Power</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.hashrate.toFixed(8) }} GH/S
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">planDuration</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.planDuration }}
+                    {{ plan.planDuration == "1" ? "Year" : "Years" }}
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Profitability</h6>
+                  <p class="plan__box__sub-value">{{ plan.profitability }} %</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Price</h6>
+                  <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
+                </div>
+                <button
+                  (click)="buying([plan.id])"
+                  class="btn btn--animated btn--light plan__btn"
+                  [disabled]="!plan.availability"
+                >
+                  {{ plan.availability ? "Buy Plan" : "Plan is not available" }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="custom-taps__body" *ngIf="longPlansOpend == 'tap2'">
+          <div class="row g-4 justify-content-center">
+            <div
+              class="col-7 col-md-6 col-xl-3"
+              *ngFor="let plan of ETHPlansLong"
+            >
+              <div class="plan">
+                <h4 class="plan__title">{{ plan.planName }}</h4>
+                <img
+                  class="plan__img"
+                  src="../../../../assets/Miners.svg"
+                  alt="Miners image"
+                />
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining Currency</h6>
+                  <p class="plan__box__sub-value">{{ plan.cryptoName }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining algorithm</h6>
+                  <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Power</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.hashrate.toFixed(8) }} GH/S
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">planDuration</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.planDuration }} Years
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Profitability</h6>
+                  <p class="plan__box__sub-value">{{ plan.profitability }} %</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Price</h6>
+                  <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
+                </div>
+                <button
+                  (click)="buying([plan.id])"
+                  class="btn btn--animated btn--light plan__btn"
+                  [disabled]="!plan.availability"
+                >
+                  {{ plan.availability ? "Buy Plan" : "Plan is not available" }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="custom-taps__body" *ngIf="longPlansOpend == 'tap3'">
+          <div class="row g-4 justify-content-center">
+            <div
+              class="col-7 col-md-6 col-xl-3"
+              *ngFor="let plan of RVNPlansLong"
+            >
+              <div class="plan">
+                <h4 class="plan__title">{{ plan.planName }}</h4>
+                <img
+                  class="plan__img"
+                  src="../../../../assets/Miners.svg"
+                  alt="Miners image"
+                />
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining Currency</h6>
+                  <p class="plan__box__sub-value">{{ plan.cryptoName }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining algorithm</h6>
+                  <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Power</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.hashrate.toFixed(8) }} GH/S
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">planDuration</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.planDuration }} Years
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Profitability</h6>
+                  <p class="plan__box__sub-value">{{ plan.profitability }} %</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Price</h6>
+                  <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
+                </div>
+                <button
+                  (click)="buying([plan.id])"
+                  class="btn btn--animated btn--light plan__btn"
+                  [disabled]="!plan.availability"
+                >
+                  {{ plan.availability ? "Buy Plan" : "Plan is not available" }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="custom-taps__body" *ngIf="longPlansOpend == 'tap4'">
+          <div class="row g-4 justify-content-center">
+            <div
+              class="col-7 col-md-6 col-xl-3"
+              *ngFor="let plan of LTCTPlansLong"
+            >
+              <div class="plan">
+                <h4 class="plan__title">{{ plan.planName }}</h4>
+                <img
+                  class="plan__img"
+                  src="../../../../assets/Miners.svg"
+                  alt="Miners image"
+                />
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining Currency</h6>
+                  <p class="plan__box__sub-value">{{ plan.cryptoName }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining algorithm</h6>
+                  <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Power</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.hashrate.toFixed(8) }} GH/S
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">planDuration</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.planDuration }} Years
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Profitability</h6>
+                  <p class="plan__box__sub-value">{{ plan.profitability }} %</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Price</h6>
+                  <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
+                </div>
+                <button
+                  (click)="buying([plan.id])"
+                  class="btn btn--animated btn--light plan__btn"
+                  [disabled]="!plan.availability"
+                >
+                  {{ plan.availability ? "Buy Plan" : "Plan is not available" }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

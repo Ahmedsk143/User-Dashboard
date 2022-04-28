@@ -1,0 +1,41 @@
+<ng-container>
+  <h4
+    style="margin-left: 24px; padding-top: 24px; margin-bottom: -53px"
+    *ngIf="leftTitle"
+  >
+    {{ leftTitle }}
+  </h4>
+  <h4 style="padding: 12px 0px 0px 24px; margin: 0px" *ngIf="topTitle">
+    {{ topTitle }}
+  </h4>
+  <mat-tab-group mat-align-tabs="end">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <i class="fab fa-btc sm"></i> BTC
+      </ng-template>
+      <ng-content select="[BTC]"></ng-content>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <i class="fab fa-ethereum sm"></i> ETH
+      </ng-template>
+      <ng-content select="[ETH]"></ng-content>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <i class="fab fa-btc sm"></i> <span>RVN</span>
+      </ng-template>
+
+      <ng-content select="[RVN]"></ng-content>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <i class="fab fa-ethereum sm"></i>STX
+      </ng-template>
+
+      <ng-content select="[STX]"></ng-content>
+    </mat-tab>
+  </mat-tab-group>
+</ng-container>

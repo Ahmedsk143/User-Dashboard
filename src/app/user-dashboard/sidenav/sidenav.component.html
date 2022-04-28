@@ -1,0 +1,58 @@
+<div class="fixed-left">
+  <div id="logo" routerLink="/"><span>LOGO</span></div>
+  <div class="side-nav">
+    <ul class="side-nav__content">
+      <li
+        routerLink="overview"
+        routerLinkActive="side-nav__content__item--highlight"
+        class="side-nav__content__item"
+      >
+        <i class="fas fa-home"></i> <a>Overview</a>
+      </li>
+      <li
+        routerLinkActive="side-nav__content__item--highlight"
+        routerLink="hashrate-plans"
+        class="side-nav__content__item"
+      >
+        <i class="fas fa-clipboard-list"></i>
+        <a>Hashrate plans</a>
+        <a routerLink="choose-plan" style="visibility: hidden"></a>
+      </li>
+      <li
+        routerLink="mining-devices"
+        routerLinkActive="side-nav__content__item--highlight"
+        class="side-nav__content__item"
+      >
+        <i class="fas fa-server"></i> <a>Mining devices</a>
+        <a routerLink="choose-miner" style="visibility: hidden"></a>
+      </li>
+      <li
+        routerLinkActive="side-nav__content__item--highlight"
+        class="side-nav__content__item"
+        (click)="collapsed = !collapsed"
+      >
+        <i class="fas fa-wallet"></i> <a> Wallet</a>
+        <i class="fas fa-angle-down arrow" *ngIf="!collapsed"></i>
+        <i class="fas fa-angle-up arrow" *ngIf="collapsed"></i>
+        <a routerLink="withdraw" style="visibility: hidden"></a>
+        <a routerLink="deposit" style="visibility: hidden"></a>
+      </li>
+      <li
+        routerLink="withdraw"
+        routerLinkActive="side-nav__content__item--collapsed--highlight"
+        class="side-nav__content__item side-nav__content__item--collapsed"
+        *ngIf="collapsed"
+      >
+        <a>Withdraw</a>
+      </li>
+      <li
+        routerLink="deposit"
+        routerLinkActive="side-nav__content__item--collapsed--highlight"
+        class="side-nav__content__item side-nav__content__item--collapsed"
+        *ngIf="collapsed"
+      >
+        <a>Deposit</a>
+      </li>
+    </ul>
+  </div>
+</div>

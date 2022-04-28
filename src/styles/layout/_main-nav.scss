@@ -1,0 +1,61 @@
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: $top-nav-height;
+  padding: 0rem 3.2rem 0rem 3.2rem;
+  background: rgba(19, 17, 26, 0.5);
+  box-shadow: 0px -1px 0px 0px rgba(48, 44, 63, 1) inset;
+  backdrop-filter: blur(3px);
+  z-index: 99;
+  &__title {
+    font-weight: bold;
+    font-size: 2rem;
+    line-height: 2.5rem;
+    margin-left: 1.2rem;
+    margin-bottom: 0rem;
+  }
+  &__user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &__name {
+      font-size: 1.4rem;
+      line-height: 1.8rem;
+      margin-right: 0.6rem;
+      @include respond(sm) {
+        display: none;
+      }
+    }
+    &__icon {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background-color: $color-background-dark;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      i {
+        font-size: 2.4rem;
+        color: $color-white;
+      }
+      @include respond(sm) {
+        display: none;
+      }
+      &--menu {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background-color: $color-background-dark;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        display: none;
+        @include respond(sm) {
+          display: flex;
+        }
+      }
+    }
+  }
+}

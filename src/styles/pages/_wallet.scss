@@ -1,0 +1,116 @@
+.wallet {
+  &__balance {
+    &__title {
+      font-weight: 700;
+      font-size: 2.4rem;
+      line-height: 3rem;
+      margin-bottom: 1.6rem;
+    }
+    &__box {
+      background: rgba(29, 26, 39, 0.6);
+      border: 1px solid rgba(13, 23, 66, 0.2);
+      border-radius: 8px;
+      padding: 1.6rem;
+      max-width: 30rem;
+      display: flex;
+      &:not(:last-of-type) {
+        border-right: 4px soild #fff;
+      }
+      &__icon {
+        margin-right: 1.5rem;
+      }
+      &__name {
+        font-weight: 700;
+        font-size: 1.4rem;
+        line-height: 1.8rem;
+        color: $color-white-2;
+      }
+      &__value {
+        font-weight: 700;
+        font-size: 1.6rem;
+        line-height: 2.5rem;
+        overflow-wrap: anywhere;
+      }
+    }
+  }
+  &__funds {
+    &__title {
+      font-weight: 700;
+      font-size: 2.4rem;
+      line-height: 3rem;
+      margin: 5.6rem 0 1.6rem 0;
+    }
+    &__heading {
+      //   display: flex;
+      //   justify-content: center;
+      //   gap: 2rem;
+      &__btn {
+        display: flex;
+        flex-direction: row;
+        gap: 1.2rem;
+        width: 100%;
+        border-radius: 8px;
+        height: 8.8rem;
+      }
+      &__icon {
+        background: #302c3f;
+        border: 1px solid $color-white;
+        border-radius: 50%;
+        width: 56px;
+        height: 56px;
+        font-size: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &--inactive {
+          background: #1d1a27;
+          color: #302c3f;
+          border: 1px solid #1d1a27;
+        }
+      }
+      &__title {
+        font-weight: 700;
+        font-size: 1.8rem;
+        line-height: 2.3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        &__colored {
+          color: $color-primary;
+          font-weight: 400;
+          font-size: 1.4rem;
+        }
+      }
+    }
+    &__body {
+      background: #1d1a27;
+      border: 1px solid rgba(13, 23, 66, 0.2);
+      border-radius: 8px;
+      padding-top: 5rem;
+      margin-top: 1.6rem;
+      &__content {
+        &__note {
+          background: #302c3f;
+          border: 2px solid rgba(255, 255, 255, 0.27);
+          border-radius: 8px;
+          padding: 8px 16px;
+          margin-bottom: 2.4rem;
+          color: $color-white;
+          display: flex;
+          justify-content: flex-start;
+          align-items: baseline;
+          gap: 1.4rem;
+          cursor: default;
+          &--copy {
+            cursor: text;
+            justify-content: space-between;
+            i {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}

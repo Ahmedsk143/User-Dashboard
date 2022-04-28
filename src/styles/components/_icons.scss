@@ -1,0 +1,57 @@
+// icons new
+.icon {
+  margin-right: 8px;
+  &--xs {
+    height: 24px;
+    width: 24px;
+  }
+  &--sm {
+    height: 3.2rem;
+    width: 3.2rem;
+  }
+  &--md {
+    height: 4rem;
+    width: 4rem;
+  }
+  &--lg {
+  }
+}
+////////////////
+.fab.lg {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fab.md {
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+}
+.fab.sm {
+  border-radius: 50%;
+  height: 24px;
+  width: 24px;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+}
+.fa-btc {
+  background-color: #f7931a;
+  color: #fff;
+  // transform: rotate(15deg);
+}
+.fa-ethereum {
+  background-color: #eef3fb;
+  color: #393939;
+}

@@ -1,0 +1,84 @@
+.merchant-header {
+  background: rgba(29, 26, 39, 0.6);
+  border: 1px solid rgba(13, 23, 66, 0.1);
+  box-shadow: 0px 5px 14px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 2.4rem;
+  &__name {
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 3rem;
+    margin-right: 0.8rem;
+  }
+  &__status {
+    font-weight: 400;
+    font-size: 1.4rem;
+    margin-bottom: 0.4rem;
+    color: green;
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 0.8rem;
+      height: 0.8rem;
+      border-radius: 50%;
+      margin-right: 0.4rem;
+      background-color: green;
+    }
+  }
+  &__crypto {
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 1.8rem;
+    margin: 1.1rem 0;
+  }
+  &__id {
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    color: $color-white-2;
+  }
+  &__label {
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    margin-bottom: 0.4rem;
+  }
+  &__link-box {
+    background: #302c3f;
+    border: 0.2rem solid rgba(255, 255, 255, 0.27);
+    box-sizing: border-box;
+    border-radius: 6.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1.2rem;
+    i {
+      margin-right: 0.8rem;
+    }
+    &__title {
+    }
+    &__btn {
+    }
+  }
+  &__sub {
+    font-weight: 700;
+    font-size: 1.6rem;
+    line-height: 2rem;
+  }
+  &__value {
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    color: $color-white-2;
+    margin-top: 0.4rem;
+  }
+  .details-items {
+    display: flex;
+    gap: 2.4rem;
+    flex-wrap: wrap;
+  }
+  .details-item {
+    display: flex;
+    flex-direction: column;
+  }
+}

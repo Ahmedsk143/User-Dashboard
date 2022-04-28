@@ -1,0 +1,40 @@
+.p-accordion .p-accordion-header .p-accordion-header-link {
+  background: #1d1a27 !important;
+  border: none;
+  color: #b7b4c7;
+  h3 {
+    color: #fff;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 23px;
+  }
+}
+.p-accordion
+  .p-accordion-header:not(.p-highlight):not(.p-disabled):hover
+  .p-accordion-header-link,
+.p-accordion
+  .p-accordion-header:not(.p-disabled).p-highlight:hover
+  .p-accordion-header-link {
+  color: #b7b4c7;
+}
+.p-accordion
+  .p-accordion-header:not(.p-disabled)
+  .p-accordion-header-link:focus {
+  box-shadow: none;
+}
+.p-accordion
+  .p-accordion-header
+  .p-accordion-header-link
+  .p-accordion-toggle-icon {
+  color: #fff;
+  margin-right: 1.5rem;
+}
+.p-accordion p-accordiontab .p-accordion-content {
+  color: #fff;
+  background: #1d1a27;
+  border: none;
+  //   border-bottom: 1px solid #302c3f;
+  border-top: 1px solid #302c3f;
+  height: 72.7rem;
+  overflow-y: scroll;
+}

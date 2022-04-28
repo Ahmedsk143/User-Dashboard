@@ -1,0 +1,35 @@
+.users-bar {
+  height: 16px;
+  width: 100%;
+  border-radius: 48px;
+  background-color: $color-primary;
+  background: #302c3f;
+  div {
+    border-radius: 48px;
+    height: 100%;
+  }
+  &--0 {
+    background-color: $color-primary;
+    width: 6%;
+  }
+  &--1 {
+    background-color: $color-primary;
+    width: 20%;
+  }
+  &--2 {
+    background-color: $color-primary;
+    width: 40%;
+  }
+  &--3 {
+    background-color: $color-primary;
+    width: 60%;
+  }
+  &--4 {
+    background-color: $color-primary;
+    width: 80%;
+  }
+  &--5 {
+    background-color: $color-primary;
+    width: 100%;
+  }
+}
