@@ -49,14 +49,14 @@ export class DepositeComponent implements OnInit {
   balances: any;
 
   constructor(
-    private sharedSerivce: SharedService,
+    private sharedService: SharedService,
     private dashboardd: DashboardService
   ) {}
 
   async ngOnInit() {
     this.reload();
-    this.sharedSerivce.isLoading.next(true);
-    //this.sharedSerivce.showQR.next(true);
+    this.sharedService.isLoading.next(true);
+    //this.sharedService.showQR.next(true);
 
     // this.UserData = this.authServics.UserData();
     this.dashboardd.userData().subscribe({
@@ -67,11 +67,11 @@ export class DepositeComponent implements OnInit {
         this._balance_eth = this.UserData.balance.eth;
         this._balance_ltct = this.UserData.balance.ltct;
         this._balance_rvn = this.UserData.balance.rvn;
-        // this.sharedSerivce.isLoading.next(false);
+        // this.sharedService.isLoading.next(false);
       },
       error: (err) => {
         console.log(err);
-        //  this.sharedSerivce.isLoading.next(false);
+        //  this.sharedService.isLoading.next(false);
       },
     });
     setTimeout(() => {
@@ -122,7 +122,7 @@ export class DepositeComponent implements OnInit {
 
     ///////////////////////////////
     setTimeout(() => {
-      this.sharedSerivce.isLoading.next(false);
+      this.sharedService.isLoading.next(false);
     }, this.waitingTime + 500);
   }
   async getAddress(currency: string) {
@@ -156,12 +156,12 @@ export class DepositeComponent implements OnInit {
     this.reload();
   }
   cryptoPlansTap3() {
-    this.sharedSerivce.isLoading.next(true);
+    this.sharedService.isLoading.next(true);
     this.cryptoTapOpend = 'tap3';
     this.reload();
 
     setTimeout(() => {
-      this.sharedSerivce.isLoading.next(false);
+      this.sharedService.isLoading.next(false);
     }, 500);
   }
   cryptoPlansTap4() {

@@ -75,15 +75,15 @@ export class MiningDevicesComponent implements OnInit {
     totalMined: string;
     workerID: string;
   }[] = [];
-  //this.sharedSerivce.isLoading.next(false);
+  //this.sharedService.isLoading.next(false);
   constructor(
     private http: HttpClient,
     private dashboard: DashboardService,
-    private sharedSerivce: SharedService
+    private sharedService: SharedService
   ) {}
 
   ngOnInit(): void {
-    this.sharedSerivce.isLoading.next(true);
+    this.sharedService.isLoading.next(true);
     this.dashboard.getMyAsicDevices().subscribe((res: any) => {
       //console.log(res);
       for (let i = 0; i < res.length; i++) {
@@ -188,7 +188,7 @@ export class MiningDevicesComponent implements OnInit {
       },
     };
     setTimeout(() => {
-      this.sharedSerivce.isLoading.next(false);
+      this.sharedService.isLoading.next(false);
     }, 1200);
   }
   minedChartTap1() {

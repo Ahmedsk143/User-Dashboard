@@ -13,33 +13,32 @@ import { DashboardService } from '../user-dashboard.service';
 export class DashHeaderComponent implements OnInit {
   UserData: any;
   _name: any;
-
   currentRoute: string = 'Overview';
   collapsed = false;
   toggleMenu = false;
   logout() {
-    this.authServics.logout();
+    this.authService.logout();
   }
   constructor(
     private router: Router,
-    private authServics: AuthService,
+    private authService: AuthService,
     private dashboard: DashboardService,
-    private sharedSerivce: SharedService
+    private sharedService: SharedService
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.sharedSerivce.isLoading.next(true);
-    // this.UserData = this.authServics.UserData();
+    this.sharedService.isLoading.next(true);
+    // this.UserData = this.authService.UserData();
     await this.dashboard.userData().subscribe({
       next: (res) => {
         // console.log(res);
         this.UserData = res;
         this._name = this.UserData.userName;
-        this.sharedSerivce.isLoading.next(false);
+        this.sharedService.isLoading.next(false);
       },
       error: (err) => {
         console.log(err);
-        this.sharedSerivce.isLoading.next(false);
+        this.sharedService.isLoading.next(false);
       },
     });
 

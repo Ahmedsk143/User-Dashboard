@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    this.authService.authStatusListner.subscribe((auth) => {
+    this.authService.authStatusListener$.subscribe((auth) => {
       this.isAuth = auth;
     });
     if (!this.isAuth) {

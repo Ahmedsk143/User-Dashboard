@@ -11,26 +11,37 @@ import { AuthService } from '../auth.service';
 })
 export class ResetPasswordComponent implements OnInit {
   phase = 0;
-  restForm: FormGroup;
+  forgotForm: FormGroup;
+  emailError = false;
   constructor(
     public authService: AuthService,
-    private sharedSerivce: SharedService,
+    private sharedService: SharedService,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.restForm = new FormGroup({
-      email: new FormControl(null, Validators.required),
+    this.forgotForm = new FormGroup({
+      email: new FormControl(null, {
+        validators: [Validators.required, Validators.email],
+      }),
     });
   }
-  resetPassword = () => {
-    if (this.restForm.value.email == null) {
-      this.sharedSerivce.sentMessage.next({
-        message: 'enter valid email',
-        error: true,
+  forgotPassword() {
+    if (this.forgotForm.valid) {
+      this.sharedService.isLoading.next(true);
+      const email = this.forgotForm.value.email;
+      this.authService.forgotPassword(email).subscribe({
+        next: () => {
+          this.sharedService.isLoading.next(false);
+          this.router.navigate(['/user/verification'], {
+            state: { email: email },
+          });
+        },
+        error: () => {
+          this.sharedService.isLoading.next(false);
+          this.emailError = true;
+        },
       });
-    } else if (this.restForm.value.email != null) {
-      this.authService.resetPassword(this.restForm.value.email);
     }
-  };
+  }
 }

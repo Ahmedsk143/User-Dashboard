@@ -59,7 +59,7 @@ export class ChoosePlanComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private dashboard: DashboardService,
-    private sharedSerivce: SharedService
+    private sharedService: SharedService
   ) {}
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////here is buy  plan button
@@ -70,13 +70,13 @@ export class ChoosePlanComponent implements OnInit {
       next: (res) => {
         console.log(n[0]);
         ///this is to display the notification
-        this.sharedSerivce.sentMessage.next({
+        this.sharedService.sentMessage.next({
           message: 'the plan has been added successfully',
           error: false,
         });
       },
       error: (err) => {
-        this.sharedSerivce.sentMessage.next({
+        this.sharedService.sentMessage.next({
           message: 'something went wrong, or no sufficient balance',
           error: true,
         });
@@ -88,7 +88,7 @@ export class ChoosePlanComponent implements OnInit {
 
   //////////////////////////////////////////////////////////////////////////////////////////
   ngOnInit() {
-    this.sharedSerivce.isLoading.next(true);
+    this.sharedService.isLoading.next(true);
     this.dashboard
       .get_BTC_Long_HashrateContractPlans()
       .subscribe((res: any) => {
@@ -114,7 +114,7 @@ export class ChoosePlanComponent implements OnInit {
           };
           this.BTCPlansLong.push(ele);
         }
-        //this.sharedSerivce.isLoading.next(false);
+        //this.sharedService.isLoading.next(false);
       });
     this.dashboard
       .get_BTC_Short_HashrateContractPlans()
@@ -141,7 +141,7 @@ export class ChoosePlanComponent implements OnInit {
           };
           this.BTCPlansShort.push(ele);
         }
-        //this.sharedSerivce.isLoading.next(false);
+        //this.sharedService.isLoading.next(false);
       });
     ///////////////////////////////////////BTC END ///////////////////////////////////////////////
     ///////////////////////////////////////ETH START ///////////////////////////////////////////////
@@ -471,7 +471,7 @@ export class ChoosePlanComponent implements OnInit {
     //     }
     //   );
     setTimeout(() => {
-      this.sharedSerivce.isLoading.next(false);
+      this.sharedService.isLoading.next(false);
     }, 1600);
   } //on init ends
 

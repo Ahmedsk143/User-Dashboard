@@ -8,6 +8,7 @@ import { NewPasswordComponent } from './Auth/reset-password/new-password/new-pas
 import { SigninComponent } from './Auth/signin/signin.component';
 import { SignupComponent } from './Auth/signup/signup.component';
 import { UserComponent } from './Auth/user/user.component';
+import { AuthGuard } from './Auth/auth.guard';
 // import { MerchantComponent } from './merchant/merchant.component';
 
 const routes: Routes = [
@@ -21,18 +22,17 @@ const routes: Routes = [
     children: [
       { path: 'signin', component: SigninComponent },
       { path: 'signup', component: SignupComponent },
-      { path: 'reset-your-password', component: ResetPasswordComponent },
-      { path: 'recovery-message', component: RecoveryMessageComponent },
-      { path: 'verify-code', component: ResetCodeComponent },
+      { path: 'passwordReset', component: ResetPasswordComponent },
+      { path: 'verification', component: ResetCodeComponent },
       {
         path: 'new-password',
         component: NewPasswordComponent,
       },
-      { path: 'otp', component: OtpComponent },
     ],
   },
   {
     path: 'dashboard',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./user-dashboard/user-dashboard.module').then(
         (m) => m.UserDashboardModule

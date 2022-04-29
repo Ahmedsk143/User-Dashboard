@@ -215,7 +215,7 @@
 //     //       this.editPlanForm.reset();
 //     //       this.editFormOpend = false;
 //     //       //tp send message to the notification component
-//     //       this.sharedSerivce.sentMessage.next({
+//     //       this.sharedService.sentMessage.next({
 //     //         message: message,
 //     //         error: false,
 //     //       });
@@ -242,7 +242,7 @@
 //     //     }
 //     //     this.deleteConfirmOpend = false;
 //     //     //to send message to the notification component
-//     //     this.sharedSerivce.sentMessage.next({
+//     //     this.sharedService.sentMessage.next({
 //     //       message: message,
 //     //       error: false,
 //     //     });
@@ -276,7 +276,7 @@
 //     //       // console.log(this.plans[updatedInedx]);
 //     //       this.editPlanForm.reset();
 //     //       //tp send message to the notification component
-//     //       this.sharedSerivce.sentMessage.next({
+//     //       this.sharedService.sentMessage.next({
 //     //         message: message,
 //     //         error: false,
 //     //       });

@@ -1,26 +1,39 @@
 <div class="login-box">
-  <h1 class="login-box__title">Verification Code</h1>
-  <form (ngSubmit)="onProcess()" [formGroup]="verifyCodeForm">
-    <div class="input-field-group">
-      <label class="input-field-group__label" for="code"
-        >Check your linked E-Mail's mails😊👌</label
+  <h1 class="login-box__title login-box__title--left">
+    <span>We sent a code to your email </span>
+    <span
+      >Please enter the 7-digit verification code that has been sent
+      <span *ngIf="email" style="display: inline; margin-right: 3px"
+        >to {{ email }}
+      </span>
+      <span
+        class="login-box__link"
+        style="display: inline"
+        [routerLink]="['../passwordReset']"
       >
-      <br />
+        Change email</span
+      >
+    </span>
+  </h1>
+  <form (ngSubmit)="onProcess()" [formGroup]="codeForm">
+    <div class="input-field-group">
       <label class="input-field-group__label" for="code"
         >Verification code</label
       >
       <input
         class="input-field-group__input"
-        placeholder="Enter the verfication code"
+        placeholder="7 digit code"
         id="code"
         name="code"
         type="text"
         formControlName="code"
       />
     </div>
-
     <button type="submit" class="login-box__btn btn btn--light btn--animated">
-      Process
+      Submit
     </button>
+    <span class="login-box__error" *ngIf="codeError"
+      >The code you enter is incorrect</span
+    >
   </form>
 </div>

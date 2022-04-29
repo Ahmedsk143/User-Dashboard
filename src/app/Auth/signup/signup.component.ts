@@ -14,10 +14,15 @@ export class SignupComponent implements OnInit {
   loading = false;
   signupForm!: FormGroup;
   passwordShown = false;
+  errors = {
+    email: false,
+    username: false,
+    phone: false,
+  };
   constructor(
     private router: Router,
     public authService: AuthService,
-    private sharedSerivce: SharedService
+    private sharedService: SharedService
   ) {}
 
   ngOnInit(): void {
@@ -35,48 +40,33 @@ export class SignupComponent implements OnInit {
         ],
       }),
       password: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(5)],
+        validators: [Validators.required, Validators.minLength(8)],
       }),
     });
   }
   onSignup() {
-    console.log(`name : ${this.signupForm.value.name}`);
-    console.log(`email : ${this.signupForm.value.email}`);
-    console.log(`phone : ${this.signupForm.value.phone}`);
-    console.log(`password : ${this.signupForm.value.password}`);
-
-    this.sharedSerivce.isLoading.next(true);
-    if (
-      this.signupForm.value.name &&
-      this.signupForm.value.email &&
-      this.signupForm.value.phone &&
-      this.signupForm.value.password
-    ) {
+    if (this.signupForm.valid) {
+      this.sharedService.isLoading.next(true);
       this.authService
         .signup(
-          String(this.signupForm.value.name),
-          String(this.signupForm.value.email).trim(),
+          this.signupForm.value.name,
+          this.signupForm.value.email,
           this.signupForm.value.phone,
-          String(this.signupForm.value.password)
+          this.signupForm.value.password
         )
         .subscribe({
-          /////////////////////////////////////////////mesh byd5ol hena
           next: (res: any) => {
-            this.router.navigate(['user//signin']);
-            this.sharedSerivce.sentMessage.next({
-              message: 'Created Successfully',
-              error: false,
-            });
+            this.router.navigate(['user/signin']);
+            this.sharedService.isLoading.next(false);
           },
           error: (err: any) => {
+            this.sharedService.isLoading.next(false);
+            this.errors.email = true;
+            this.errors.username = true;
+            this.errors.phone = true;
             console.log(err);
-            this.sharedSerivce.sentMessage.next({
-              message: 'Failed',
-              error: true,
-            });
           },
         });
-      this.sharedSerivce.isLoading.next(false);
     }
   }
   changeInput(input: any): any {

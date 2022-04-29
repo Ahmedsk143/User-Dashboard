@@ -10,12 +10,12 @@ import { SharedService } from '../shared/shared.service';
 })
 export class DashboardService {
   //////our API
-  APIBaseUrl: string = 'https://cominer.herokuapp.com/api';
-  APIKey: string =
+  rootURL: string = 'https://cominer.herokuapp.com/api';
+  key: string =
     'c3fe929c35dd0cbcc8f062bb60e9d2ce7d14be21513d07c53e370d81ba9de4a4';
   /////////////////
-  getUserDataAPI: string = `${this.APIBaseUrl}/user/getUserData?key=${this.APIKey}`;
-  accessToken: any = localStorage.getItem('accessToken');
+  getUserDataAPI: string = `${this.rootURL}/user/getUserData?key=${this.key}`;
+  token: any = localStorage.getItem('token');
 
   //to store the user data
   obj: any;
@@ -38,10 +38,7 @@ export class DashboardService {
 
   ///part of the userData() function to get the user data from the backend
   header: any = {
-    headers: new HttpHeaders().set(
-      'Authorization',
-      `Bearer ${this.accessToken}`
-    ),
+    headers: new HttpHeaders().set('Authorization', `Bearer ${this.token}`),
   };
 
   userData() {
@@ -64,7 +61,7 @@ export class DashboardService {
 
   balances$ = new Subject<Balance[]>();
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.accessToken = this.authService.getToken();
+    this.token = this.authService.getToken();
   }
 
   updateBalances() {
@@ -114,7 +111,7 @@ export class DashboardService {
   ////////////////////////////hashrate plans page
   getPlans() {
     return this.http.get<any>(
-      `${this.APIBaseUrl}/plan/x/contract?key=${this.APIKey}`,
+      `${this.rootURL}/plan/x/contract?key=${this.key}`,
       this.header
     );
   }
@@ -122,7 +119,7 @@ export class DashboardService {
   ////////////the generic function
   getHashrateContractPlans(Currency: string, planType: string) {
     return this.http.get<any>(
-      `${this.APIBaseUrl}/plan?cryptoName=${Currency}&planType=${planType}&key=${this.APIKey}`,
+      `${this.rootURL}/plan?cryptoName=${Currency}&planType=${planType}&key=${this.key}`,
       this.header
     );
   }
@@ -156,7 +153,7 @@ export class DashboardService {
 
   getMyAsicDevices() {
     return this.http.get<any>(
-      `${this.APIBaseUrl}/asic/x/contract?key=${this.APIKey}`,
+      `${this.rootURL}/asic/x/contract?key=${this.key}`,
       this.header
     );
   }
@@ -164,13 +161,13 @@ export class DashboardService {
 
   getAsicBTCDevicesContractPlans() {
     return this.http.get<any>(
-      `${this.APIBaseUrl}/asic?key=${this.APIKey}`,
+      `${this.rootURL}/asic?key=${this.key}`,
       this.header
     );
   }
 
   /////////////////////////////////////buy plan dummy method
-  buyplanAPI = `${this.APIBaseUrl}/plan/x/contract/add?key=${this.APIKey}`;
+  buyplanAPI = `${this.rootURL}/plan/x/contract/add?key=${this.key}`;
   buyPlan(plan_id: String) {
     return this.http.post<any>(
       this.buyplanAPI,
@@ -185,7 +182,7 @@ export class DashboardService {
   ///////////////////////////////////////buy asic dummy
   buyAsic(asic_id: String) {
     return this.http.post<any>(
-      `${this.APIBaseUrl}/asic/x/contract/add?key=${this.APIKey}`,
+      `${this.rootURL}/asic/x/contract/add?key=${this.key}`,
       {
         asicID: asic_id,
         currency: 'ETH',
@@ -196,20 +193,20 @@ export class DashboardService {
   //////////////////////////////////////////// deposite and withdraw logs
   getUserDepositLogs() {
     return this.http.get<any>(
-      `${this.APIBaseUrl}/transaction/getdeposits`,
+      `${this.rootURL}/transaction/getdeposits`,
       this.header
     );
   }
   getUserWithdrawLogs() {
     return this.http.get<any>(
-      `${this.APIBaseUrl}/transaction/getwithdraws`,
+      `${this.rootURL}/transaction/getwithdraws`,
       this.header
     );
   }
   //////////////////////////////////////////////////deposite and withdraw opertaions
   UserWithdrawRequest(Currency: string, Amount: number, Address: string) {
     return this.http.post<any>(
-      `${this.APIBaseUrl}/transaction/setwithdrawrequest`,
+      `${this.rootURL}/transaction/setwithdrawrequest`,
       {
         currency: Currency,
         amount: Amount + '',
@@ -220,7 +217,7 @@ export class DashboardService {
   }
   getUserDepositAddress(currency: string) {
     return this.http.get<{ address: string }>(
-      `${this.APIBaseUrl}/transaction/getdepositaddress?currency=${currency}`,
+      `${this.rootURL}/transaction/getdepositaddress?currency=${currency}`,
       this.header
     );
   }

@@ -2,10 +2,10 @@
   <h1 class="login-box__title">Create new account</h1>
   <form (ngSubmit)="onSignup()" [formGroup]="signupForm">
     <div class="input-field-group">
-      <label class="input-field-group__label" for="name">User name</label>
+      <label class="input-field-group__label" for="name">Username</label>
       <input
         class="input-field-group__input"
-        placeholder="Enter your User Name"
+        placeholder="Username"
         id="name"
         name="name"
         type="text"
@@ -15,12 +15,15 @@
             signupForm.get('name')?.invalid && signupForm.get('name')?.dirty
         }"
       />
+      <div class="input-field-group__error" *ngIf="errors.username">
+        *Username already exists
+      </div>
     </div>
     <div class="input-field-group">
       <label class="input-field-group__label" for="email">Email</label>
       <input
         class="input-field-group__input"
-        placeholder="Enter your email"
+        placeholder="Email address"
         id="email"
         name="email"
         type="text"
@@ -30,20 +33,15 @@
             signupForm.get('email')?.invalid && signupForm.get('email')?.dirty
         }"
       />
-      <!-- <div
-          class="input-field-group__error"
-          *ngIf="
-            signupForm.get('email')?.invalid && signupForm.get('email')?.touched
-          "
-        >
-          *invalid input
-        </div> -->
+      <div class="input-field-group__error" *ngIf="errors.email">
+        *Email already exists
+      </div>
     </div>
     <div class="input-field-group">
       <label class="input-field-group__label" for="phone">phone</label>
       <input
         class="input-field-group__input"
-        placeholder="Enter your phone"
+        placeholder="01xxxxxxxxx"
         id="phone"
         name="phone"
         type="text"
@@ -53,6 +51,9 @@
             signupForm.get('phone')?.invalid && signupForm.get('phone')?.dirty
         }"
       />
+      <div class="input-field-group__error" *ngIf="errors.phone">
+        *Phone already exists
+      </div>
     </div>
     <div class="input-field-group">
       <label class="input-field-group__label" for="passowrd">Password</label>
@@ -79,16 +80,6 @@
         (click)="changeInput(input)"
         *ngIf="passwordShown"
       ></i>
-
-      <!-- <div
-          class="input-field-group__error"
-          *ngIf="
-            signupForm.get('password')?.invalid &&
-            signupForm.get('password')?.touched
-          "
-        >
-          *input required
-        </div> -->
     </div>
     <button type="submit" class="login-box__btn btn btn--light btn--animated">
       Signup

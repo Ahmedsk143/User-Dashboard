@@ -140,13 +140,13 @@ export class OverviewComponent implements OnInit {
     private dashboard: DashboardService,
     private authServics: AuthService,
     private router: Router,
-    private sharedSerivce: SharedService
+    private sharedService: SharedService
   ) {
     Chart.register(...registerables);
   }
 
   async ngOnInit() {
-    this.sharedSerivce.isLoading.next(true);
+    this.sharedService.isLoading.next(true);
 
     // this.UserData = this.authServics.UserData();
     await this.dashboard.userData().subscribe({
@@ -157,11 +157,11 @@ export class OverviewComponent implements OnInit {
         this._balance_eth = this.UserData.balance.eth;
         this._balance_LTCT = this.UserData.balance.ltct;
         this._balance_rvn = this.UserData.balance.rvn;
-        // this.sharedSerivce.isLoading.next(false);
+        // this.sharedService.isLoading.next(false);
       },
       error: (err) => {
         console.log(err);
-        //  this.sharedSerivce.isLoading.next(false);
+        //  this.sharedService.isLoading.next(false);
       },
     });
     //this fetches the data and push it in the balances$ stream
@@ -183,7 +183,7 @@ export class OverviewComponent implements OnInit {
           });
 
           //console.log(res);
-          // this.sharedSerivce.isLoading.next(false);
+          // this.sharedService.isLoading.next(false);
         },
         error: (err) => {
           console.log(err);
@@ -202,7 +202,7 @@ export class OverviewComponent implements OnInit {
             price: this.ethPrice,
             minWithdraw: 0.00005,
           });
-          //  this.sharedSerivce.isLoading.next(false);
+          //  this.sharedService.isLoading.next(false);
         },
         error: (err) => {
           console.log(err);
@@ -221,7 +221,7 @@ export class OverviewComponent implements OnInit {
             price: this.rvnPrice,
             minWithdraw: 0.00005,
           });
-          // this.sharedSerivce.isLoading.next(false);
+          // this.sharedService.isLoading.next(false);
         },
         error: (err) => {
           console.log(err);
@@ -240,7 +240,7 @@ export class OverviewComponent implements OnInit {
             price: this.LTCTPrice,
             minWithdraw: 0.00005,
           });
-          //  this.sharedSerivce.isLoading.next(false);
+          //  this.sharedService.isLoading.next(false);
         },
         error: (err) => {
           console.log(err);
@@ -282,7 +282,7 @@ export class OverviewComponent implements OnInit {
             this.LTCTPlansMiningSpeed += Number(this.plans[i].hashPower);
           }
         }
-        // this.sharedSerivce.isLoading.next(false);
+        // this.sharedService.isLoading.next(false);
       },
     });
 
@@ -372,7 +372,7 @@ export class OverviewComponent implements OnInit {
       },
     };
     setTimeout(() => {
-      this.sharedSerivce.isLoading.next(false);
+      this.sharedService.isLoading.next(false);
     }, this.waitingTime + 200);
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////

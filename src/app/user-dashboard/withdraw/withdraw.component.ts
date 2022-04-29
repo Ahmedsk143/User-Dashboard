@@ -43,12 +43,12 @@ export class WithdrawComponent implements OnInit {
   balances: any;
   dashboard: any;
   constructor(
-    private sharedSerivce: SharedService,
+    private sharedService: SharedService,
     private dashboardd: DashboardService
   ) {}
 
   async ngOnInit() {
-    this.sharedSerivce.isLoading.next(true);
+    this.sharedService.isLoading.next(true);
     //////////////////////////////////
     this.withdrawFormBTC = new FormGroup({
       addressBTC: new FormControl(null, {
@@ -110,11 +110,11 @@ export class WithdrawComponent implements OnInit {
         this._balance_eth = this.UserData.balance.eth;
         this._balance_ltct = this.UserData.balance.ltct;
         this._balance_rvn = this.UserData.balance.rvn;
-        // this.sharedSerivce.isLoading.next(false);
+        // this.sharedService.isLoading.next(false);
       },
       error: (err) => {
         console.log(err);
-        //  this.sharedSerivce.isLoading.next(false);
+        //  this.sharedService.isLoading.next(false);
       },
     });
     setTimeout(() => {
@@ -149,13 +149,13 @@ export class WithdrawComponent implements OnInit {
 
     ///////////////////////////
     setTimeout(() => {
-      this.sharedSerivce.isLoading.next(false);
+      this.sharedService.isLoading.next(false);
     }, this.waitingTime + 200);
   }
 
   ///////////////////////////////////////////////////// to withdraw
   onWithdraw(currency: string) {
-    this.sharedSerivce.isLoading.next(true);
+    this.sharedService.isLoading.next(true);
     console.log('inside withdraw');
     let _amount, _address;
     if (currency === 'BTC') {
@@ -177,7 +177,7 @@ export class WithdrawComponent implements OnInit {
         .subscribe({
           next: (res) => {
             ///this is to display the notification
-            this.sharedSerivce.sentMessage.next({
+            this.sharedService.sentMessage.next({
               message:
                 'the property has been added successfully wait for the confirmation',
               error: false,
@@ -185,14 +185,14 @@ export class WithdrawComponent implements OnInit {
           },
           error: (err) => {
             console.log(err);
-            this.sharedSerivce.sentMessage.next({
+            this.sharedService.sentMessage.next({
               message: 'something went wrong ',
               error: true,
             });
           },
         });
     }
-    this.sharedSerivce.isLoading.next(false);
+    this.sharedService.isLoading.next(false);
   }
   ////////////////////////////////////////////////////////////////////
   cryptoPlansTap1() {

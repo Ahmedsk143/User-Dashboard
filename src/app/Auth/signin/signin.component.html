@@ -1,4 +1,4 @@
-<div class="login-box">
+<div class="login-box" *ngIf="!sentOtp">
   <h1 class="login-box__title">Login</h1>
   <form (ngSubmit)="onSignin()" [formGroup]="signinForm">
     <div class="input-field-group">
@@ -46,19 +46,10 @@
     <button type="submit" class="login-box__btn btn btn--light btn--animated">
       Login
     </button>
-    <span
-      class="login-box__error"
-      *ngIf="
-        (signinForm.get('password')?.invalid &&
-          signinForm.get('password')?.dirty) ||
-        (signinForm.get('userName')?.invalid &&
-          signinForm.get('userName')?.dirty)
-      "
-      >The userName or password you entered is incorrect. Please try again</span
+    <span class="login-box__error" *ngIf="signinError"
+      >The username or password is incorrect, Please try again</span
     >
-    <a
-      class="login-box__link login-box__link--mt"
-      routerLink="../reset-your-password"
+    <a class="login-box__link login-box__link--mt" routerLink="../passwordReset"
       >Forgot password?
     </a>
     <div>
@@ -67,3 +58,4 @@
     </div>
   </form>
 </div>
+<app-otp *ngIf="sentOtp"></app-otp>

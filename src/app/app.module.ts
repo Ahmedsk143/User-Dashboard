@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +25,7 @@ import { ErrorHandlerInterceptor } from './Auth/error-interceptor';
 // import { MerchantComponent } from './merchant/merchant.component';
 import { AccordionModule } from 'primeng/accordion';
 import { HomeModule } from './home/home.module';
+import { AuthInterceptor } from './Auth/auth-interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +54,14 @@ import { HomeModule } from './home/home.module';
     HomeModule,
   ],
 
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorHandlerInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

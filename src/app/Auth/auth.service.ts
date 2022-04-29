@@ -1,40 +1,50 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ThrowStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { SharedService } from '../shared/shared.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  APIBaseUrl: string = 'https://cominer.herokuapp.com/api';
-  APIKey: string =
+  rootURL: string = 'https://cominer.herokuapp.com/api';
+  key: string =
     'c3fe929c35dd0cbcc8f062bb60e9d2ce7d14be21513d07c53e370d81ba9de4a4';
-
-  private email: String | null;
+  authStatusListener$ = new BehaviorSubject<boolean>(false);
+  private isAuthenticated = false;
+  private token: string;
+  private username: string;
+  private password: string;
+  private refersh: string;
+  private email: string;
+  private code: string;
+  otpError$ = new Subject<boolean>();
+  codeError$ = new Subject<boolean>();
+  /////
   public accessToken: String | null;
-  private name: String | null;
   private refreshToken: String | null;
-  private resetToken: String = '';
-
-  authStatusListner = new BehaviorSubject<boolean>(false);
   saveTimeout: any;
+
+  ///
   constructor(
     private http: HttpClient,
     private router: Router,
-    private sharedSerivce: SharedService
+    private sharedService: SharedService
   ) {}
-
   getToken() {
-    return this.accessToken;
+    return this.token;
   }
-  autoAuth() {}
-
-  //////////////////////////////////////////////////////////////////////////////////the auth functions////////////////////////////////
+  getRefersh() {
+    return this.refersh;
+  }
+  getAuth() {
+    return this.isAuthenticated;
+  }
   signup(name: String, email: String, phone: number, password: String) {
     return this.http.post<any>(
-      `${this.APIBaseUrl}/user/register?key=${this.APIKey}`,
+      `${this.rootURL}/user/register?key=${this.key}`,
       {
         userName: name,
         email: email,
@@ -43,163 +53,192 @@ export class AuthService {
       }
     );
   }
-  async signin(userName: String, password: String) {
-    //here i added the income username to the session storage to use it
-    this.name = userName;
-    sessionStorage.setItem('password', `${password}`);
+  //Signin
+  signinFF(username: string, password: string) {
+    this.username = username;
+    this.password = password;
+    return this.http.post(`${this.rootURL}/user/FFactorAuth?key=${this.key}`, {
+      userName: username,
+      password: password,
+    });
+  }
+  validateOTP(otp: string) {
+    console.log(this.username, otp);
     this.http
-      .post<any>(`${this.APIBaseUrl}/user/FFactorAuth?key=${this.APIKey}`, {
-        userName: userName,
-        password: password,
-      })
-      .subscribe({
-        next: (res) => {
-          if (res.message == 'Wrong credentials') {
-            this.sharedSerivce.sentMessage.next({
-              message: 'something went wrong please try again',
-              error: true,
-            });
-            this.authStatusListner.next(false);
-          } else if (res.message != 'Wrong credentials') {
-            sessionStorage.setItem('name', `${userName}`);
-            this.authStatusListner.next(true);
-            this.router.navigate(['/user/otp']);
-            sessionStorage.setItem('password', `${password}`);
-          }
-        },
-        error: (err) => {
-          this.sharedSerivce.sentMessage.next({
-            message: 'something went wrong please try again',
-            error: true,
-          });
-          console.log(err);
-        },
-      });
-  }
-  async logout() {
-    clearTimeout(this.saveTimeout);
-    await this.logingOut();
-    this.clearAuthData();
-    this.authStatusListner.next(false);
-    this.router.navigate(['/']);
-  }
-  logingOut() {
-    this.http
-      .post<any>(`${this.APIBaseUrl}/user/logout?key=${this.APIKey}`, {
-        token: this.refreshToken,
-      })
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-        },
-        error: (err) => {
-          this.sharedSerivce.sentMessage.next({
-            message: 'something went wrong',
-            error: true,
-          });
-          console.log(err);
-        },
-      });
-  }
-  ///////////////////////////////////////////////////////////////
-  async otpValidator(otp: string) {
-    await this.http
-      .post<any>(`${this.APIBaseUrl}/user/TwoFactorAuth?key=${this.APIKey}`, {
-        userName: sessionStorage.getItem('name'),
+      .post(`${this.rootURL}/user/TwoFactorAuth?key=${this.key}`, {
+        userName: this.username,
         otp: otp,
       })
       .subscribe({
-        next: (res) => {
-          sessionStorage.clear();
-          this.accessToken = res.jwt.accessToken;
-          this.refreshToken = res.jwt.refreshToken;
-          localStorage.setItem('accessToken', `${this.accessToken}`);
-          this.authStatusListner.next(true);
-          this.router.navigate(['/user/dashboard/overview']);
+        next: (res: any) => {
+          this.token = res.jwt.accessToken;
+          this.refersh = res.jwt.refreshToken;
+          this.isAuthenticated = true;
+          this.authStatusListener$.next(true);
+          sessionStorage.setItem('token', this.token);
+          sessionStorage.setItem('refersh', this.refersh);
+          this.sharedService.isLoading.next(false);
+          this.router.navigate(['/dashboard/overview']);
         },
         error: (err) => {
-          this.sharedSerivce.sentMessage.next({
-            message: 'something went wrong please try again',
-            error: true,
-          });
+          this.otpError$.next(true);
           console.log(err);
         },
       });
   }
-  //////////////////////////////////////////////////////////////
-  resendOtp() {
-    let n = sessionStorage.getItem('name');
-    let p = sessionStorage.getItem('password');
-    this.signin(n ? n : 'dummy data', p ? p : 'dummy data');
-  }
-
-  // //////////////////////////////////////////////////////////////
-  async resetPassword(forgetEmail: string) {
+  resendOTP() {
     this.http
-      .post<any>(`${this.APIBaseUrl}/user/forgetPassword?key=${this.APIKey}`, {
-        email: forgetEmail,
+      .post(`${this.rootURL}/user/FFactorAuth?key=${this.key}`, {
+        userName: this.username,
+        password: this.password,
       })
-      .subscribe({
-        next: (res) => {
-          this.authStatusListner.next(true);
-          sessionStorage.setItem('email', forgetEmail);
-          this.router.navigate(['/user/recovery-message']);
-          this.sharedSerivce.sentMessage.next({
-            message: 'Your password had been reseted successfully',
-            error: false,
-          });
-        },
-        error: (err) => {
-          this.sharedSerivce.sentMessage.next({
-            message: 'wrong password',
-            error: true,
-          });
-          console.log(err);
-        },
-      });
+      .subscribe();
   }
-  /////////////////////////////////////////////////////////////
-
-  async resetPasswordVerificationCode(verifyCode: string) {
-    await this.http
-      .post<any>(`${this.APIBaseUrl}/user/verifyCode?key=${this.APIKey}`, {
-        email: this.email ? this.email : sessionStorage.getItem('email'),
-        code: verifyCode,
-      })
-      .subscribe({
-        next: (res) => {
-          sessionStorage.setItem('resetToken', res.token);
-          this.resetToken = res.token;
-          this.authStatusListner.next(true);
-        },
-        error: (err) => {
-          this.sharedSerivce.sentMessage.next({
-            message: 'wrong verification code please try again',
-            error: true,
-          });
-          console.log(err);
-        },
-      });
-  }
-  /////////////////////////////////////////////////////////////
-  resetNewPassword(newPassword: any) {
+  forgotPassword(email: string) {
+    this.email = email;
+    sessionStorage.setItem('email', email);
     return this.http.post<any>(
-      `${this.APIBaseUrl}/user/resetPassword?key=${this.APIKey}`,
+      `${this.rootURL}/user/forgetPassword?key=${this.key}`,
       {
-        newPassword: newPassword,
-        code: sessionStorage.getItem('code')?.toString().trim(),
-      },
-      {
-        headers: new HttpHeaders().set(
-          'Authorization',
-          `Bearer ${this.resetToken}`
-        ),
+        email: email,
       }
     );
   }
+  sendCode(code: string) {
+    this.code = code;
+    if (!this.email) {
+      this.email = sessionStorage.getItem('email')!;
+    }
+    if (!this.code) {
+      this.code = sessionStorage.getItem('code')!;
+    }
+    this.sharedService.isLoading.next(true);
+    console.log(this.email, this.code);
+    this.http
+      .post<any>(`${this.rootURL}/user/verifyCode?key=${this.key}`, {
+        email: this.email,
+        code: this.code,
+      })
+      .subscribe({
+        next: (res) => {
+          this.sharedService.isLoading.next(false);
+          this.token = res.token;
+          console.log(res);
+          sessionStorage.setItem('token', this.token);
+          this.router.navigate(['/user/new-password']);
+        },
+        error: (err) => {
+          this.sharedService.isLoading.next(false);
+          this.codeError$.next(true);
+          console.log(err);
+        },
+      });
+  }
+  resetNewPassword(newPassword: string) {
+    return this.http.post<any>(
+      `${this.rootURL}/user/resetPassword?key=${this.key}`,
+      {
+        newPassword: newPassword,
+        code: this.code,
+      },
+      {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${this.token}`),
+      }
+    );
+  }
+  autoAuth() {
+    const token = sessionStorage.getItem('token');
+    const refersh = sessionStorage.getItem('refersh');
+    if (token == null || refersh == null) {
+      return;
+    }
+    this.token = token;
+    this.refersh = refersh;
+    this.isAuthenticated = true;
+    this.authStatusListener$.next(true);
+  }
+  logout() {
+    this.http
+      .post(
+        `${this.rootURL}/user/logout?key=${this.key}`,
+        {
+          token: this.getRefersh(),
+        },
+        { responseType: 'text' }
+      )
+      .subscribe({
+        next: () => {
+          sessionStorage.removeItem('token');
+          sessionStorage.removeItem('refersh');
+          this.token = '';
+          this.refersh = '';
+          this.isAuthenticated = false;
+          this.authStatusListener$.next(false);
+          this.sharedService.isLoading.next(false);
+          this.router.navigate(['/signin']);
+        },
+        error: (err) => {
+          sessionStorage.removeItem('token');
+          sessionStorage.removeItem('refersh');
+          this.token = '';
+          this.refersh = '';
+          this.isAuthenticated = false;
+          this.authStatusListener$.next(false);
+          this.sharedService.isLoading.next(false);
+          this.router.navigate(['/signin']);
+        },
+      });
+  }
+  removeAuthData() {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('refersh');
+    this.token = '';
+    this.refersh = '';
+    this.isAuthenticated = false;
+    this.authStatusListener$.next(false);
+    this.sharedService.isLoading.next(false);
+    this.router.navigate(['/signin']);
+  }
+
+  ///////////////////////////////////////////////////////////////
+  // async otpValidator(otp: string) {
+  //   await this.http
+  //     .post<any>(`${this.rootURL}/user/TwoFactorAuth?key=${this.key}`, {
+  //       userName: sessionStorage.getItem('name'),
+  //       otp: otp,
+  //     })
+  //     .subscribe({
+  //       next: (res) => {
+  //         sessionStorage.clear();
+  //         this.accessToken = res.jwt.accessToken;
+  //         this.refreshToken = res.jwt.refreshToken;
+  //         localStorage.setItem('accessToken', `${this.accessToken}`);
+  //         this.authStatusListener$.next(true);
+  //         this.router.navigate(['/user/dashboard/overview']);
+  //       },
+  //       error: (err) => {
+  //         this.sharedService.sentMessage.next({
+  //           message: 'something went wrong please try again',
+  //           error: true,
+  //         });
+  //         console.log(err);
+  //       },
+  //     });
+  // }
+  //////////////////////////////////////////////////////////////
+  // resendOtp() {
+  //   let n = sessionStorage.getItem('name');
+  //   let p = sessionStorage.getItem('password');
+  //   this.signinFF(n ? n : 'dummy data', p ? p : 'dummy data');
+  // }
+
+  // //////////////////////////////////////////////////////////////
+
   /////////////////////////////////////////////////////////////
 
-  private clearAuthData() {
-    sessionStorage.removeItem('accessToken');
-  }
+  /////////////////////////////////////////////////////////////
+
+  // private clearAuthData() {
+  //   sessionStorage.removeItem('accessToken');
+  // }
 }

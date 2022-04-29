@@ -9,32 +9,46 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./signin.component.scss'],
 })
 export class SigninComponent implements OnInit {
-  loading = false;
   signinForm!: FormGroup;
+  otpForm!: FormGroup;
   passwordShown = false;
+  sentOtp = false;
+  signinError = false;
   constructor(
     public authService: AuthService,
-    private sharedSerivce: SharedService
+    private sharedService: SharedService
   ) {}
 
   ngOnInit(): void {
     this.signinForm = new FormGroup({
       userName: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)],
+        validators: [Validators.required],
       }),
       password: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(5)],
+        validators: [Validators.required],
       }),
     });
   }
   onSignin() {
-    this.sharedSerivce.isLoading.next(true);
-    if (this.signinForm.value.userName && this.signinForm.value.password)
-      this.authService.signin(
-        this.signinForm.value.userName,
-        this.signinForm.value.password
-      );
-    this.sharedSerivce.isLoading.next(false);
+    if (this.signinForm.valid) {
+      this.sharedService.isLoading.next(true);
+      this.authService
+        .signinFF(
+          this.signinForm.value.userName,
+          this.signinForm.value.password
+        )
+        .subscribe({
+          next: (res) => {
+            this.sharedService.isLoading.next(false);
+            this.sentOtp = true;
+            this.signinError = false;
+          },
+          error: (res) => {
+            this.signinError = true;
+            this.sharedService.isLoading.next(false);
+          },
+        });
+    }
   }
   changeInput(input: any): any {
     input.type = input.type === 'password' ? 'text' : 'password';

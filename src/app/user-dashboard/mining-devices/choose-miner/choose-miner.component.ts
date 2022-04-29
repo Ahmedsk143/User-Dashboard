@@ -14,7 +14,7 @@ export class ChooseMinerComponent implements OnInit {
   constructor(
     private dashboard: DashboardService,
     private http: HttpClient,
-    private sharedSerivce: SharedService
+    private sharedService: SharedService
   ) {}
 
   miners: any = [];
@@ -22,11 +22,11 @@ export class ChooseMinerComponent implements OnInit {
   miners3 = new Array();
 
   ngOnInit() {
-    this.sharedSerivce.isLoading.next(true);
+    this.sharedService.isLoading.next(true);
     this.dashboard.getAsicBTCDevicesContractPlans().subscribe((res: any) => {
       this.miners2 = res;
       this.miners = this.miners2;
-      this.sharedSerivce.isLoading.next(false);
+      this.sharedService.isLoading.next(false);
       // this.dashboard.getAsicETHDevicesContractPlans().subscribe((res: any) => {
       //   this.miners3 = res;
       //   this.miners.push(...this.miners3);
@@ -38,7 +38,7 @@ export class ChooseMinerComponent implements OnInit {
     this.dashboard.buyAsic(n[0]).subscribe({
       next: (res) => {
         ///this is to display the notification
-        this.sharedSerivce.sentMessage.next({
+        this.sharedService.sentMessage.next({
           message:
             'the ASIC  has been added successfully wait for the confirmation',
           error: false,
@@ -47,7 +47,7 @@ export class ChooseMinerComponent implements OnInit {
       error: (err) => {
         console.log(err);
         ///this is to display the notification
-        this.sharedSerivce.sentMessage.next({
+        this.sharedService.sentMessage.next({
           message: 'something went wrong ,or no sufficient balance',
           error: true,
         });

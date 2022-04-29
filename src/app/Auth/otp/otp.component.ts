@@ -9,12 +9,13 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./otp.component.scss'],
 })
 export class OtpComponent implements OnInit {
-  loading = false;
   otpForm!: FormGroup;
   passwordShown = false;
+  otpError = false;
+  clicked = false;
   constructor(
     public authService: AuthService,
-    private sharedSerivce: SharedService
+    private sharedService: SharedService
   ) {}
 
   ngOnInit(): void {
@@ -23,22 +24,25 @@ export class OtpComponent implements OnInit {
         validators: [Validators.required],
       }),
     });
-  }
-  onProcess() {
-    this.sharedSerivce.isLoading.next(true);
-    if (this.otpForm.value.otp)
-      this.authService.otpValidator(this.otpForm.value.otp);
-
-    this.sharedSerivce.isLoading.next(false);
-  }
-
-  resendOtp() {
-    this.sharedSerivce.isLoading.next(true);
-    this.authService.resendOtp();
-    this.sharedSerivce.sentMessage.next({
-      message: 'New OTP has been sent',
-      error: false,
+    this.authService.otpError$.subscribe((error) => {
+      this.otpError = error;
+      this.sharedService.isLoading.next(false);
     });
-    this.sharedSerivce.isLoading.next(false);
+  }
+  onOTP() {
+    if (this.otpForm.value.otp) {
+      this.sharedService.isLoading.next(true);
+      this.authService.validateOTP(this.otpForm.value.otp);
+    }
+  }
+
+  onResend() {
+    if (!this.clicked) {
+      this.authService.resendOTP();
+      this.clicked = true;
+    }
+    setTimeout(() => {
+      this.clicked = false;
+    }, 30000);
   }
 }
