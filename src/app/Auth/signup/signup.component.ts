@@ -34,10 +34,7 @@ export class SignupComponent implements OnInit {
         validators: [Validators.required, Validators.email],
       }),
       phone: new FormControl(null, {
-        validators: [
-          Validators.required,
-          Validators.pattern(/^01[0125][0-9]{8}$/),
-        ],
+        validators: [Validators.required, Validators.pattern(/^[0-9]+$/)],
       }),
       password: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(8)],
