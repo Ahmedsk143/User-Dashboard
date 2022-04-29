@@ -1,12 +1,5 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
-import { HttpClient } from '@angular/common/http';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { Customer, Representative } from './customer';
-import { CustomerService } from './customerservice';
+import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../user-dashboard.service';
-import { of } from 'rxjs';
 
 export interface Plan {
   date: string | any;
@@ -33,7 +26,7 @@ let expiredPlanData: Plan[] = [
   templateUrl: './plans.component.html',
   styleUrls: ['./plans.component.scss'],
 })
-export class PlansComponent implements AfterViewInit, OnInit {
+export class PlansComponent implements OnInit {
   /////////////////////////////////////////////// i added this to manupulate the graph Data
   btcMiningDetails = new Array(12, 51, 62, 33, 21, 62, 45, 50, 30);
   ethMiningDetails = new Array(10, 20, 20, 20, 50, 10, 40, 50, 30);
@@ -134,19 +127,7 @@ export class PlansComponent implements AfterViewInit, OnInit {
     },
   ];
 
-  dataSourceActive = new MatTableDataSource(this.activePlanData);
-  dataSourceExpired = new MatTableDataSource(expiredPlanData);
-
-  @ViewChild('activePaginator') activePaginator: MatPaginator;
-  @ViewChild('expiredPaginator') expiredPaginator: MatPaginator;
-  @ViewChild('activeSort') activeSort: MatSort;
-  @ViewChild('expiredSort') expiredSort: MatSort;
-
-  constructor(
-    private customerService: CustomerService,
-    private http: HttpClient,
-    private dashboard: DashboardService
-  ) {
+  constructor(private dashboard: DashboardService) {
     /////////////////////////////
     ///////////////////////////
   }
@@ -221,24 +202,6 @@ export class PlansComponent implements AfterViewInit, OnInit {
     //   }
     // }
     ////////////////////////////////////////dummy data for active plans
-
-    this.dataSourceActive.filterPredicate = function (
-      data,
-      filter: string
-    ): boolean {
-      return data.name.toLowerCase().includes(filter);
-    };
-    this.dataSourceExpired.filterPredicate = function (
-      data,
-      filter: string
-    ): boolean {
-      return data.name.toLowerCase().includes(filter);
-    };
-
-    // this.dataSourceActive.paginator = this.activePaginator;
-    // this.dataSourceActive.sort = this.activeSort;
-    // this.dataSourceExpired.paginator = this.expiredPaginator;
-    // this.dataSourceExpired.sort = this.expiredSort;
 
     this.tap1Data = {
       labels: this.graphData,
@@ -350,46 +313,6 @@ export class PlansComponent implements AfterViewInit, OnInit {
   }
   minedChartTap4() {
     this.minedChartTapOpend = 'tap4';
-  }
-
-  ngAfterViewInit() {
-    this.dataSourceActive.sortingDataAccessor = (item: any, property: any) => {
-      switch (property) {
-        case 'date':
-          return item.date;
-        default:
-          return item[property];
-      }
-    };
-    this.dataSourceActive.paginator = this.activePaginator;
-    this.dataSourceActive.sort = this.activeSort;
-    this.dataSourceExpired.paginator = this.expiredPaginator;
-    this.dataSourceExpired.sort = this.expiredSort;
-    this.dataSourceActive.sortingDataAccessor = (item: any, property: any) => {
-      switch (property) {
-        case 'fromDate':
-          return item.fromDate;
-        default:
-          return item[property];
-      }
-    };
-  }
-
-  applyFilterOnActive(event: Event) {
-    const activeFilterValue = (event.target as HTMLInputElement).value;
-    this.dataSourceActive.filter = activeFilterValue.trim().toLowerCase();
-
-    if (this.dataSourceActive.paginator) {
-      this.dataSourceActive.paginator.firstPage();
-    }
-  }
-  applyFilterOnExpired(event: Event) {
-    const expiredFilterValue = (event.target as HTMLInputElement).value;
-    this.dataSourceExpired.filter = expiredFilterValue.trim().toLowerCase();
-
-    if (this.dataSourceExpired.paginator) {
-      this.dataSourceExpired.paginator.firstPage();
-    }
   }
 }
 function newObj(newObj: any) {

@@ -1,99 +1,79 @@
 <div class="main-nav fixed-top">
-    <h3 class="main-nav__title">{{ currentRoute }}</h3>
-    <!-- <div class="wallet">
-    <button
-      mat-button
-      [matMenuTriggerFor]="belowMenu"
-      class="btn-left"
-      (click)="collapse = !collapse"
-    >
-      00000000000000
-      <i
-        class="fas fa-caret-down"
-        style="margin-left: 5px"
-        *ngIf="!collapse"
-      ></i>
-      <i class="fas fa-caret-up" style="margin-left: 5px" *ngIf="collapse"></i>
-    </button>
-    <mat-form-field appearance="fill" style="color: #fff">
-      <mat-select [(value)]="selected">
-        <mat-option *ngFor="let coin of coins" [value]="coin.value">
-          <span class="balance" *ngIf="!displayFiat">{{ coin.value }}</span>
-          <span class="balance" *ngIf="displayFiat">${{ coin.fiatValue }}</span>
-          <span class="cypto">{{ coin.crypto }}</span>
-        </mat-option>
-        <mat-slide-toggle
-          [(ngModel)]="displayFiat"
-          (click)="$event.stopPropagation()"
-        >
-          Display in Fiat</mat-slide-toggle
-        >
-      </mat-select>
-    </mat-form-field>
-    <mat-menu #belowMenu="matMenu" yPosition="below">
-      <ul>
-        <li mat-menu-item *ngFor="let coin of coins">
-          <span class="balance" *ngIf="!displayFiat">{{ coin.value }}</span>
-          <span class="balance" *ngIf="displayFiat">${{ coin.fiatValue }}</span>
-          <span class="cypto">{{ coin.crypto }}</span>
-        </li>
-        <mat-slide-toggle
-          [(ngModel)]="displayFiat"
-          (click)="$event.stopPropagation()"
-        >
-          Display in Fiat</mat-slide-toggle
-        >
-      </ul>
-    </mat-menu>
-    <button (click)="openDialog()" class="btn-right btn btn--light">
-      Wallet
-    </button>
-  </div> -->
-    <div class="main-nav__user">
-        <!--////////////////////////////////////////////error////////////////////////////////////////////////////////-->
-        <span class="main-nav__user__name"><a (click)="logout()" href="">logout</a></span
+  <h3 class="main-nav__title">{{ currentRoute }}</h3>
+  <div class="main-nav__user">
+    <span class="main-nav__user__name"
+      ><a (click)="logout()" href="">logout</a></span
     >
     <span class="main-nav__user__name">{{ _name }}</span>
 
-        <div class="main-nav__user__icon">
-            <i class="fas fa-user"></i>
-        </div>
-        <!-- <div
+    <div class="main-nav__user__icon">
+      <i class="fas fa-user"></i>
+    </div>
+    <!-- <div
       class="main-nav__user__icon main-nav__user__icon--menu"
       (click)="toggleMenu = !toggleMenu"
     >
       <i class="fas fa-user"></i>
     </div> -->
-        <div class="main-nav__user__icon main-nav__user__icon--menu" (click)="toggleMenu = !toggleMenu">
-            <i class="fas fa-bars"></i>
-        </div>
-        <ul class="menu-nav" *ngIf="toggleMenu">
-            <li class="menu-nav__item" routerLink="overview" routerLinkActive="side-nav__content__item--highlight">
-                <i class="fas fa-home"></i> <a>Overview</a>
-            </li>
-
-            <li class="menu-nav__item" routerLinkActive="--highlight" routerLink="hashrate-plans">
-                <i class="fas fa-clipboard-list"></i>
-                <a>Hashrate plans</a>
-                <a routerLink="choose-plan" style="visibility: hidden"></a>
-            </li>
-            <li class="menu-nav__item" routerLink="mining-devices" routerLinkActive="--highlight">
-                <i class="fas fa-server"></i> <a>Mining devices</a>
-                <a routerLink="choose-miner" style="visibility: hidden"></a>
-            </li>
-            <li class="menu-nav__item" routerLinkActive="--highlight" (click)="collapsed = !collapsed">
-                <i class="fas fa-wallet"></i> <a> Wallet</a>
-                <i class="fas fa-angle-down arrow" *ngIf="!collapsed"></i>
-                <i class="fas fa-angle-up arrow" *ngIf="collapsed"></i>
-                <a routerLink="withdraw" style="visibility: hidden"></a>
-                <a routerLink="deposit" style="visibility: hidden"></a>
-            </li>
-            <li class="menu-nav__item" routerLink="withdraw" routerLinkActive="--collapsed--highlight" *ngIf="collapsed">
-                <a>Withdraw</a>
-            </li>
-            <li class="menu-nav__item" routerLink="deposit" routerLinkActive="side-nav__content__item--collapsed--highlight" *ngIf="collapsed">
-                <a>Deposit</a>
-            </li>
-        </ul>
+    <div
+      class="main-nav__user__icon main-nav__user__icon--menu"
+      (click)="toggleMenu = !toggleMenu"
+    >
+      <i class="fas fa-bars"></i>
     </div>
+    <ul class="menu-nav" *ngIf="toggleMenu">
+      <li
+        class="menu-nav__item"
+        routerLink="overview"
+        routerLinkActive="side-nav__content__item--highlight"
+      >
+        <i class="fas fa-home"></i> <a>Overview</a>
+      </li>
+
+      <li
+        class="menu-nav__item"
+        routerLinkActive="--highlight"
+        routerLink="hashrate-plans"
+      >
+        <i class="fas fa-clipboard-list"></i>
+        <a>Hashrate plans</a>
+        <a routerLink="choose-plan" style="visibility: hidden"></a>
+      </li>
+      <li
+        class="menu-nav__item"
+        routerLink="mining-devices"
+        routerLinkActive="--highlight"
+      >
+        <i class="fas fa-server"></i> <a>Mining devices</a>
+        <a routerLink="choose-miner" style="visibility: hidden"></a>
+      </li>
+      <li
+        class="menu-nav__item"
+        routerLinkActive="--highlight"
+        (click)="collapsed = !collapsed"
+      >
+        <i class="fas fa-wallet"></i> <a> Wallet</a>
+        <i class="fas fa-angle-down arrow" *ngIf="!collapsed"></i>
+        <i class="fas fa-angle-up arrow" *ngIf="collapsed"></i>
+        <a routerLink="withdraw" style="visibility: hidden"></a>
+        <a routerLink="deposit" style="visibility: hidden"></a>
+      </li>
+      <li
+        class="menu-nav__item"
+        routerLink="withdraw"
+        routerLinkActive="--collapsed--highlight"
+        *ngIf="collapsed"
+      >
+        <a>Withdraw</a>
+      </li>
+      <li
+        class="menu-nav__item"
+        routerLink="deposit"
+        routerLinkActive="side-nav__content__item--collapsed--highlight"
+        *ngIf="collapsed"
+      >
+        <a>Deposit</a>
+      </li>
+    </ul>
+  </div>
 </div>

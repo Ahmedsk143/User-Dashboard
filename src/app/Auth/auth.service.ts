@@ -26,9 +26,10 @@ export class AuthService {
     private sharedSerivce: SharedService
   ) {}
 
-  getAccessToken() {
+  getToken() {
     return this.accessToken;
   }
+  autoAuth() {}
 
   //////////////////////////////////////////////////////////////////////////////////the auth functions////////////////////////////////
   signup(name: String, email: String, phone: number, password: String) {

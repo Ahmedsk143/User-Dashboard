@@ -53,16 +53,18 @@
     color: $color-error;
     margin-top: 1.6rem;
   }
-  &__forget {
+  &__link {
     font-weight: 700;
     font-size: 1.4rem;
     line-height: 1.9rem;
     color: $color-primary;
-    margin-top: 3.4rem;
-    display: block;
+    display: inline-block;
     &:hover {
       cursor: pointer;
       color: $color-primary-dark;
+    }
+    &--mt {
+      margin-top: 3.4rem;
     }
   }
   &__second-action {

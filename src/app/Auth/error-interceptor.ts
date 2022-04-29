@@ -6,12 +6,12 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { AdminAuthService } from './admin-auth.service';
+import { AuthService } from './auth.service';
 @Injectable()
 export class ErrorHandlerInterceptor implements HttpInterceptor {
-  constructor(private adminAuthService: AdminAuthService) {}
+  constructor(private AuthService: AuthService) {}
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const authToken = this.adminAuthService.getToken();
+    const authToken = this.AuthService.getToken();
     const authRequest = req.clone({
       headers: req.headers.set('Authorization', 'Bearer ' + authToken),
     });
@@ -19,7 +19,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       catchError((err: HttpErrorResponse, caught) => {
         console.log(err);
         if (err.status == 401) {
-          this.adminAuthService.removeAuthData();
+          // this.AuthService.removeAuthData();
           return throwError(() => new Error(this.setErrors(err)));
         }
         return caught;

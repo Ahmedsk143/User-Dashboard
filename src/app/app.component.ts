@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AdminAuthService } from './Auth/admin-auth.service';
+import { AuthService } from './Auth/auth.service';
 import { SharedService } from './shared/shared.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class AppComponent {
   QR = false;
   QRData: any;
   constructor(
-    private authService: AdminAuthService,
+    private authService: AuthService,
     private sharedService: SharedService
   ) {}
   ngOnInit(): void {

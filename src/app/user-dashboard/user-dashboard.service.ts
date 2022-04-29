@@ -63,12 +63,8 @@ export class DashboardService {
   }
 
   balances$ = new Subject<Balance[]>();
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService,
-    private sharedSerivce: SharedService
-  ) {
-    this.accessToken = this.authService.getAccessToken();
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.accessToken = this.authService.getToken();
   }
 
   updateBalances() {
