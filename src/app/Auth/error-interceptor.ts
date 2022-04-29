@@ -17,7 +17,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
         if (err.status == 401) {
           this.authService.removeAuthData();
         }
-        return throwError(() => new Error(this.setErrors(err)));
+        return throwError(() => err);
       })
     );
   }

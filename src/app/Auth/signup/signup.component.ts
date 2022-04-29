@@ -61,9 +61,19 @@ export class SignupComponent implements OnInit {
           },
           error: (err: any) => {
             this.sharedService.isLoading.next(false);
-            this.errors.email = true;
-            this.errors.username = true;
-            this.errors.phone = true;
+            if (err.error.errors) {
+              if (err.error?.errors[0]?.param == 'userName') {
+                this.errors.username = true;
+              } else {
+                this.errors.username = false;
+              }
+            } else if (err.error == 'Phone is used') {
+              this.errors.phone = true;
+              this.errors.email = false;
+            } else if (err.error == 'Email is used') {
+              this.errors.email = true;
+              this.errors.phone = false;
+            }
             console.log(err);
           },
         });
