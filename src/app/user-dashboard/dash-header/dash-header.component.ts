@@ -16,9 +16,7 @@ export class DashHeaderComponent implements OnInit {
   currentRoute: string = 'Overview';
   collapsed = false;
   toggleMenu = false;
-  logout() {
-    this.authService.logout();
-  }
+  dropCollapsed = false;
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -79,5 +77,8 @@ export class DashHeaderComponent implements OnInit {
           this.currentRoute = 'Deposit';
         }
       });
+  }
+  logout() {
+    this.authService.logout();
   }
 }

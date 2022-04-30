@@ -1,20 +1,25 @@
 <div class="main-nav fixed-top">
   <h3 class="main-nav__title">{{ currentRoute }}</h3>
-  <div class="main-nav__user">
-    <span class="main-nav__user__name" style="cursor: pointer"
-      ><a (click)="logout()">logout</a></span
-    >
-    <span class="main-nav__user__name">{{ _name }}</span>
-
+  <div
+    class="main-nav__user main-nav__user--lg"
+    (click)="dropCollapsed = !dropCollapsed"
+  >
     <div class="main-nav__user__icon">
       <i class="fas fa-user"></i>
     </div>
-    <!-- <div
-      class="main-nav__user__icon main-nav__user__icon--menu"
-      (click)="toggleMenu = !toggleMenu"
-    >
-      <i class="fas fa-user"></i>
-    </div> -->
+    <span class="main-nav__user__name">{{ _name }}</span>
+    <ul class="menu-nav menu-nav--lg" *ngIf="dropCollapsed">
+      <li class="menu-nav__item">
+        <a>Edit Profile</a>
+      </li>
+      <li class="menu-nav__item logout" (click)="logout()">
+        <a class="logout">Logout</a>
+      </li>
+    </ul>
+    <i class="fas fa-angle-down arrow" *ngIf="!dropCollapsed"></i>
+    <i class="fas fa-angle-up arrow" *ngIf="dropCollapsed"></i>
+  </div>
+  <div class="main-nav__user main-nav__user--sm">
     <div
       class="main-nav__user__icon main-nav__user__icon--menu"
       (click)="toggleMenu = !toggleMenu"

@@ -13,6 +13,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return next.handle(req).pipe(
       catchError((err: HttpErrorResponse) => {
+        console.log('Below is the error from the error handler...');
         console.log(err);
         if (err.status == 401) {
           this.authService.removeAuthData();
