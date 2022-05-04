@@ -2,6 +2,7 @@
   <div id="logo" routerLink="/"><span>LOGO</span></div>
   <div class="side-nav">
     <ul class="side-nav__content">
+      <!---------Overview --------->
       <li
         routerLink="overview"
         routerLinkActive="side-nav__content__item--highlight"
@@ -9,6 +10,8 @@
       >
         <i class="fas fa-home"></i> <a>Overview</a>
       </li>
+
+      <!---------Hashrate plans --------->
       <li
         routerLinkActive="side-nav__content__item--highlight"
         routerLink="hashrate-plans"
@@ -18,14 +21,37 @@
         <a>Hashrate plans</a>
         <a routerLink="choose-plan" style="visibility: hidden"></a>
       </li>
+
+      <!---------Mining devices --------->
       <li
-        routerLink="mining-devices"
         routerLinkActive="side-nav__content__item--highlight"
         class="side-nav__content__item"
+        (click)="collapsed2 = !collapsed2"
       >
         <i class="fas fa-server"></i> <a>Mining devices</a>
+        <i class="fas fa-angle-down arrow" *ngIf="!collapsed2"></i>
+        <i class="fas fa-angle-up arrow" *ngIf="collapsed2"></i>
         <a routerLink="choose-miner" style="visibility: hidden"></a>
+        <a routerLink="merchant-distribution" style="visibility: hidden"></a>
       </li>
+      <li
+        routerLink="choose-miner"
+        routerLinkActive="side-nav__content__item--collapsed--highlight"
+        class="side-nav__content__item side-nav__content__item--collapsed"
+        *ngIf="collapsed2"
+      >
+        <a>Miners</a>
+      </li>
+      <li
+        routerLink="merchant-distribution"
+        routerLinkActive="side-nav__content__item--collapsed--highlight"
+        class="side-nav__content__item side-nav__content__item--collapsed"
+        *ngIf="collapsed2"
+      >
+        <a>Merchant distribution </a>
+      </li>
+
+      <!--------- Wallet  ---------->
       <li
         routerLinkActive="side-nav__content__item--highlight"
         class="side-nav__content__item"

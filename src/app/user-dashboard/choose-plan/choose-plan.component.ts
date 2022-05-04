@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DashboardService } from '../../user-dashboard.service';
+import { HttpClient } from '@angular/common/http';
+import { DashboardService } from '../user-dashboard.service';
 import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({

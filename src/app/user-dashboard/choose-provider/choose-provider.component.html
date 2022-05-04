@@ -1,0 +1,38 @@
+<header class="dash-heading">
+  <h2 class="dash-heading__title">
+    <i class="fas fa-angle-left" [routerLink]="['../hashrate-plans']"></i>Choose
+    hashrate plan
+  </h2>
+</header>
+<div class="dashboard-container">
+  <div class="provider">
+    <div class="provider__box">
+      <div class="provider__box__img">LOGO</div>
+      <div class="provider__box__title">[Brand name]</div>
+      <div class="provider__box__sub">
+        Buy Hashrate plans from [Brand name] directly
+      </div>
+      <button
+        class="provider__box__btn btn btn--animated btn--darker"
+        routerLink="../choose-plan"
+      >
+        Next
+      </button>
+    </div>
+    <div class="provider__box">
+      <div class="provider__box__img">
+        <i class="fas fa-people-arrows"></i>
+      </div>
+      <div class="provider__box__title">P2P Marketplace</div>
+      <div class="provider__box__sub">
+        Buy Hashrate plans from [Brand name] users
+      </div>
+      <button
+        class="provider__box__btn btn btn--animated btn--darker"
+        routerLink="../choose-plan-sellers"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</div>

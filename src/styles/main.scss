@@ -21,6 +21,8 @@
 @import "components/accept-popup-form";
 @import "components/merchant-header";
 @import "components/accordion";
+@import "components/no-plans-initial";
+@import "components/plan";
 
 @import "layout/grid";
 @import "layout/main-nav";
@@ -38,5 +40,6 @@
 @import "pages/wallet";
 @import "pages/merchant-miner";
 @import "pages/merchant-steps";
+@import "pages/choose-provider";
 
 @import "shame";

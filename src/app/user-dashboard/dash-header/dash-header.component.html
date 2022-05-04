@@ -10,10 +10,10 @@
     <span class="main-nav__user__name">{{ _name }}</span>
     <ul class="menu-nav menu-nav--lg" *ngIf="dropCollapsed">
       <li class="menu-nav__item">
-        <a>Edit Profile</a>
+        <span [routerLink]="['/dashboard/change-password']">Edit Profile</span>
       </li>
       <li class="menu-nav__item logout" (click)="logout()">
-        <a class="logout">Logout</a>
+        <span class="logout">Logout</span>
       </li>
     </ul>
     <i class="fas fa-angle-down arrow" *ngIf="!dropCollapsed"></i>

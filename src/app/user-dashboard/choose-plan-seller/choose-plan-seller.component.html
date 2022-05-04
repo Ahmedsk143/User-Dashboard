@@ -1,0 +1,229 @@
+<header class="dash-heading">
+  <h2 class="dash-heading__title">
+    <i class="fas fa-angle-left" [routerLink]="['../choose-provider']"></i
+    >Choose hashrate plan (P2P Marketplace)
+  </h2>
+</header>
+<div class="dashboard-container">
+  <p-accordion [multiple]="true">
+    <ng-container *ngFor="let seller of sellers">
+      <p-accordionTab>
+        <ng-template pTemplate="header">
+          <div
+            (click)="getSellerPlans(seller)"
+            style="width: 100%; padding: 2.4rem; padding-left: 0"
+          >
+            <h3>{{ seller.sellerData[0].userName }}</h3>
+            <span>{{ seller.subscribers }} subscribers</span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="content">
+          <div class="row g-4">
+            <div
+              class="col-12 col-md-6 col-xl-3"
+              *ngFor="let plan of seller.sellerPlans"
+            >
+              <div class="plan plan--border">
+                <h4 class="plan__title">{{ plan.planName }}</h4>
+                <!-- <img
+                      class="plan__img"
+                      src="../../../../assets/rig2.svg"
+                      alt="Miners image"
+                    /> -->
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining Currency</h6>
+                  <p class="plan__box__sub-value">{{ plan.cryptoName }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Mining algorithm</h6>
+                  <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Power</h6>
+                  <p class="plan__box__sub-value">{{ plan.hashPower }} GH/S</p>
+                </div>
+                <!-- <div class="plan__box">
+                      <h6 class="plan__box__sub">planDuration</h6>
+                      <p class="plan__box__sub-value">
+                        {{ plan.planDuration }}
+                        {{ plan.planDuration == "1" ? "Month" : "Months" }}
+                      </p>
+                    </div> -->
+                <!-- <div class="plan__box">
+                      <h6 class="plan__box__sub">Profitability</h6>
+                      <p class="plan__box__sub-value">{{ plan.profitability }} %</p>
+                    </div> -->
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Price</h6>
+                  <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
+                </div>
+                <button
+                  class="btn btn--animated btn--light plan__btn"
+                  (click)="addPlanContract(plan)"
+                >
+                  Buy Plan
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="row g-4 mt-4">
+            <ng-container *ngFor="let plan of seller.sellerPlans">
+              <div class="col-12 col-md-6 col-xl-4">
+                <div class="miner align-self-center">
+                  <div
+                    class="row align-self-start w-100 justify-content-between"
+                  >
+                    <div class="col-10">
+                      <h3 class="miner__title">Lite Miners</h3>
+                      <span class="miner__sub"
+                        >Added on: {{ plan.createdAt | date }}</span
+                      >
+                    </div>
+                    <div class="miner__menu col-1">
+                      <div
+                        class="miner__menu__btn"
+                        (click)="checkSelected(plan)"
+                      >
+                        <i class="fas fa-ellipsis-v"></i>
+                      </div>
+                      <div
+                        class="miner__menu__body"
+                        *ngIf="selectedPlan?._id == plan._id"
+                      >
+                        <div
+                          class="miner__menu__body__item"
+                          (click)="editFormOpend = true; checkSelected(plan)"
+                        >
+                          Edit
+                        </div>
+                        <div
+                          class="miner__menu__body__item"
+                          (click)="
+                            deleteConfirmOpend = true; checkSelected(plan)
+                          "
+                        >
+                          Delete
+                        </div>
+                      </div>
+                    </div>
+
+                    <h6 class="miner__box__title">Mining Currency</h6>
+                    <p class="miner__box__sub">{{ plan.cryptoName }}</p>
+                  </div>
+                  <div class="miner__box">
+                    <h6 class="miner__box__title">Algorithm</h6>
+                    <p class="miner__box__sub">{{ plan.algorithm }}</p>
+                  </div>
+                  <div class="miner__box">
+                    <h6 class="miner__box__title">Profitability</h6>
+                    <p class="miner__box__sub">
+                      From {{ plan.profitability }}%
+                    </p>
+                  </div>
+                  <div class="miner__box">
+                    <h6 class="miner__box__title">Plan Duration</h6>
+                    <p class="miner__box__sub">
+                      <span
+                        *ngIf="
+                          plan.planDuration == 1 &&
+                          (plan.planType == 'long' || plan.planType == 'Long')
+                        "
+                      >
+                        1 Year</span
+                      >
+                      <span
+                        *ngIf="
+                          plan.planDuration == 1 &&
+                          (plan.planType == 'short' || plan.planType == 'Short')
+                        "
+                      >
+                        1 Month</span
+                      >
+                      <span
+                        *ngIf="
+                          !(plan.planDuration == 1) &&
+                          (plan.planType == 'short' || plan.planType == 'Short')
+                        "
+                        >{{ plan.planDuration }} months</span
+                      >
+                      <span
+                        *ngIf="
+                          !(plan.planDuration == 1) &&
+                          (plan.planType == 'long' || plan.planType == 'Long')
+                        "
+                        >{{ plan.planDuration }} years</span
+                      >
+                    </p>
+                  </div>
+                  <div class="miner__box">
+                    <h6 class="miner__box__title">Price</h6>
+                    <p class="miner__box__sub--large">{{ plan.price }}$</p>
+                    <div class="d-flex justify-content-between">
+                      <span class="miner__box__title">Subscribered users</span>
+                      <span class="miner__box__title"
+                        >({{ plan.usersNum }}/5)</span
+                      >
+                    </div>
+                    <div class="users-bar">
+                      <div
+                        class="users-bar--0"
+                        *ngIf="plan.usersNum == 0"
+                      ></div>
+                      <div
+                        class="users-bar--1"
+                        *ngIf="plan.usersNum == 1"
+                      ></div>
+                      <div
+                        class="users-bar--2"
+                        *ngIf="plan.usersNum == 2"
+                      ></div>
+                      <div
+                        class="users-bar--3"
+                        *ngIf="plan.usersNum == 3"
+                      ></div>
+                      <div
+                        class="users-bar--4"
+                        *ngIf="plan.usersNum == 4"
+                      ></div>
+                      <div
+                        class="users-bar--5"
+                        *ngIf="plan.usersNum == 5"
+                      ></div>
+                    </div>
+                    <div class="miner__box__active row justify-content-between">
+                      <div class="col-2 d-flex flex-column">
+                        <span class="miner__box__active__name">Status</span>
+                        <span
+                          class="miner__box__active__value"
+                          *ngIf="plan.availability"
+                          >Active</span
+                        >
+                        <span
+                          class="miner__box__active__value"
+                          *ngIf="plan.availability == false"
+                          >Inactive</span
+                        >
+                      </div>
+                      <section class="toggle-btn col-3">
+                        <div class="checkbox">
+                          <input
+                            type="checkbox"
+                            [ngModel]="plan.availability"
+                            (change)="updateAval(plan)"
+                          />
+                          <label></label>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+                </div>
+                
+            </div>
+            </ng-container>
+          </div> -->
+        </ng-template>
+      </p-accordionTab>
+      <br />
+    </ng-container>
+  </p-accordion>
+</div>

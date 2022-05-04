@@ -2,6 +2,10 @@
   background: #1d1a27 !important;
   border: none;
   color: #b7b4c7;
+  padding-left: 2.4rem;
+  border-radius: 8px !important;
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
   h3 {
     color: #fff;
     font-weight: 700;
@@ -35,6 +39,6 @@
   border: none;
   //   border-bottom: 1px solid #302c3f;
   border-top: 1px solid #302c3f;
-  height: 72.7rem;
+  height: 51rem;
   overflow-y: scroll;
 }

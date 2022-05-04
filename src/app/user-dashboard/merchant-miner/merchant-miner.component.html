@@ -1,0 +1,497 @@
+<div class="dashboard-container dashboard-container--admin">
+  <div class="merchant-header">
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <div class="row">
+          <div class="col-4">
+            <img src="../../assets/miner.svg" alt="" />
+          </div>
+          <div class="col-8 mt-5">
+            <div>
+              <span class="merchant-header__name">{{
+                worker.workerData[0].asicName
+              }}</span>
+              <span class="merchant-header__status">Online</span>
+            </div>
+
+            <div class="merchant-header__id">
+              ID: {{ worker.workerData[0]._id }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="details-items mt-5">
+      <div class="details-item">
+        <div class="merchant-header__sub">Total Subscriptions</div>
+        <div class="merchant-header__value">
+          {{ worker.totalConnectedUsers }}
+        </div>
+      </div>
+      <div class="details-item">
+        <div class="merchant-header__sub">Total Hashrate Power</div>
+        <div class="merchant-header__value">
+          {{ worker.workerData[0].hashPower }}GH/S
+        </div>
+      </div>
+      <div class="details-item">
+        <div class="merchant-header__sub">Total Hashrate Available</div>
+        <div class="merchant-header__value">
+          {{ worker.availableHashrate }} GH/S
+        </div>
+      </div>
+      <div class="details-item">
+        <div class="merchant-header__sub">Pool</div>
+        <div class="merchant-header__value">
+          {{ worker.workerData[0].pool }}
+        </div>
+      </div>
+      <div class="details-item">
+        <div class="merchant-header__sub">Worker ID</div>
+        <div class="merchant-header__value">
+          {{ worker.workerData[0].workerID }}
+        </div>
+      </div>
+      <div class="details-item">
+        <div class="merchant-header__sub">Host Fees</div>
+        <div class="merchant-header__value">
+          {{ worker.workerData[0].hostFees }}
+        </div>
+      </div>
+
+      <div class="details-item">
+        <div class="merchant-header__sub">Total Mined</div>
+        <div class="merchant-header__value">
+          {{ worker.workerData[0].totalMined }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="horizontal-taps">
+    <div class="horizontal-taps__heading">
+      <span
+        class="horizontal-taps__heading__item"
+        (click)="selectedTap = 'tap1'"
+        [ngClass]="{
+          'horizontal-taps__heading__item--active': selectedTap == 'tap1'
+        }"
+        >Hashrate plans</span
+      >
+      <span
+        class="horizontal-taps__heading__item"
+        (click)="selectedTap = 'tap2'"
+        [ngClass]="{
+          'horizontal-taps__heading__item--active': selectedTap == 'tap2'
+        }"
+      >
+        Subscribed users</span
+      >
+    </div>
+    <div class="horizontal-taps__body" *ngIf="selectedTap == 'tap1'">
+      <div class="row">
+        <div class="horizontal-taps__header">
+          <h3>Hashrate plans ({{ workerPlansLength }})</h3>
+
+          <button
+            class="btn btn--animated btn--light"
+            style="padding: 1.8rem 2.4rem"
+            (click)="newFormOpend = true"
+          >
+            <i class="fas fa-plus mr-4"></i>
+            <span style="font-weight: 700; font-size: 1.6rem"> New Plan</span>
+          </button>
+        </div>
+      </div>
+      <div class="plans-initial" *ngIf="!(workerPlansLength > 0)">
+        <div class="plans-initial__img">!</div>
+        <span class="plans-initial__title"
+          >There’s no hashrate plans created yet</span
+        >
+        <button
+          class="miners-header__btn btn btn--animated btn--light plans-initial__btn"
+          (click)="newFormOpend = true"
+        >
+          <i class="fas fa-plus"></i>Create new plan
+        </button>
+      </div>
+      <div class="row row g-4 my-4" *ngIf="workerPlansLength > 0">
+        <ng-container *ngFor="let plan of workerPlans">
+          <div class="col-12 col-md-6 col-xl-4">
+            <div class="miner miner--normal">
+              <div class="miner__header">
+                <div class="miner__title">
+                  {{ plan.planName }}
+                </div>
+                <div class="miner__menu">
+                  <div
+                    class="miner__menu__btn"
+                    (click)="checkSelected(plan)"
+                    style="background: none"
+                  >
+                    <i class="fas fa-ellipsis-v"></i>
+                  </div>
+                  <div
+                    class="miner__menu__body"
+                    *ngIf="selectedPlan._id == plan._id"
+                  >
+                    <div
+                      class="miner__menu__body__item"
+                      (click)="editFormOpend = true; checkSelected(plan)"
+                    >
+                      Edit
+                    </div>
+                    <div
+                      class="miner__menu__body__item"
+                      (click)="deleteConfirmOpend = true; checkSelected(plan)"
+                    >
+                      Delete
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="miner__box">
+                <h6 class="miner__box__title">Mining Currency</h6>
+                <p class="miner__box__sub">{{ plan.cryptoName }}</p>
+              </div>
+
+              <div class="miner__box">
+                <h6 class="miner__box__title">Algorithm</h6>
+                <p class="miner__box__sub">{{ plan.algorithm }}</p>
+              </div>
+              <div class="miner__box">
+                <h6 class="miner__box__title">Hash Power</h6>
+                <p class="miner__box__sub">{{ plan.hashPower }} GH/S</p>
+              </div>
+              <div class="miner__box">
+                <h6 class="miner__box__title">Price</h6>
+                <p class="miner__box__sub--large">{{ plan.price }}$</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="horizontal-taps__body" *ngIf="selectedTap == 'tap2'">
+      <div class="horizontal-taps__body__title">
+        Subscribed users({{ merchantUsersLength }})
+      </div>
+      <div class="table">
+        <p-table
+          [value]="merchantUsers"
+          responsiveLayout="stack"
+          [paginator]="true"
+          [rows]="10"
+          [rowsPerPageOptions]="[10, 15, 20]"
+          sortField="startDate"
+          [sortOrder]="-1"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="startDate">
+                Starting date
+                <p-columnFilter
+                  type="date"
+                  field="startDate"
+                  display="menu"
+                ></p-columnFilter>
+                <p-sortIcon field="startDate"></p-sortIcon>
+              </th>
+              <th pSortableColumn="endDate">
+                Ending date
+                <p-columnFilter
+                  type="date"
+                  field="endDate"
+                  display="menu"
+                ></p-columnFilter>
+                <p-sortIcon field="endDate"></p-sortIcon>
+              </th>
+              <th pSortableColumn="userDetails[0].userName">
+                User info
+                <p-columnFilter
+                  type="text"
+                  field="userDetails[0].userName"
+                  display="menu"
+                ></p-columnFilter>
+                <p-sortIcon field="userDetails[0].userName"></p-sortIcon>
+              </th>
+              <th pSortableColumn="userDetails[0].phone">
+                Phone number
+                <p-columnFilter
+                  type="text"
+                  field="userDetails[0].phone"
+                  display="menu"
+                ></p-columnFilter>
+                <p-sortIcon field="userDetails[0].phone"></p-sortIcon>
+              </th>
+              <th pSortableColumn="planDetails[0].planName">
+                Subscribed plan
+                <p-columnFilter
+                  type="text"
+                  field="planDetails[0].planName"
+                  display="menu"
+                ></p-columnFilter>
+                <p-sortIcon field="planDetails[0].planName"></p-sortIcon>
+              </th>
+              <th pSortableColumn="totalMined">
+                Total mined
+                <p-columnFilter
+                  type="text"
+                  field="totalMined"
+                  display="menu"
+                ></p-columnFilter>
+                <p-sortIcon field="totalMined"></p-sortIcon>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-user>
+            <tr>
+              <td>
+                <span class="p-column-title"> Starting date </span>
+                <span class="table__sub">{{ user.startDate | date }}</span>
+              </td>
+              <td>
+                <span class="p-column-title"> Ending date </span>
+                <span class="table__sub">{{ user.endDate | date }}</span>
+              </td>
+              <td>
+                <span class="p-column-title"> User info</span>
+                <div class="table__header">
+                  {{ user.userDetails[0].userName }}
+                </div>
+                <div class="table__sub">{{ user.userDetails[0].email }}</div>
+              </td>
+              <td>
+                <span class="p-column-title"> Phone number</span>
+                <span class="table__header">{{
+                  user.userDetails[0].phone
+                }}</span>
+              </td>
+              <td>
+                <span class="p-column-title"> Subscribed plan</span>
+                <span class="table__header">{{
+                  user.planDetails[0].planName
+                }}</span>
+              </td>
+              <td>
+                <span class="p-column-title">Total mined</span>
+                <span class="table__header">{{ user.totalMined }}</span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  <!--------------------------------- the new plan form ---------------------------------->
+  <div class="new-plan" *ngIf="newFormOpend == true">
+    <div class="plan-form">
+      <div class="row">
+        <div class="col-10">
+          <h3 class="plan-form__title">Add new plan</h3>
+        </div>
+        <div class="col-2">
+          <div class="plan-form__close" (click)="newFormOpend = false">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+      </div>
+      <div class="divider my-5"></div>
+      <form (ngSubmit)="onNew()" [formGroup]="newPlanForm">
+        <div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="planName"
+              >Plan Name</label
+            >
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="text"
+              id="planName"
+              formControlName="planName"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newPlanForm.get('planName')?.invalid &&
+                  newPlanForm.get('planName')?.dirty
+              }"
+            />
+          </div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="power"
+              >Hash Power</label
+            >
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="text"
+              id="power"
+              formControlName="power"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newPlanForm.get('power')?.invalid &&
+                  newPlanForm.get('power')?.dirty
+              }"
+            />
+            <div class="input-field-group__icon">GH/S</div>
+          </div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="price">Price</label>
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="text"
+              id="price"
+              formControlName="price"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newPlanForm.get('price')?.invalid &&
+                  newPlanForm.get('price')?.dirty
+              }"
+            />
+            <div class="input-field-group__icon">$</div>
+          </div>
+        </div>
+        <span class="input-field-group__error" *ngIf="newFormError != ''">{{
+          newFormError
+        }}</span>
+        <div>
+          <button
+            type="submit"
+            class="login-box__btn btn btn--light btn--animated"
+          >
+            Create
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!---------------------------------- the edit plan form ------------------------->
+  <div class="new-plan" *ngIf="editFormOpend == true">
+    <div class="plan-form">
+      <div class="row">
+        <div class="col-10">
+          <h3 class="plan-form__title">
+            Edit '{{ planToEdit.planName }}' plan
+          </h3>
+          <!-- <p class="plan-form__sub">
+            Added on: {{ planToEdit.createdAt | date }}
+          </p> -->
+        </div>
+        <div class="col-2">
+          <div class="plan-form__close" (click)="editFormOpend = false">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+      </div>
+      <div class="divider my-5"></div>
+      <form (ngSubmit)="onUpdate()" [formGroup]="editPlanForm">
+        <div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="planName"
+              >Plan Name</label
+            >
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="text"
+              id="planName"
+              formControlName="planName"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newPlanForm.get('planName')?.invalid &&
+                  newPlanForm.get('planName')?.dirty
+              }"
+            />
+          </div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="power"
+              >Hash Power</label
+            >
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="number"
+              id="power"
+              formControlName="power"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newPlanForm.get('power')?.invalid &&
+                  newPlanForm.get('power')?.dirty
+              }"
+            />
+            <div class="input-field-group__icon">GH/S</div>
+          </div>
+          <div class="input-field-group">
+            <label class="input-field-group__label" for="price">Price</label>
+            <input
+              class="input-field-group__input"
+              placeholder=""
+              type="number"
+              id="price"
+              formControlName="price"
+              [ngClass]="{
+                'input-field-group__input--invalid':
+                  newPlanForm.get('price')?.invalid &&
+                  newPlanForm.get('price')?.dirty
+              }"
+            />
+            <div class="input-field-group__icon">$</div>
+          </div>
+        </div>
+        <div>
+          <span
+            class="input-field-group__error"
+            *ngIf="updateFormError != ''"
+            >{{ updateFormError }}</span
+          >
+          <button
+            type="submit"
+            class="login-box__btn btn btn--light btn--animated"
+          >
+            Update
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!----------------------------------The delete confirmation  ------------>
+  <div
+    class="confirmation--overlay"
+    *ngIf="deleteConfirmOpend"
+    (click)="deleteConfirmOpend = false"
+  ></div>
+  <div class="confirmation" *ngIf="deleteConfirmOpend">
+    <div class="confirmation__heading">
+      <div class="row">
+        <div class="col-10">
+          <h3 class="plan-form__title">Delete ‘Lite Miners’</h3>
+        </div>
+        <div class="col-2">
+          <div class="plan-form__close" (click)="deleteConfirmOpend = false">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="confirmation__body">
+      <div class="confirmation__body__warning">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <div class="confirmation__body__title">
+        Are you sure you want to delete this plan
+      </div>
+      <div class="confirmation__body__sub">
+        You will not be able to recover this plan details
+      </div>
+    </div>
+    <div class="confirmation__footer">
+      <div
+        class="btn btn--darker btn--animated"
+        (click)="deleteConfirmOpend = false"
+      >
+        Cancel
+      </div>
+      <div class="btn btn--red btn--animated" (click)="onDelete()">Delete</div>
+    </div>
+  </div>
+</div>

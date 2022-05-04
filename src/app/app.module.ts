@@ -23,7 +23,6 @@ import { ResetCodeComponent } from './Auth/reset-password/reset-code/reset-code.
 //import { AuthInterceptor } from './Auth/admin-auth-interceptor';
 import { ErrorHandlerInterceptor } from './Auth/error-interceptor';
 // import { MerchantComponent } from './merchant/merchant.component';
-import { AccordionModule } from 'primeng/accordion';
 import { HomeModule } from './home/home.module';
 import { AuthInterceptor } from './Auth/auth-interceptor';
 @NgModule({

@@ -9,7 +9,7 @@ import { UserDashboardComponent } from './user-dashboard.component';
 import { MiningDevicesComponent } from './mining-devices/mining-devices.component';
 import { DashHeaderComponent } from './dash-header/dash-header.component';
 import { MiningDetailsComponent } from './overview/mining-details/mining-details.component';
-import { ChoosePlanComponent } from './plans/choose-plan/choose-plan.component';
+import { ChoosePlanComponent } from './choose-plan/choose-plan.component';
 import { ChooseMinerComponent } from './mining-devices/choose-miner/choose-miner.component';
 import { DiagloComponent } from './diaglo/diaglo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -28,6 +28,12 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { InputTextModule } from 'primeng/inputtext';
 import { WithdrawComponent } from './withdraw/withdraw.component';
 import { DepositeComponent } from './deposite/deposite.component';
+import { MerchantDistComponent } from './merchant-dist/merchant-dist.component';
+import { MerchantMinerComponent } from './merchant-miner/merchant-miner.component';
+import { ChoosePlanSellerComponent } from './choose-plan-seller/choose-plan-seller.component';
+import { ChooseProviderComponent } from './choose-provider/choose-provider.component';
+import { AccordionModule } from 'primeng/accordion';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +49,11 @@ import { DepositeComponent } from './deposite/deposite.component';
     DiagloComponent,
     WithdrawComponent,
     DepositeComponent,
+    MerchantDistComponent,
+    MerchantMinerComponent,
+    ChoosePlanSellerComponent,
+    ChooseProviderComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -63,6 +74,7 @@ import { DepositeComponent } from './deposite/deposite.component';
     ToastModule,
     InputTextModule,
     ProgressBarModule,
+    AccordionModule,
   ],
 })
 export class UserDashboardModule {}

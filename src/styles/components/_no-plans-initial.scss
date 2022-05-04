@@ -1,0 +1,32 @@
+.plans-initial {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6rem;
+  &__img {
+    width: 8.8rem;
+    height: 8.8rem;
+    background: rgba(183, 180, 199, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    color: $color-white-2;
+  }
+  &__title {
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    margin-top: 2.4rem;
+    margin-bottom: 1rem;
+  }
+  &__btn {
+    padding: 1.8rem 2.4rem;
+    margin-bottom: 5rem;
+    i {
+      margin-right: 1.2rem;
+    }
+  }
+}

@@ -11,7 +11,11 @@
   max-width: 36rem;
   padding: 2.4rem;
   margin: 0 auto;
-
+  &__header {
+    display: grid;
+    width: 100%;
+    padding-bottom: 1.6rem;
+  }
   &--online {
     border: 2px solid green !important;
   }
@@ -21,9 +25,14 @@
   &--demand {
     border: 2px solid $color-secondary !important;
   }
+  &--normal {
+    border: 2px solid #302c3f !important;
+  }
   &__title {
     font-weight: 700;
     font-size: 2.8rem;
+    align-self: center;
+    justify-self: center;
   }
   &__sub {
     font-weight: 400;
@@ -65,8 +74,11 @@
   }
   &__menu {
     position: relative;
+    align-self: flex-end;
+    justify-self: flex-end;
+    margin-top: -50%;
     &__btn {
-      background: #302c3f;
+      background: #171420;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -86,7 +98,7 @@
       top: 4.4rem;
       right: -2rem;
       width: 14rem;
-      background-color: $color-background-dark;
+      background-color: $color-background;
       border-radius: 8px;
       padding: 4px 0;
       &__item {
@@ -182,17 +194,17 @@
 }
 
 .miner {
-  min-width: 338px;
-  max-width: 450px;
-  background: rgba(29, 26, 39, 0.6);
-  border: 1px solid rgba(13, 23, 66, 0.2);
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2.4rem;
-  margin: 0 auto;
+  // min-width: 338px;
+  // max-width: 450px;
+  // background: rgba(29, 26, 39, 0.6);
+  // border: 1px solid rgba(13, 23, 66, 0.2);
+  // border-radius: 8px;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  // padding: 2.4rem;
+  // margin: 0 auto;
   &__title {
     font-weight: 700;
     font-size: 2.4rem;

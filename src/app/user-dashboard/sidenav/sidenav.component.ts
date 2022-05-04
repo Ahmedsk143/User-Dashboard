@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidenavComponent implements OnInit {
   collapsed = false;
+  collapsed2 = false;
   constructor() {}
 
   ngOnInit(): void {}

@@ -4,6 +4,10 @@ import { Subject } from 'rxjs';
 import { Balance } from './balance.model';
 import { AuthService } from '../Auth/auth.service';
 import { SharedService } from '../shared/shared.service';
+import { DistAsic } from './models/dist-asic.model';
+import { WorkerPlan } from './models/worker-plan.model';
+import { MerchantUser } from './models/merchant-users.model';
+import { Merchant } from './models/merchant.model';
 
 @Injectable({
   providedIn: 'root',
@@ -219,6 +223,124 @@ export class DashboardService {
     return this.http.get<{ address: string }>(
       `${this.rootURL}/transaction/getdepositaddress?currency=${currency}`,
       this.header
+    );
+  }
+  /////////////// User buying//////////////
+  getSellers() {
+    return this.http.get(
+      `${this.rootURL}/api/seller/getsellers?key=${this.key}`
+    );
+  }
+  getSellerPlans(sellerID: string) {
+    return this.http.get(
+      `${this.rootURL}/api/seller/getsellerplans/${sellerID}?key=${this.key}`
+    );
+  }
+  buyPlanContact(planID: string, currency: string) {
+    return this.http.post(
+      `${this.rootURL}/api/seller/addplancontarct?key=${this.key}`,
+      {
+        planID,
+        currency,
+      }
+    );
+  }
+  ////////////////////// Seller ////////////
+  getWorkers() {
+    return this.http.get<DistAsic[]>(
+      `${this.rootURL}/seller/getworkers?key=${this.key}`
+    );
+  }
+  createSeller() {
+    return this.http.post(
+      `${this.rootURL}/seller/createsellerstore?key=${this.key}`,
+      {}
+    );
+  }
+  addWorkerPlan(
+    workerID: string,
+    planName: string,
+    price: string,
+    hashPower: string
+  ) {
+    return this.http.post(
+      `${this.rootURL}/seller/addworkerplan/${workerID}?key=${this.key}`,
+      {
+        planName,
+        price,
+        hashPower,
+      },
+      { responseType: 'text' }
+    );
+  }
+  updateWorkerPlan(
+    workerID: string,
+    planID: string,
+    planName: string,
+    price: number,
+    hashPower: number
+  ) {
+    return this.http.put(
+      `${this.rootURL}/seller/updateworkerplan/${workerID}/${planID}?key=${this.key}`,
+      {
+        planName,
+        price,
+        hashPower,
+      },
+      { responseType: 'text' }
+    );
+  }
+  deleteWorkerPlan(workerID: string, planID: string) {
+    return this.http.delete(
+      `${this.rootURL}/seller/deleteworkerplan/${workerID}/${planID}?key=${this.key}`,
+      { responseType: 'text' }
+    );
+  }
+  getWorkerDataById(workerID: string) {
+    return this.http.get<DistAsic[]>(
+      `${this.rootURL}/seller/getworkerdata/${workerID}?key=${this.key}`
+    );
+  }
+  getWorkerPlansById(workerID: string) {
+    return this.http.get<{ workerPlans: WorkerPlan[] }>(
+      `${this.rootURL}/seller/getworkerplans/${workerID}?key=${this.key}`
+    );
+  }
+  getWorkerUsersById(workerID: string) {
+    return this.http.get<{ planContracts: MerchantUser[] }>(
+      `${this.rootURL}/seller/getplancontracts/${workerID}?key=${this.key}`
+    );
+  }
+  ////////////// User ///////////////////
+  getAllSellers() {
+    return this.http.get<{ sellers: Merchant[] }>(
+      `${this.rootURL}/seller/getsellers?key=${this.key}`
+    );
+  }
+  getSellerPlansById(sellerID: string) {
+    return this.http.get<{ sellerPlans: WorkerPlan[] }>(
+      `${this.rootURL}/seller/getsellerplans/${sellerID}?key=${this.key}  `
+    );
+  }
+  addPlanContractSeller(planID: string, currency: string) {
+    return this.http.post(
+      `${this.rootURL}/seller/addplancontarct?key=${this.key}`,
+      {
+        planID,
+        currency,
+      },
+      { responseType: 'text' }
+    );
+  }
+  ///////////////// change password //////////////////
+  updatePassword(password: string, newPassword: string) {
+    return this.http.put(
+      `${this.rootURL}/user/updatePassword?key=${this.key}`,
+      {
+        password,
+        newPassword,
+      },
+      { responseType: 'text' }
     );
   }
 }
