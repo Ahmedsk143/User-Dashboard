@@ -226,4 +226,91 @@
       <br />
     </ng-container>
   </p-accordion>
+  <!------------------------ Choose currency  ---------------->
+  <div
+    class="confirmation--overlay"
+    *ngIf="buyFormOpend"
+    (click)="buyFormOpend = false"
+  ></div>
+  <div
+    class="confirmation"
+    *ngIf="buyFormOpend"
+    style="background: #2a2736; z-index: 999"
+  >
+    <div class="confirmation__heading">
+      <div class="row">
+        <div class="col-10">
+          <h3 class="plan-form__title">Choose the currency balance</h3>
+        </div>
+        <div class="col-2">
+          <div class="plan-form__close" (click)="buyFormOpend = false">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form
+      class="confirmation__body"
+      (ngSubmit)="onSubmit()"
+      [formGroup]="buyForm"
+    >
+      <div class="radio-container">
+        <ul>
+          <li>
+            <input
+              type="radio"
+              id="btc"
+              name="currency"
+              value="btc"
+              formControlName="currency"
+            />
+            <label for="btc">BTC</label>
+
+            <div class="check"></div>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="eth"
+              name="currency"
+              value="eth"
+              formControlName="currency"
+            />
+            <label for="eth">ETH</label>
+
+            <div class="check"><div class="inside"></div></div>
+          </li>
+
+          <li>
+            <input
+              type="radio"
+              id="ltct"
+              name="currency"
+              value="ltct"
+              formControlName="currency"
+            />
+            <label for="ltct">LTCT</label>
+
+            <div class="check"><div class="inside"></div></div>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="rvn"
+              name="currency"
+              value="rvn"
+              formControlName="currency"
+            />
+            <label for="rvn"> RVN</label>
+
+            <div class="check"><div class="inside"></div></div>
+          </li>
+        </ul>
+      </div>
+
+      <button type="submit" class="login-box__btn btn btn--light btn--animated">
+        Buy Plan
+      </button>
+    </form>
+  </div>
 </div>

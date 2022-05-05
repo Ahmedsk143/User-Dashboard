@@ -20,6 +20,8 @@
         <i class="fas fa-clipboard-list"></i>
         <a>Hashrate plans</a>
         <a routerLink="choose-plan" style="visibility: hidden"></a>
+        <a routerLink="choose-provider" style="visibility: hidden"></a>
+        <a routerLink="choose-plan-sellers" style="visibility: hidden"></a>
       </li>
 
       <!---------Mining devices --------->
@@ -31,16 +33,18 @@
         <i class="fas fa-server"></i> <a>Mining devices</a>
         <i class="fas fa-angle-down arrow" *ngIf="!collapsed2"></i>
         <i class="fas fa-angle-up arrow" *ngIf="collapsed2"></i>
+        <a routerLink="mining-devices" style="visibility: hidden"></a>
         <a routerLink="choose-miner" style="visibility: hidden"></a>
         <a routerLink="merchant-distribution" style="visibility: hidden"></a>
       </li>
       <li
-        routerLink="choose-miner"
+        routerLink="/dashboard/mining-devices"
         routerLinkActive="side-nav__content__item--collapsed--highlight"
         class="side-nav__content__item side-nav__content__item--collapsed"
         *ngIf="collapsed2"
       >
         <a>Miners</a>
+        <a routerLink="choose-miner" style="visibility: hidden"></a>
       </li>
       <li
         routerLink="merchant-distribution"

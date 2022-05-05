@@ -11,7 +11,6 @@ import { DashHeaderComponent } from './dash-header/dash-header.component';
 import { MiningDetailsComponent } from './overview/mining-details/mining-details.component';
 import { ChoosePlanComponent } from './choose-plan/choose-plan.component';
 import { ChooseMinerComponent } from './mining-devices/choose-miner/choose-miner.component';
-import { DiagloComponent } from './diaglo/diaglo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartModule } from 'primeng/chart';
@@ -46,7 +45,6 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     MiningDetailsComponent,
     ChoosePlanComponent,
     ChooseMinerComponent,
-    DiagloComponent,
     WithdrawComponent,
     DepositeComponent,
     MerchantDistComponent,

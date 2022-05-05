@@ -18,7 +18,7 @@ export class NotificationComponent implements OnInit {
       this.error = res.error;
       setTimeout(() => {
         this.shared.sentMessage.next({ message: '', error: false });
-      }, 5000);
+      }, 30000);
     });
   }
   closeNotif() {

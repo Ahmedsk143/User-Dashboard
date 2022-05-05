@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SharedService } from 'src/app/shared/shared.service';
 import { Merchant } from '../models/merchant.model';
 import { WorkerPlan } from '../models/worker-plan.model';
@@ -12,12 +13,18 @@ import { DashboardService } from '../user-dashboard.service';
 export class ChoosePlanSellerComponent implements OnInit {
   sellers: Merchant[];
   selectedSeller: Merchant;
+  selectedPlan: WorkerPlan;
+  buyForm: FormGroup;
+  buyFormOpend = false;
   constructor(
     private dashboardService: DashboardService,
     private sharedService: SharedService
   ) {}
 
   ngOnInit(): void {
+    this.buyForm = new FormGroup({
+      currency: new FormControl(null, Validators.required),
+    });
     this.dashboardService.getAllSellers().subscribe({
       next: (res) => {
         this.sellers = res.sellers;
@@ -44,14 +51,29 @@ export class ChoosePlanSellerComponent implements OnInit {
       });
   }
   addPlanContract(plan: WorkerPlan) {
-    this.dashboardService.addPlanContractSeller(plan._id, 'eth').subscribe({
-      next: (res) => {
-        this.sharedService.sentMessage.next({
-          message: 'Successfuly bought',
-          error: false,
-        });
-      },
-    });
-    console.log(plan._id);
+    this.selectedPlan = plan;
+    this.buyFormOpend = true;
+  }
+  onSubmit() {
+    console.log(this.selectedPlan._id, this.buyForm.value.currency);
+    this.dashboardService
+      .addPlanContractSeller(this.selectedPlan._id, this.buyForm.value.currency)
+      .subscribe({
+        next: (res) => {
+          this.buyFormOpend = false;
+          this.sharedService.sentMessage.next({
+            message: 'Plan is successfuly bought',
+            error: false,
+          });
+        },
+        error: (err) => {
+          this.buyFormOpend = false;
+          console.log(err.error);
+          this.sharedService.sentMessage.next({
+            message: 'An error has occured, try again!',
+            error: true,
+          });
+        },
+      });
   }
 }
