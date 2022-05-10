@@ -102,7 +102,7 @@ export class WithdrawComponent implements OnInit {
       // }),
     });
     /////////////////////////////////
-    this.dashboardd.userData().subscribe({
+    this.dashboardd.getUserData().subscribe({
       next: (res) => {
         // console.log(res);
         this.UserData = res;

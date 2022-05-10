@@ -1,25 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PlanContract } from '../models/plan-contract.model';
 import { DashboardService } from '../user-dashboard.service';
-
-export interface Plan {
-  date: string | any;
-  name: string;
-  id: string | number;
-  total: number;
-  hashPower: number;
-  expire: string;
-}
-
-let expiredPlanData: Plan[] = [
-  {
-    date: '',
-    id: 0,
-    name: 'Loading...',
-    total: 0,
-    hashPower: 0,
-    expire: '',
-  },
-];
 
 @Component({
   selector: 'app-plans',
@@ -27,239 +8,45 @@ let expiredPlanData: Plan[] = [
   styleUrls: ['./plans.component.scss'],
 })
 export class PlansComponent implements OnInit {
-  /////////////////////////////////////////////// i added this to manupulate the graph Data
-  btcMiningDetails = new Array(12, 51, 62, 33, 21, 62, 45, 50, 30);
-  ethMiningDetails = new Array(10, 20, 20, 20, 50, 10, 40, 50, 30);
-  LTCTMiningDetails = new Array(15, 20, 24, 30, 40, 62, 45, 50, 30);
-  rvnMiningDetails = new Array(80, 70, 50, 30, 80, 50, 30, 50, 30);
-  ////////////////////////////////////////////// i added this to make the color &Data of graph as constant
-  graphColor: string = 'rgba(255, 73, 128, 1)';
-  graphBackground: string = 'rgba(255, 73, 128, 0.2)';
-  graphData = new Array(
-    'Mar 1',
-    'Mar 2',
-    'Mar 3',
-    'Mar 4',
-    'Mar 5',
-    'Mar 6',
-    'Mar 7',
-    'Mar 8',
-    'Mar 9'
-  );
-  graphTension = 0.4;
-  ////////////////////////////////////////////// i added this to make the color of BasicOptioBackground as constant
-  basicOptionBackground: string = 'rgba(29, 26, 39, 0.6)';
-  //////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////
-  activePlanData2: any = new Array();
-  element: object;
-  //private i: number = 0;
-  ///////////////////////////////////////////////////////////////////
-  activePlanData = [
-    {
-      date: '',
-      id: 0,
-      name: 'Loading...',
-      total: 0,
-      hashPower: 0,
-      expire: '',
-    },
-  ];
-  expiredPlanData = expiredPlanData;
-  _activePlans: any = sessionStorage.getItem('activePlans');
-  /////////////////
-  plans: any;
-
-  BTCPlansMiningSpeed: number = 0;
-  ETHPlansMiningSpeed: number = 0;
-  LTCTPlansMiningSpeed: number = 0;
-  RVNPlansMiningSpeed: number = 0;
-  /////////////////////////////////////////////////////////////////
+  selectedTap = 'tap1';
+  activePlans: PlanContract[] = [];
+  expiredPlans: PlanContract[] = [];
+  activePlansLength = 0;
+  expiredPlansLength = 0;
   minedChartTapOpend = 'tap1';
-  tap1Data: any;
-  tap2Data: any;
-  tap3Data: any;
-  tap4Data: any;
   basicOptions: any;
-  displayedColumns = [
-    { name: 'date', field: 'date' },
-    { name: 'id', field: 'id' },
-    { name: 'total', field: 'total' },
-    { name: 'hashPower', field: 'hashPower' },
-    { name: 'expire', field: 'expire' },
-  ];
-  activeHash: { crypto: string; plans: string; speed: string }[] = [
-    {
-      crypto: 'BTC',
-      plans: this._activePlans,
-      speed: String(
-        this.BTCPlansMiningSpeed.toFixed(8)
-          ? this.BTCPlansMiningSpeed.toFixed(8)
-          : 0
-      ),
-    },
-    {
-      crypto: 'ETH',
-      plans: this._activePlans,
-      speed: String(
-        this.ETHPlansMiningSpeed.toFixed(8)
-          ? this.ETHPlansMiningSpeed.toFixed(8)
-          : 0
-      ),
-    },
-    {
-      crypto: 'RVN',
-      plans: this._activePlans,
-      speed: String(
-        this.RVNPlansMiningSpeed.toFixed(8)
-          ? this.RVNPlansMiningSpeed.toFixed(8)
-          : 0
-      ),
-    },
-    {
-      crypto: 'LTCT',
-      plans: this._activePlans,
-      speed: String(
-        this.LTCTPlansMiningSpeed.toFixed(8)
-          ? this.LTCTPlansMiningSpeed.toFixed(8)
-          : 0
-      ),
-    },
-  ];
 
-  constructor(private dashboard: DashboardService) {
-    /////////////////////////////
-    ///////////////////////////
-  }
+  constructor(private dashboard: DashboardService) {}
   ngOnInit(): void {
-    ///////////////////////////////////get the active plans from user-dashboard-services
-    this.dashboard.getPlans().subscribe((res) => {
-      this.activePlanData2.push(res);
-      // console.log(this.activePlanData2);
-      this.activePlanData = [];
-      this.expiredPlanData = [];
-      for (let i = 0; i < this.activePlanData2[0].length; i++) {
-        //////////////////////////////////////////////////////chech if the plan active or not active
-        if (this.activePlanData2[0][i].planStatus) {
-          this.activePlanData.push({
-            date: this.activePlanData2[0][i].startDate,
-            name: this.activePlanData2[0][i]._id, //// i used name instead of id
-            id: this.activePlanData2[0][i]._id,
-            total: this.activePlanData2[0][i].totalMined.toFixed(8),
-            hashPower: this.activePlanData2[0][i].hashPower,
-            expire: this.activePlanData2[0][i].endDate,
-          });
-          ///////////////////here calculating the total mined of each currency and mining speed for each currency
-          if (this.activePlanData2[0][i].cryptoName == 'BTC') {
-            this.BTCPlansMiningSpeed += this.activePlanData2[0][i].hashPower;
-            //this.reload();
-          } else if (this.activePlanData2[0][i].cryptoName == 'ETH') {
-            this.ETHPlansMiningSpeed += Number(
-              this.activePlanData2[0][i].hashPower
-            );
-            //this.reload();
-          } else if (this.activePlanData2[0][i].cryptoName == 'RVN') {
-            this.RVNPlansMiningSpeed += Number(
-              this.activePlanData2[0][i].hashPower
-            );
-            //this.reload();
-          } else if (this.activePlanData2[0][i].cryptoName == 'LTCT') {
-            this.LTCTPlansMiningSpeed += Number(
-              this.activePlanData2[0][i].hashPower
-            );
-            //this.reload();
-          }
-          console.log(this.activePlanData2[0][i].hashPower);
+    this.dashboard.getPlansContract().subscribe((res) => {
+      res.map((e) => {
+        let plan = e;
+        plan.xAxis = [];
+        plan.yAxis = [];
+        e.hourlyGains?.map((e) => {
+          plan.xAxis?.push(
+            new Date(e.date).getUTCHours() +
+              ':' +
+              new Date(e.date).getUTCMinutes()
+          );
+          plan.yAxis?.push(e.profit);
+        });
+        if (plan.planStatus) {
+          this.activePlans.push(plan);
         } else {
-          ///////////////////////////////here the insertion inside the expiredPlanData array
-          this.expiredPlanData.push({
-            date: this.activePlanData2[0][i].startDate,
-            name: this.activePlanData2[0][i]._id, //// i used name instead of id
-            id: this.activePlanData2[0][i]._id,
-            total: this.activePlanData2[0][i].totalMined.toFixed(8),
-            hashPower: this.activePlanData2[0][i].hashPower,
-            expire: this.activePlanData2[0][i].endDate,
-          });
-          //this.reload();
+          this.expiredPlans.push(plan);
         }
-      }
+      });
+      this.activePlansLength = this.activePlans.length;
+      this.expiredPlansLength = this.expiredPlans.length;
+      console.log(this.expiredPlans);
     });
-    ////////////////////////////////////////////////
-
-    ////////////////////////////////////////////////////////////////////////
-    ///////////////////here calculating the total mined of each currency and mining speed for each currency
-
-    // for (let i = 0; i < this.activePlanData.length; i++) {
-    //   if (this.plans[i].cryptoName == 'BTC') {
-    //     this.BTCPlansMiningSpeed =
-    //       this.BTCPlansMiningSpeed + this.plans[i].hashPower;
-    //   } else if (this.plans[i].cryptoName == 'ETH') {
-    //     this.ETHPlansMiningSpeed += Number(this.plans[i].hashPower);
-    //   } else if (this.plans[i].cryptoName == 'RVN') {
-    //     this.RVNPlansMiningSpeed += Number(this.plans[i].hashPower);
-    //   } else if (this.plans[i].cryptoName == 'LTCT') {
-    //     this.LTCTPlansMiningSpeed += Number(this.plans[i].hashPower);
-    //   }
-    // }
-    ////////////////////////////////////////dummy data for active plans
-
-    this.tap1Data = {
-      labels: this.graphData,
-      datasets: [
-        {
-          label: '',
-          data: this.btcMiningDetails,
-          fill: true,
-          borderColor: this.graphColor,
-          tension: this.graphTension,
-          backgroundColor: this.graphBackground,
-        },
-      ],
-    };
-    this.tap2Data = {
-      labels: this.graphData,
-      datasets: [
-        {
-          label: '',
-          data: this.ethMiningDetails,
-          fill: true,
-          borderColor: String(this.graphColor),
-          tension: this.graphTension,
-          backgroundColor: this.graphBackground,
-        },
-      ],
-    };
-    this.tap3Data = {
-      labels: this.graphData,
-      datasets: [
-        {
-          label: '',
-          data: this.rvnMiningDetails,
-          fill: true,
-          borderColor: this.graphColor,
-          tension: this.graphTension,
-          backgroundColor: this.graphBackground,
-        },
-      ],
-    };
-    this.tap4Data = {
-      labels: this.graphData,
-      datasets: [
-        {
-          label: '',
-          data: this.LTCTMiningDetails,
-          fill: true,
-          borderColor: this.graphColor,
-          tension: this.graphTension,
-          backgroundColor: this.graphBackground,
-        },
-      ],
-    };
     this.basicOptions = {
       plugins: {
         tooltip: {
-          backgroundColor: this.basicOptionBackground,
+          backgroundColor: 'rgba(29, 26, 39, 0.6)',
         },
+
         legend: {
           display: false,
           labels: {
@@ -287,21 +74,8 @@ export class PlansComponent implements OnInit {
         },
       },
     };
-    //this.reload();
-  }
-  /////////////////////////////////////this is to reload compoment
-  // i added <ng-container *ngIf="_reload">
-  //     components here
-  // </ng-container>
-  //////////////in the html file and the blew function here
-  public _reload = true;
-
-  private reload() {
-    setTimeout(() => (this._reload = false), 100);
-    setTimeout(() => (this._reload = true), 100);
   }
 
-  //////////////////////////////////////////////////////////
   minedChartTap1() {
     this.minedChartTapOpend = 'tap1';
   }
@@ -314,7 +88,4 @@ export class PlansComponent implements OnInit {
   minedChartTap4() {
     this.minedChartTapOpend = 'tap4';
   }
-}
-function newObj(newObj: any) {
-  throw new Error('Function not implemented.');
 }

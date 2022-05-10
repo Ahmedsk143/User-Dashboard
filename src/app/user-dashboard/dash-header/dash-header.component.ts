@@ -24,10 +24,10 @@ export class DashHeaderComponent implements OnInit {
     private sharedService: SharedService
   ) {}
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit() {
     this.sharedService.isLoading.next(true);
     // this.UserData = this.authService.UserData();
-    await this.dashboard.userData().subscribe({
+    this.dashboard.getUserData().subscribe({
       next: (res) => {
         // console.log(res);
         this.UserData = res;

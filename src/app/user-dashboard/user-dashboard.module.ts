@@ -8,7 +8,6 @@ import { PlansComponent } from './plans/plans.component';
 import { UserDashboardComponent } from './user-dashboard.component';
 import { MiningDevicesComponent } from './mining-devices/mining-devices.component';
 import { DashHeaderComponent } from './dash-header/dash-header.component';
-import { MiningDetailsComponent } from './overview/mining-details/mining-details.component';
 import { ChoosePlanComponent } from './choose-plan/choose-plan.component';
 import { ChooseMinerComponent } from './mining-devices/choose-miner/choose-miner.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -42,7 +41,6 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     UserDashboardComponent,
     MiningDevicesComponent,
     DashHeaderComponent,
-    MiningDetailsComponent,
     ChoosePlanComponent,
     ChooseMinerComponent,
     WithdrawComponent,

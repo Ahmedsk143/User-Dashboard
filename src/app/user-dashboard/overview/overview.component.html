@@ -1,71 +1,20 @@
 <div class="dashboard-container">
   <div class="overview-header">
-    <h2>Welcome back, {{ UserData.userName }}</h2>
+    <h2>Welcome back, {{ UserData?.userName }}</h2>
     <p>Here’s your progress</p>
   </div>
   <div class="balance-overview">
     <h4 class="balance-overview__title">Balance Overview</h4>
-    <div class="row justify-content-center g-4 balance-overview__boxes">
-      <div class="col-7 col-md-6 col-xl-3" *ngFor="let balance of balances">
-        <div class="balance-overview__boxes__box">
+    <div class="row justify-content-center g-4">
+      <!-- BTC Box -->
+      <div class="col-7 col-md-6 col-xl-3">
+        <div class="balance-box">
           <div class="row">
             <div class="col-12 col-md-3">
-              <!-- the icons in balance overview -->
               <img
-                *ngIf="balance.currency == 'BTC'"
                 src="../../../assets/BTC-Crypto.svg"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 45px;
-                  padding: 4%;
-                  margin-right: 7px;
-                  height: 43px;
-                "
-              />
-              <img
-                *ngIf="balance.currency == 'ETH'"
-                src="../../../assets/ETH-Crypto.svg"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 45px;
-                  padding: 4%;
-                  margin-right: 7px;
-                  height: 43px;
-                "
-              />
-              <img
-                *ngIf="balance.currency == 'RVN'"
-                src="../../../assets/RVN-Crypto.svg"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 45px;
-                  padding: 4%;
-                  margin-right: 7px;
-                  height: 43px;
-                "
-              />
-              <img
-                *ngIf="balance.currency == 'LTCT'"
-                src="../../../assets/LTCT-Crypto.png"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 45px;
-                  padding: 4%;
-                  margin-right: 7px;
-                  height: 43px;
-                "
+                alt="BTC"
+                class="icon icon--md"
               />
             </div>
             <div class="col-12 col-md-9">
@@ -76,11 +25,11 @@
                   color: rgba(183, 180, 199, 1);
                 "
               >
-                {{ balance.currency }} Balance
+                BTC Balance
               </span>
               <span style="font-weight: bold; color: #fff; display: block">
-                {{ balance.currencyBalance }}
-                {{ balance.currency }}
+                {{ UserData?.balance?.btc | number: "1.0-8" }}
+                BTC
               </span>
             </div>
           </div>
@@ -94,19 +43,185 @@
               display: block;
               margin-bottom: 0.8rem;
             "
-            >$ {{ balance.price }}</span
+            >$ {{ btcPrice }}</span
           >
           <button
             class="btn btn--dark btn--animated w-100"
-            *ngIf="balance.currencyBalance > 0"
-            (click)="goToWithdraw()"
+            routerLink="/dashboard/withdraw"
+            *ngIf="UserData?.balance?.btc! > 0"
           >
             Withdraw
           </button>
           <button
             class="btn btn--light btn--animated w-100 mt-2"
-            *ngIf="!(balance.currencyBalance > 0)"
-            (click)="goToPlans()"
+            routerLink="/dashboard/choose-provider"
+            *ngIf="!(UserData?.balance?.btc! > 0)"
+          >
+            Buy Mining plan
+          </button>
+        </div>
+        <!-- ETH Box  -->
+      </div>
+      <!-- ETH Box  -->
+      <div class="col-7 col-md-6 col-xl-3">
+        <div class="balance-box">
+          <div class="row">
+            <div class="col-12 col-md-3">
+              <img
+                src="../../../assets/ETH-Crypto.svg"
+                alt="ETH"
+                class="icon icon--md icon--bk"
+              />
+            </div>
+            <div class="col-12 col-md-9">
+              <span
+                style="
+                  font-weight: bold;
+                  margin-bottom: 1px;
+                  color: rgba(183, 180, 199, 1);
+                "
+              >
+                ETH Balance
+              </span>
+              <span style="font-weight: bold; color: #fff; display: block">
+                {{ UserData?.balance?.eth | number: ".0-8" }}
+                ETH
+              </span>
+            </div>
+          </div>
+          <span style="color: rgba(183, 180, 199, 1); display: block"
+            >Current Price</span
+          >
+          <span
+            style="
+              font-weight: bold;
+              color: #fff;
+              display: block;
+              margin-bottom: 0.8rem;
+            "
+            >$ {{ ethPrice }}</span
+          >
+          <button
+            class="btn btn--dark btn--animated w-100"
+            routerLink="/dashboard/withdraw"
+            *ngIf="UserData?.balance?.eth! > 0"
+          >
+            Withdraw
+          </button>
+          <button
+            class="btn btn--light btn--animated w-100 mt-2"
+            routerLink="/dashboard/choose-provider"
+            *ngIf="!(UserData?.balance?.eth! > 0)"
+          >
+            Buy Mining plan
+          </button>
+        </div>
+      </div>
+      <!--RVN Box  -->
+      <div class="col-7 col-md-6 col-xl-3">
+        <div class="balance-box">
+          <div class="row">
+            <div class="col-12 col-md-3">
+              <img
+                src="../../../assets/RVN-Crypto.svg"
+                alt="RVN"
+                class="icon icon--md icon--bk"
+              />
+            </div>
+            <div class="col-12 col-md-9">
+              <span
+                style="
+                  font-weight: bold;
+                  margin-bottom: 1px;
+                  color: rgba(183, 180, 199, 1);
+                "
+              >
+                RVN Balance
+              </span>
+              <span style="font-weight: bold; color: #fff; display: block">
+                {{ UserData?.balance?.rvn | number: ".0-8" }}
+                RVN
+              </span>
+            </div>
+          </div>
+          <span style="color: rgba(183, 180, 199, 1); display: block"
+            >Current Price</span
+          >
+          <span
+            style="
+              font-weight: bold;
+              color: #fff;
+              display: block;
+              margin-bottom: 0.8rem;
+            "
+            >$ {{ rvnPrice }}</span
+          >
+          <button
+            class="btn btn--dark btn--animated w-100"
+            routerLink="/dashboard/withdraw"
+            *ngIf="UserData?.balance?.rvn! > 0"
+          >
+            Withdraw
+          </button>
+          <button
+            class="btn btn--light btn--animated w-100 mt-2"
+            routerLink="/dashboard/choose-provider"
+            *ngIf="!(UserData?.balance?.rvn! > 0)"
+          >
+            Buy Mining plan
+          </button>
+        </div>
+      </div>
+      <!-- LTCT Box  -->
+      <div class="col-7 col-md-6 col-xl-3">
+        <div class="balance-box">
+          <div class="row">
+            <div class="col-12 col-md-3">
+              <img
+                src="../../../assets/LTCT-Crypto.png"
+                alt="LTCT"
+                class="icon icon--md"
+              />
+            </div>
+            <div class="col-12 col-md-9">
+              <span
+                style="
+                  font-weight: bold;
+                  margin-bottom: 1px;
+                  color: rgba(183, 180, 199, 1);
+                "
+              >
+                LTCT Balance
+              </span>
+              <span style="font-weight: bold; color: #fff; display: block">
+                {{ UserData?.balance?.ltct! | number: ".0-8" }}
+                LTCT
+              </span>
+            </div>
+          </div>
+          <span style="color: rgba(183, 180, 199, 1); display: block"
+            >Current Price</span
+          >
+          <span
+            style="
+              font-weight: bold;
+              color: #fff;
+              display: block;
+              margin-bottom: 0.8rem;
+            "
+            >$ {{ ltctPrice }}</span
+          >
+          <button
+            class="btn btn--dark btn--animated w-100"
+            routerLink="/dashboard/withdraw"
+            *ngIf="UserData?.balance?.ltct! > 0"
+          >
+            Withdraw
+          </button>
+          <button
+            class="btn btn--light btn--animated w-100 mt-2"
+            routerLink="/dashboard/choose-provider"
+            *ngIf="!(UserData?.balance?.ltct! > 0)"
           >
             Buy Mining plan
           </button>
@@ -116,7 +231,7 @@
   </div>
   <div class="row g-4">
     <div class="mining-deatils col-12 col-lg-8">
-      <div class="mining-deatils__mined mb-5">
+      <div class="mining-deatils__mined">
         <div class="custom-taps">
           <div class="custom-taps__heading tex-center row align-items-center">
             <h4
@@ -137,16 +252,8 @@
               >
                 <img
                   src="../../../assets/BTC-Crypto.svg"
-                  alt=""
-                  style="
-                    vertical-align: middle;
-                    background: white;
-                    border-radius: 50%;
-                    width: 27px;
-                    padding: 2%;
-                    margin-right: 7px;
-                    height: 26px;
-                  "
+                  alt="BTC"
+                  class="icon icon--xs"
                 />
                 BTC
               </div>
@@ -160,16 +267,8 @@
               >
                 <img
                   src="../../../assets/ETH-Crypto.svg"
-                  alt=""
-                  style="
-                    vertical-align: middle;
-                    background: white;
-                    border-radius: 50%;
-                    width: 27px;
-                    padding: 2%;
-                    margin-right: 7px;
-                    height: 26px;
-                  "
+                  alt="ETH"
+                  class="icon icon--xs icon--bk"
                 />
                 ETH
               </div>
@@ -183,16 +282,8 @@
               >
                 <img
                   src="../../../assets/RVN-Crypto.svg"
-                  alt=""
-                  style="
-                    vertical-align: middle;
-                    background: white;
-                    border-radius: 50%;
-                    width: 27px;
-                    padding: 2%;
-                    margin-right: 7px;
-                    height: 26px;
-                  "
+                  alt="RVN"
+                  class="icon icon--xs icon--bk"
                 />
                 RVN
               </div>
@@ -206,22 +297,13 @@
               >
                 <img
                   src="../../../assets/LTCT-Crypto.png"
-                  alt=""
-                  style="
-                    vertical-align: middle;
-                    background: white;
-                    border-radius: 50%;
-                    width: 27px;
-                    padding: 2%;
-                    margin-right: 7px;
-                    height: 26px;
-                  "
+                  alt="LTCT"
+                  class="icon icon--xs"
                 />
                 LTCT
               </div>
             </div>
           </div>
-
           <div class="custom-taps__body" *ngIf="minedTapOpend == 'tap1'">
             <div class="row gy-4 summery">
               <div class="summery__item col-12 col-lg-4">
@@ -230,7 +312,7 @@
                   <span>Mining speed </span>
                 </div>
                 <div class="summery__item__value">
-                  <span>{{ BTCPlansMiningSpeed }} GH/S</span>
+                  <span>{{ btcTotalSpeed | number: "1.0-2" }} GH/S</span>
                   <i class="fas fa-plus"></i>
                 </div>
               </div>
@@ -240,7 +322,7 @@
                   <span>Total Mined </span>
                 </div>
                 <div class="summery__item__value">
-                  <h4>{{ BTCPlansTotalMined }} BTC</h4>
+                  <h4>{{ btcTotalMined | number: "1.0-6" }} BTC</h4>
                 </div>
               </div>
               <div class="summery__item col-12 col-lg-4">
@@ -249,7 +331,7 @@
                   <span>Running plans </span>
                 </div>
                 <div class="summery__item__value">
-                  <h4>{{ _activePlans }} active plans</h4>
+                  <h4>{{ btcTotalActive }} active plans</h4>
                 </div>
               </div>
             </div>
@@ -258,35 +340,19 @@
                 <img
                   src="../../../assets/BTC-Crypto.svg"
                   alt=""
-                  style="
-                    vertical-align: middle;
-                    background: white;
-                    border-radius: 50%;
-                    width: 40px;
-                    padding: 1%;
-                    margin-right: 7px;
-                    height: 40px;
-                  "
+                  class="icon icon--md"
                 />
-                <span>{{ UserData.balance.btc.toFixed(8) }} BTC</span>
+                <span>{{ UserData?.balance?.btc! }} BTC</span>
               </div>
               <div class="balance__min">
-                <span>Min Withdraw: {{ balances[0].minWithdraw }} BTC</span>
+                <span>Min Withdraw: 0.0001 BTC</span>
               </div>
             </div>
             <button class="btn btn--animated btn--darker">
               <img
                 src="../../../assets/BTC-Crypto.svg"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 33px;
-                  padding: 1%;
-                  margin-right: 7px;
-                  height: 31px;
-                "
+                alt="BTC"
+                class="icon icon--sm"
               />
               <span> Withdraw BTC </span>
             </button>
@@ -299,7 +365,7 @@
                   <span>Mining speed </span>
                 </div>
                 <div class="summery__item__value">
-                  <span>{{ ETHPlansMiningSpeed }} GH/S</span>
+                  <span>{{ ethTotalSpeed | number: "1.0-2" }} GH/S</span>
                   <i class="fas fa-plus"></i>
                 </div>
               </div>
@@ -309,7 +375,7 @@
                   <span>Total Mined </span>
                 </div>
                 <div class="summery__item__value">
-                  <h4>{{ ETHPlansTotalMined }} ETH</h4>
+                  <h4>{{ ethTotalMined | number: "1.0-6" }} ETH</h4>
                 </div>
               </div>
               <div class="summery__item col-12 col-md-4">
@@ -318,7 +384,7 @@
                   <span>Running plans </span>
                 </div>
                 <div class="summery__item__value">
-                  <h4>{{ _activePlans }} active plans</h4>
+                  <h4>{{ ethTotalActive }} active plans</h4>
                 </div>
               </div>
             </div>
@@ -326,37 +392,20 @@
               <div class="balance__total">
                 <img
                   src="../../../assets/ETH-Crypto.svg"
-                  alt=""
-                  style="
-                    vertical-align: middle;
-                    background: white;
-                    border-radius: 50%;
-                    padding: 1%;
-                    width: 40px;
-                    margin-right: 7px;
-                    height: 40px;
-                  "
+                  alt="ETH"
+                  class="icon icon--md icon--bk"
                 />
-                <span>{{ UserData.balance.eth.toFixed(8) }} ETH</span>
+                <span>{{ UserData?.balance?.eth! | number: "1.0-8" }} ETH</span>
               </div>
               <div class="balance__min">
-                <span>Min Withdraw: {{ balances[1].minWithdraw }} ETH</span>
+                <span>Min Withdraw: 0.0001 ETH</span>
               </div>
             </div>
             <button class="btn btn--animated btn--darker">
               <img
                 src="../../../assets/ETH-Crypto.svg"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  padding: 1%;
-                  width: 33px;
-                  padding: 1%;
-                  margin-right: 7px;
-                  height: 31px;
-                "
+                alt="ETH"
+                class="icon icon--sm icon--bk"
               />
               <span> Withdraw ETH </span>
             </button>
@@ -369,7 +418,7 @@
                   <span>Mining speed </span>
                 </div>
                 <div class="summery__item__value">
-                  <span>{{ RVNPlansMiningSpeed }} GH/S</span>
+                  <span>{{ rvnTotalSpeed | number: "1.0-2" }} GH/S</span>
                   <i class="fas fa-plus"></i>
                 </div>
               </div>
@@ -379,7 +428,7 @@
                   <span>Total Mined </span>
                 </div>
                 <div class="summery__item__value">
-                  <h4>{{ RVNPlansTotalMined }} RVN</h4>
+                  <h4>{{ rvnTotalMined | number: "1.0-6" }} RVN</h4>
                 </div>
               </div>
               <div class="summery__item col-12 col-md-4">
@@ -388,45 +437,28 @@
                   <span>Running plans </span>
                 </div>
                 <div class="summery__item__value">
-                  <h4>{{ _activePlans }} active plans</h4>
+                  <h4>{{ rvnTotalActive }} active plans</h4>
                 </div>
               </div>
             </div>
             <div class="balance">
               <div class="balance__total">
-                <!-- <i class="fab fa-btc lg"></i> -->
                 <img
                   src="../../../assets/RVN-Crypto.svg"
-                  alt=""
-                  style="
-                    vertical-align: middle;
-                    background: white;
-                    border-radius: 50%;
-                    width: 40px;
-                    padding: 1%;
-                    margin-right: 7px;
-                    height: 40px;
-                  "
+                  alt="RVN"
+                  class="icon icon--md icon--bk"
                 />
-                <span>{{ UserData.balance.rvn.toFixed(8) }} RVN</span>
+                <span>{{ UserData?.balance?.rvn! | number: "1.0-8" }} RVN</span>
               </div>
               <div class="balance__min">
-                <span>Min Withdraw: {{ balances[2].minWithdraw }} RVN</span>
+                <span>Min Withdraw: 0.0001 RVN</span>
               </div>
             </div>
             <button class="btn btn--animated btn--darker">
               <img
                 src="../../../assets/RVN-Crypto.svg"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 33px;
-                  padding: 1%;
-                  margin-right: 7px;
-                  height: 31px;
-                "
+                alt="RVN"
+                class="icon icon--sm icon--bk"
               />
               <span> Withdraw RVN </span>
             </button>
@@ -439,7 +471,7 @@
                   <span>Mining speed </span>
                 </div>
                 <div class="summery__item__value">
-                  <span>{{ LTCTPlansMiningSpeed }} GH/S</span>
+                  <span>{{ ltctTotalSpeed | number: "1.0-2" }} GH/S</span>
                   <i class="fas fa-plus"></i>
                 </div>
               </div>
@@ -449,7 +481,7 @@
                   <span>Total Mined </span>
                 </div>
                 <div class="summery__item__value">
-                  <h4>{{ LTCTPlansTotalMined }} LTCT</h4>
+                  <h4>{{ ltctTotalMined | number: "1.0-6" }} LTCT</h4>
                 </div>
               </div>
               <div class="summery__item col-12 col-lg-4">
@@ -458,7 +490,7 @@
                   <span>Running plans </span>
                 </div>
                 <div class="summery__item__value">
-                  <h4>{{ _activePlans }} active plans</h4>
+                  <h4>{{ ltctTotalActive }} active plans</h4>
                 </div>
               </div>
             </div>
@@ -466,43 +498,30 @@
               <div class="balance__total">
                 <img
                   src="../../../assets/LTCT-Crypto.png"
-                  alt=""
-                  style="
-                    vertical-align: middle;
-                    background: white;
-                    border-radius: 50%;
-                    width: 40px;
-                    padding: 1%;
-                    margin-right: 7px;
-                    height: 40px;
-                  "
+                  alt="LTCT"
+                  class="icon icon--md"
                 />
-                <span>{{ UserData.balance.ltct.toFixed(8) }} LTCT</span>
+                <span
+                  >{{ UserData?.balance?.ltct! | number: "1.0-8" }} LTCT</span
+                >
               </div>
               <div class="balance__min">
-                <span>Min Withdraw: {{ balances[3].minWithdraw }} LTCT</span>
+                <span>Min Withdraw: 0.0001 LTCT</span>
               </div>
             </div>
             <button class="btn btn--animated btn--darker">
               <img
                 src="../../../assets/LTCT-Crypto.png"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 33px;
-                  padding: 1%;
-                  margin-right: 7px;
-                  height: 31px;
-                "
+                alt="LTCT"
+                class="icon icon--sm"
               />
               <span> Withdraw LTCT </span>
             </button>
           </div>
         </div>
       </div>
-      <div class="mining-details__chart">
+
+      <!-- <div class="mining-details__chart">
         <div class="custom-taps custom-taps--chart">
           <div class="custom-taps__heading tex-center row align-items-center">
             <h4
@@ -658,7 +677,7 @@
             ></p-chart>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="col-12 col-lg-4">
       <div class="banner">
@@ -669,7 +688,10 @@
           Boost Your Hashrate With Private Mining Devices
         </h4>
         <p class="banner__sub">Up to 10 TH/s</p>
-        <button class="btn btn--animated btn--dark">
+        <button
+          class="btn btn--animated btn--dark"
+          routerLink="/dashboard/choose-provider"
+        >
           <span>Learn more</span> <i class="fas fa-external-link-alt"></i>
         </button>
       </div>

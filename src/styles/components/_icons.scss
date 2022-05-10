@@ -2,8 +2,8 @@
 .icon {
   margin-right: 8px;
   &--xs {
-    height: 24px;
-    width: 24px;
+    height: 2.4rem;
+    width: 2.4rem;
   }
   &--sm {
     height: 3.2rem;
@@ -14,6 +14,14 @@
     width: 4rem;
   }
   &--lg {
+  }
+  &--bk {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding: 0.4rem;
   }
 }
 ////////////////

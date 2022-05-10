@@ -59,7 +59,7 @@ export class DepositeComponent implements OnInit {
     //this.sharedService.showQR.next(true);
 
     // this.UserData = this.authServics.UserData();
-    this.dashboardd.userData().subscribe({
+    this.dashboardd.getUserData().subscribe({
       next: (res) => {
         // console.log(res);
         this.UserData = res;

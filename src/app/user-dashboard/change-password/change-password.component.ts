@@ -23,8 +23,8 @@ export class ChangePasswordComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dashboardService.userData().subscribe({
-      next: (res) => {
+    this.dashboardService.getUserData().subscribe({
+      next: (res: any) => {
         this.userData = res;
       },
     });

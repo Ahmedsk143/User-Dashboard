@@ -2,18 +2,199 @@
   <h2 class="dash-heading__title">Hashrate plans</h2>
   <p class="dash-heading__para">Manage & subscribe hashrate power plans</p>
 </header>
+
 <div class="dashboard-container">
+  <button
+    class="btn btn--animated btn--light d-block ml-auto"
+    [routerLink]="['../choose-provider']"
+    style="margin-left: auto; padding: 1.8rem 2.4rem"
+  >
+    <i class="fas fa-plus mr-3"></i>
+    <span style="font-weight: 700; font-size: 1.6rem"> New Hashrate Plan</span>
+  </button>
+
+  <div class="horizontal-taps">
+    <div class="horizontal-taps__heading">
+      <span
+        class="horizontal-taps__heading__item"
+        (click)="selectedTap = 'tap1'"
+        [ngClass]="{
+          'horizontal-taps__heading__item--active': selectedTap == 'tap1'
+        }"
+        >Active Plans</span
+      >
+      <span
+        class="horizontal-taps__heading__item"
+        (click)="selectedTap = 'tap2'"
+        [ngClass]="{
+          'horizontal-taps__heading__item--active': selectedTap == 'tap2'
+        }"
+      >
+        Expired Plans</span
+      >
+    </div>
+    <!-- Active Plans  -->
+    <div class="horizontal-taps__body p-5" *ngIf="selectedTap == 'tap1'">
+      <div class="horizontal-taps__body__title" style="padding-left: 0">
+        Active Plans ({{ activePlansLength }})
+      </div>
+      <div
+        class="row mb-5 p-2 align-items-center plan--border"
+        *ngFor="let plan of activePlans"
+      >
+        <div class="col-12 col-lg-4">
+          <div class="plan">
+            <h4 class="plan__title">{{ plan.cryptoName }} Plan</h4>
+            <img
+              class="plan__img"
+              src="../../../../assets/rig2.svg"
+              alt="Miners image"
+            />
+            <div class="plan__box">
+              <h6 class="plan__box__sub">Start Date</h6>
+              <p class="plan__box__sub-value">
+                {{ plan.startDate | date: "medium" }}
+              </p>
+            </div>
+            <div class="plan__box">
+              <h6 class="plan__box__sub">End Date</h6>
+              <p class="plan__box__sub-value">
+                {{ plan.endDate | date: "medium" }}
+              </p>
+            </div>
+            <div class="plan__box">
+              <h6 class="plan__box__sub">Total Mined</h6>
+              <p class="plan__box__sub-value">
+                {{ plan.totalMined | number: "1.0-8" }}
+              </p>
+            </div>
+            <div class="plan__box">
+              <h6 class="plan__box__sub">Hash Power</h6>
+              <p class="plan__box__sub-value">
+                {{ plan.hashPower | number: "1.0-2" }} GH/S
+              </p>
+            </div>
+            <!-- <button
+              (click)="buying([plan.id])"
+              class="btn btn--animated btn--light plan__btn"
+              [disabled]="!plan.availability"
+            >
+              {{ plan.availability ? "Buy Plan" : "Plan is not available" }}
+            </button> -->
+          </div>
+        </div>
+        <div class="col-12 col-lg-8">
+          <h1 class="mb-5">Hourly gains</h1>
+          <p-chart
+            height="300px"
+            type="line"
+            [data]="{
+              labels: plan.xAxis,
+              datasets: [
+                {
+                  label: 'Gains',
+                  data: plan.yAxis,
+                  fill: true,
+                  borderColor: 'rgba(255, 73, 128, 1)',
+                  tension: 0.4,
+                  backgroundColor: 'rgba(255, 73, 128, 0.2)'
+                }
+              ]
+            }"
+            [options]="basicOptions"
+            [responsive]="true"
+          ></p-chart>
+        </div>
+      </div>
+    </div>
+    <!-- Expired Plans  -->
+    <div class="horizontal-taps__body p-5" *ngIf="selectedTap == 'tap2'">
+      <div class="horizontal-taps__body__title" style="padding-left: 0">
+        Expired Plans ({{ expiredPlansLength }})
+      </div>
+      <div
+        class="row mb-5 p-2 align-items-center plan--border"
+        *ngFor="let plan of expiredPlans"
+      >
+        <div class="col-12 col-lg-4">
+          <div class="plan">
+            <h4 class="plan__title">{{ plan.cryptoName }} Plan</h4>
+            <img
+              class="plan__img"
+              src="../../../../assets/rig2.svg"
+              alt="Miners image"
+            />
+            <div class="plan__box">
+              <h6 class="plan__box__sub">Start Date</h6>
+              <p class="plan__box__sub-value">
+                {{ plan.startDate | date: "medium" }}
+              </p>
+            </div>
+            <div class="plan__box">
+              <h6 class="plan__box__sub">End Date</h6>
+              <p class="plan__box__sub-value">
+                {{ plan.endDate | date: "medium" }}
+              </p>
+            </div>
+            <div class="plan__box">
+              <h6 class="plan__box__sub">Total Mined</h6>
+              <p class="plan__box__sub-value">
+                {{ plan.totalMined | number: "1.0-8" }}
+              </p>
+            </div>
+            <div class="plan__box">
+              <h6 class="plan__box__sub">Hash Power</h6>
+              <p class="plan__box__sub-value">
+                {{ plan.hashPower | number: "1.0-2" }} GH/S
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-8">
+          <h1 class="mb-5">Hourly gains</h1>
+          <p-chart
+            height="300px"
+            type="line"
+            [data]="{
+              labels: plan.xAxis,
+              datasets: [
+                {
+                  label: 'Gains',
+                  data: [
+                    1.000015146595136785431, 0.00001514670951367854322,
+                    0.0000151467095136785433, 0.0000151467095136785434,
+                    0.0000151467095136785439, 0.000015146709513678543,
+                    0.0000151467095136785443, 0.000015146709513678543,
+                    0.00001514670951367854399, 0.000015146709513678543,
+                    0.0000151467095136785432, 0.0000151467095136785431,
+                    0.00001514670951367854323, 0.0000151467095136785439,
+                    0.000015146709513678543, 0.0000151467095136785435,
+                    0.00001514670951367854, 0.00001514670951367854313,
+                    0.000015146709513678543
+                  ],
+                  fill: true,
+                  borderColor: 'rgba(255, 73, 128, 1)',
+                  tension: 0.4,
+                  backgroundColor: 'rgba(255, 73, 128, 0.2)'
+                }
+              ]
+            }"
+            [options]="basicOptions"
+            [responsive]="true"
+            id="chartJSContainer"
+          ></p-chart>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row g-4">
-    <div class="col-12 col-lg-4">
+    <!-- <div class="col-12 col-lg-4">
       <div class="hashrate-active">
         <h3 class="hashrate-active__title">Active Hashrate Power</h3>
-
-        <div class="hashrate-active__item" *ngFor="let power of activeHash">
+        <div class="hashrate-active__item">
           <div class="hashrate-active__item__name">
             <div>
-              <!-- this is the hashrate power icons -->
               <img
-                *ngIf="power.crypto == 'ETH'"
                 src="../../../assets/ETH-Crypto.svg"
                 alt=""
                 style="
@@ -27,7 +208,6 @@
                 "
               />
               <img
-                *ngIf="power.crypto == 'BTC'"
                 src="../../../assets/BTC-Crypto.svg"
                 alt=""
                 style="
@@ -41,7 +221,6 @@
                 "
               />
               <img
-                *ngIf="power.crypto == 'RVN'"
                 src="../../../assets/RVN-Crypto.svg"
                 alt=""
                 style="
@@ -55,7 +234,6 @@
                 "
               />
               <img
-                *ngIf="power.crypto == 'LTCT'"
                 src="../../../assets/LTCT-Crypto.png"
                 alt=""
                 style="
@@ -71,22 +249,20 @@
             </div>
             <div style="display: flex; flex-direction: column">
               <ng-container *ngIf="_reload">
-                <span>{{ power.crypto }}</span>
+                <span></span>
                 <span></span>
               </ng-container>
             </div>
           </div>
           <div class="hashrate-active__item__value">
             <ng-container *ngIf="_reload"></ng-container>
-            <span
-              >{{ power.speed }} {{ power.crypto == "BTC" ? "GH/S" : "GH/S" }}
-            </span>
+            <span> </span>
             <ng-container *ngIf="_reload"></ng-container>
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-12 col-lg-8">
+    </div> -->
+    <!-- <div class="col-12 col-lg-8">
       <div class="hashrate-chart">
         <div class="custom-taps custom-taps--chart">
           <div class="custom-taps__heading tex-center row align-items-center">
@@ -243,19 +419,10 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 
-  <button
-    class="btn btn--animated btn--light d-block ml-auto"
-    [routerLink]="['../choose-provider']"
-    style="margin: 5.6rem 0 2.4rem auto; padding: 1.8rem 2.4rem"
-  >
-    <i class="fas fa-plus mr-3"></i>
-    <span style="font-weight: 700; font-size: 1.6rem"> New Hashrate Plan</span>
-  </button>
-  <!-- Active plans table -->
-  <div class="table">
+  <!-- <div class="table">
     <p-table
       [value]="activePlanData"
       responsiveLayout="stack"
@@ -306,7 +473,7 @@
           </th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-plan let-columns="displayedColumns">
+      <ng-template pTemplate="body" let-plan>
         <tr>
           <td>
             <span class="p-column-title">Date</span
@@ -328,7 +495,6 @@
     </p-table>
   </div>
 
-  <!-- Expired plans table  -->
   <div class="table">
     <p-table
       [value]="expiredPlanData"
@@ -399,5 +565,5 @@
         </tr>
       </ng-template>
     </p-table>
-  </div>
+  </div> -->
 </div>
