@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from 'src/app/shared/shared.service';
 import { PlanContract } from '../models/plan-contract.model';
 import { DashboardService } from '../user-dashboard.service';
 
@@ -16,8 +17,12 @@ export class PlansComponent implements OnInit {
   minedChartTapOpend = 'tap1';
   basicOptions: any;
 
-  constructor(private dashboard: DashboardService) {}
+  constructor(
+    private dashboard: DashboardService,
+    private sharedService: SharedService
+  ) {}
   ngOnInit(): void {
+    this.sharedService.isLoading.next(true);
     this.dashboard.getPlansContract().subscribe((res) => {
       res.map((e) => {
         let plan = e;
@@ -40,6 +45,7 @@ export class PlansComponent implements OnInit {
       this.activePlansLength = this.activePlans.length;
       this.expiredPlansLength = this.expiredPlans.length;
       console.log(this.expiredPlans);
+      this.sharedService.isLoading.next(false);
     });
     this.basicOptions = {
       plugins: {

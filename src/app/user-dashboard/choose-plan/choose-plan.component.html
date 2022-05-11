@@ -12,14 +12,14 @@
       <div class="contract__period__options">
         <button
           class="btn btn--disabled"
-          (click)="short = true"
+          (click)="onShortBTC(); short = true"
           [ngClass]="{ 'btn--darker--2': short }"
         >
           <span> Short Plans</span> <span class="offer"></span>
         </button>
         <button
           class="btn btn--disabled"
-          (click)="short = false"
+          (click)="onLongBTC(); short = false"
           [ngClass]="{ 'btn--darker--2': !short }"
         >
           <span>Long Plans</span> <span class="offer">30% off</span>
@@ -43,19 +43,7 @@
                   shortPlansOpend == 'tap1'
               }"
             >
-              <img
-                src="../../../assets/BTC-Crypto.svg"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 32px;
-                  padding: 2%;
-                  margin-right: 6px;
-                  height: 30px;
-                "
-              />
+              <img src="../../../assets/BTC-Crypto.svg" class="icon icon--xs" />
               BTC
             </div>
             <div
@@ -68,16 +56,7 @@
             >
               <img
                 src="../../../assets/ETH-Crypto.svg"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 32px;
-                  padding: 2%;
-                  margin-right: 6px;
-                  height: 30px;
-                "
+                class="icon icon--xs icon--bk"
               />
               ETH
             </div>
@@ -91,16 +70,7 @@
             >
               <img
                 src="../../../assets/RVN-Crypto.svg"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 32px;
-                  padding: 2%;
-                  margin-right: 6px;
-                  height: 30px;
-                "
+                class="icon icon--xs icon--bk"
               />
               RVN
             </div>
@@ -114,16 +84,7 @@
             >
               <img
                 src="../../../assets/LTCT-Crypto.png"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 32px;
-                  padding: 2%;
-                  margin-right: 6px;
-                  height: 30px;
-                "
+                class="icon icon--xs"
               />
               LTCT
             </div>
@@ -133,7 +94,7 @@
           <div class="row g-4">
             <div
               class="col-12 col-md-6 col-xl-3"
-              *ngFor="let plan of BTCPlansShort"
+              *ngFor="let plan of shortPlansBTC"
             >
               <div class="plan">
                 <h4 class="plan__title">{{ plan.planName }}</h4>
@@ -151,16 +112,38 @@
                   <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
                 </div>
                 <div class="plan__box">
-                  <h6 class="plan__box__sub">Power</h6>
+                  <h6 class="plan__box__sub">Plan Duration</h6>
                   <p class="plan__box__sub-value">
-                    {{ plan.hashrate.toFixed(8) }} GH/S
-                  </p>
-                </div>
-                <div class="plan__box">
-                  <h6 class="plan__box__sub">planDuration</h6>
-                  <p class="plan__box__sub-value">
-                    {{ plan.planDuration }}
-                    {{ plan.planDuration == "1" ? "Month" : "Months" }}
+                    <span
+                      *ngIf="
+                        plan.planDuration == 1 &&
+                        (plan.planType == 'long' || plan.planType == 'Long')
+                      "
+                    >
+                      1 Year</span
+                    >
+                    <span
+                      *ngIf="
+                        plan.planDuration == 1 &&
+                        (plan.planType == 'short' || plan.planType == 'Short')
+                      "
+                    >
+                      1 Month</span
+                    >
+                    <span
+                      *ngIf="
+                        !(plan.planDuration == 1) &&
+                        (plan.planType == 'short' || plan.planType == 'Short')
+                      "
+                      >{{ plan.planDuration }} months</span
+                    >
+                    <span
+                      *ngIf="
+                        !(plan.planDuration == 1) &&
+                        (plan.planType == 'long' || plan.planType == 'Long')
+                      "
+                      >{{ plan.planDuration }} years</span
+                    >
                   </p>
                 </div>
                 <div class="plan__box">
@@ -172,21 +155,28 @@
                   <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
                 </div>
                 <button
-                  (click)="buying([plan.id])"
+                  (click)="addPlanContract(plan)"
                   class="btn btn--animated btn--light plan__btn"
-                  [disabled]="!plan.availability"
+                  *ngIf="plan.availability"
                 >
-                  {{ plan.availability ? "Buy Plan" : "Plan is not available" }}
+                  Buy Device
+                </button>
+                <button
+                  class="btn btn--disabled plan__btn"
+                  style="cursor: not-allowed"
+                  *ngIf="!plan.availability"
+                >
+                  Not Available Now
                 </button>
               </div>
             </div>
           </div>
         </div>
         <div class="custom-taps__body" *ngIf="shortPlansOpend == 'tap2'">
-          <div class="row g-4 justify-content-center">
+          <div class="row g-4">
             <div
               class="col-7 col-md-6 col-xl-3"
-              *ngFor="let plan of ETHPlansShort"
+              *ngFor="let plan of shortPlansETH"
             >
               <div class="plan">
                 <h4 class="plan__title">{{ plan.planName }}</h4>
@@ -203,12 +193,7 @@
                   <h6 class="plan__box__sub">Mining algorithm</h6>
                   <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
                 </div>
-                <div class="plan__box">
-                  <h6 class="plan__box__sub">Power</h6>
-                  <p class="plan__box__sub-value">
-                    {{ plan.hashrate.toFixed(8) }} GH/S
-                  </p>
-                </div>
+
                 <div class="plan__box">
                   <h6 class="plan__box__sub">planDuration</h6>
                   <p class="plan__box__sub-value">
@@ -224,21 +209,28 @@
                   <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
                 </div>
                 <button
-                  (click)="buying([plan.id])"
+                  (click)="addPlanContract(plan)"
                   class="btn btn--animated btn--light plan__btn"
-                  [disabled]="!plan.availability"
+                  *ngIf="plan.availability"
                 >
-                  {{ plan.availability ? "Buy Plan" : "Plan is not available" }}
+                  Buy Device
+                </button>
+                <button
+                  class="btn btn--disabled plan__btn"
+                  style="cursor: not-allowed"
+                  *ngIf="!plan.availability"
+                >
+                  Not Available Now
                 </button>
               </div>
             </div>
           </div>
         </div>
         <div class="custom-taps__body" *ngIf="shortPlansOpend == 'tap3'">
-          <div class="row g-4 justify-content-center">
+          <div class="row g-4">
             <div
               class="col-7 col-md-6 col-xl-3"
-              *ngFor="let plan of RVNPlansShort"
+              *ngFor="let plan of shortPlansRVN"
             >
               <div class="plan">
                 <h4 class="plan__title">{{ plan.planName }}</h4>
@@ -255,12 +247,7 @@
                   <h6 class="plan__box__sub">Mining algorithm</h6>
                   <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
                 </div>
-                <div class="plan__box">
-                  <h6 class="plan__box__sub">Power</h6>
-                  <p class="plan__box__sub-value">
-                    {{ plan.hashrate.toFixed(8) }} GH/S
-                  </p>
-                </div>
+
                 <div class="plan__box">
                   <h6 class="plan__box__sub">planDuration</h6>
                   <p class="plan__box__sub-value">
@@ -276,21 +263,28 @@
                   <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
                 </div>
                 <button
-                  (click)="buying([plan.id])"
+                  (click)="addPlanContract(plan)"
                   class="btn btn--animated btn--light plan__btn"
-                  [disabled]="!plan.availability"
+                  *ngIf="plan.availability"
                 >
-                  {{ plan.availability ? "Buy Plan" : "Plan is not available" }}
+                  Buy Device
+                </button>
+                <button
+                  class="btn btn--disabled plan__btn"
+                  style="cursor: not-allowed"
+                  *ngIf="!plan.availability"
+                >
+                  Not Available Now
                 </button>
               </div>
             </div>
           </div>
         </div>
         <div class="custom-taps__body" *ngIf="shortPlansOpend == 'tap4'">
-          <div class="row g-4 justify-content-center">
+          <div class="row g-4">
             <div
               class="col-7 col-md-6 col-xl-3"
-              *ngFor="let plan of LTCTPlansShort"
+              *ngFor="let plan of shortPlansLTCT"
             >
               <div class="plan">
                 <h4 class="plan__title">{{ plan.planName }}</h4>
@@ -307,12 +301,7 @@
                   <h6 class="plan__box__sub">Mining algorithm</h6>
                   <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
                 </div>
-                <div class="plan__box">
-                  <h6 class="plan__box__sub">Power</h6>
-                  <p class="plan__box__sub-value">
-                    {{ plan.hashrate.toFixed(8) }} GH/S
-                  </p>
-                </div>
+
                 <div class="plan__box">
                   <h6 class="plan__box__sub">planDuration</h6>
                   <p class="plan__box__sub-value">
@@ -328,11 +317,18 @@
                   <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
                 </div>
                 <button
-                  (click)="buying([plan.id])"
+                  (click)="addPlanContract(plan)"
                   class="btn btn--animated btn--light plan__btn"
-                  [disabled]="!plan.availability"
+                  *ngIf="plan.availability"
                 >
-                  {{ plan.availability ? "Buy Plan" : "Plan is not available" }}
+                  Buy Device
+                </button>
+                <button
+                  class="btn btn--disabled plan__btn"
+                  style="cursor: not-allowed"
+                  *ngIf="!plan.availability"
+                >
+                  Not Available Now
                 </button>
               </div>
             </div>
@@ -355,19 +351,7 @@
                   longPlansOpend == 'tap1'
               }"
             >
-              <img
-                src="../../../assets/BTC-Crypto.svg"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 30px;
-                  padding: 4%;
-                  margin-right: 6px;
-                  height: 28px;
-                "
-              />
+              <img src="../../../assets/BTC-Crypto.svg" class="icon icon--xs" />
               BTC
             </div>
             <div
@@ -380,16 +364,7 @@
             >
               <img
                 src="../../../assets/ETH-Crypto.svg"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 30px;
-                  padding: 4%;
-                  margin-right: 6px;
-                  height: 28px;
-                "
+                class="icon icon--xs icon--bk"
               />
               ETH
             </div>
@@ -403,16 +378,7 @@
             >
               <img
                 src="../../../assets/RVN-Crypto.svg"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 30px;
-                  padding: 4%;
-                  margin-right: 6px;
-                  height: 28px;
-                "
+                class="icon icon--xs icon--bk"
               />RVN
             </div>
             <div
@@ -425,26 +391,17 @@
             >
               <img
                 src="../../../assets/LTCT-Crypto.png"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 30px;
-                  padding: 4%;
-                  margin-right: 6px;
-                  height: 28px;
-                "
+                class="icon icon--xs"
               />
               LTCT
             </div>
           </div>
         </div>
         <div class="custom-taps__body" *ngIf="longPlansOpend == 'tap1'">
-          <div class="row g-4 justify-content-center">
+          <div class="row g-4">
             <div
               class="col-7 col-md-6 col-xl-3"
-              *ngFor="let plan of BTCPlansLong"
+              *ngFor="let plan of longPlansBTC"
             >
               <div class="plan">
                 <h4 class="plan__title">{{ plan.planName }}</h4>
@@ -461,17 +418,40 @@
                   <h6 class="plan__box__sub">Mining algorithm</h6>
                   <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
                 </div>
+
                 <div class="plan__box">
-                  <h6 class="plan__box__sub">Power</h6>
+                  <h6 class="plan__box__sub">Plan Duration</h6>
                   <p class="plan__box__sub-value">
-                    {{ plan.hashrate.toFixed(8) }} GH/S
-                  </p>
-                </div>
-                <div class="plan__box">
-                  <h6 class="plan__box__sub">planDuration</h6>
-                  <p class="plan__box__sub-value">
-                    {{ plan.planDuration }}
-                    {{ plan.planDuration == "1" ? "Year" : "Years" }}
+                    <span
+                      *ngIf="
+                        plan.planDuration == 1 &&
+                        (plan.planType == 'long' || plan.planType == 'Long')
+                      "
+                    >
+                      1 Year</span
+                    >
+                    <span
+                      *ngIf="
+                        plan.planDuration == 1 &&
+                        (plan.planType == 'short' || plan.planType == 'Short')
+                      "
+                    >
+                      1 Month</span
+                    >
+                    <span
+                      *ngIf="
+                        !(plan.planDuration == 1) &&
+                        (plan.planType == 'short' || plan.planType == 'Short')
+                      "
+                      >{{ plan.planDuration }} months</span
+                    >
+                    <span
+                      *ngIf="
+                        !(plan.planDuration == 1) &&
+                        (plan.planType == 'long' || plan.planType == 'Long')
+                      "
+                      >{{ plan.planDuration }} years</span
+                    >
                   </p>
                 </div>
                 <div class="plan__box">
@@ -483,21 +463,28 @@
                   <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
                 </div>
                 <button
-                  (click)="buying([plan.id])"
+                  (click)="addPlanContract(plan)"
                   class="btn btn--animated btn--light plan__btn"
-                  [disabled]="!plan.availability"
+                  *ngIf="plan.availability"
                 >
-                  {{ plan.availability ? "Buy Plan" : "Plan is not available" }}
+                  Buy Device
+                </button>
+                <button
+                  class="btn btn--disabled plan__btn"
+                  style="cursor: not-allowed"
+                  *ngIf="!plan.availability"
+                >
+                  Not Available Now
                 </button>
               </div>
             </div>
           </div>
         </div>
         <div class="custom-taps__body" *ngIf="longPlansOpend == 'tap2'">
-          <div class="row g-4 justify-content-center">
+          <div class="row g-4">
             <div
               class="col-7 col-md-6 col-xl-3"
-              *ngFor="let plan of ETHPlansLong"
+              *ngFor="let plan of longPlansETH"
             >
               <div class="plan">
                 <h4 class="plan__title">{{ plan.planName }}</h4>
@@ -514,16 +501,40 @@
                   <h6 class="plan__box__sub">Mining algorithm</h6>
                   <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
                 </div>
+
                 <div class="plan__box">
-                  <h6 class="plan__box__sub">Power</h6>
+                  <h6 class="plan__box__sub">Plan Duration</h6>
                   <p class="plan__box__sub-value">
-                    {{ plan.hashrate.toFixed(8) }} GH/S
-                  </p>
-                </div>
-                <div class="plan__box">
-                  <h6 class="plan__box__sub">planDuration</h6>
-                  <p class="plan__box__sub-value">
-                    {{ plan.planDuration }} Years
+                    <span
+                      *ngIf="
+                        plan.planDuration == 1 &&
+                        (plan.planType == 'long' || plan.planType == 'Long')
+                      "
+                    >
+                      1 Year</span
+                    >
+                    <span
+                      *ngIf="
+                        plan.planDuration == 1 &&
+                        (plan.planType == 'short' || plan.planType == 'Short')
+                      "
+                    >
+                      1 Month</span
+                    >
+                    <span
+                      *ngIf="
+                        !(plan.planDuration == 1) &&
+                        (plan.planType == 'short' || plan.planType == 'Short')
+                      "
+                      >{{ plan.planDuration }} months</span
+                    >
+                    <span
+                      *ngIf="
+                        !(plan.planDuration == 1) &&
+                        (plan.planType == 'long' || plan.planType == 'Long')
+                      "
+                      >{{ plan.planDuration }} years</span
+                    >
                   </p>
                 </div>
                 <div class="plan__box">
@@ -535,21 +546,28 @@
                   <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
                 </div>
                 <button
-                  (click)="buying([plan.id])"
+                  (click)="addPlanContract(plan)"
                   class="btn btn--animated btn--light plan__btn"
-                  [disabled]="!plan.availability"
+                  *ngIf="plan.availability"
                 >
-                  {{ plan.availability ? "Buy Plan" : "Plan is not available" }}
+                  Buy Device
+                </button>
+                <button
+                  class="btn btn--disabled plan__btn"
+                  style="cursor: not-allowed"
+                  *ngIf="!plan.availability"
+                >
+                  Not Available Now
                 </button>
               </div>
             </div>
           </div>
         </div>
         <div class="custom-taps__body" *ngIf="longPlansOpend == 'tap3'">
-          <div class="row g-4 justify-content-center">
+          <div class="row g-4">
             <div
               class="col-7 col-md-6 col-xl-3"
-              *ngFor="let plan of RVNPlansLong"
+              *ngFor="let plan of longPlansRVN"
             >
               <div class="plan">
                 <h4 class="plan__title">{{ plan.planName }}</h4>
@@ -566,16 +584,40 @@
                   <h6 class="plan__box__sub">Mining algorithm</h6>
                   <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
                 </div>
+
                 <div class="plan__box">
-                  <h6 class="plan__box__sub">Power</h6>
+                  <h6 class="plan__box__sub">Plan Duration</h6>
                   <p class="plan__box__sub-value">
-                    {{ plan.hashrate.toFixed(8) }} GH/S
-                  </p>
-                </div>
-                <div class="plan__box">
-                  <h6 class="plan__box__sub">planDuration</h6>
-                  <p class="plan__box__sub-value">
-                    {{ plan.planDuration }} Years
+                    <span
+                      *ngIf="
+                        plan.planDuration == 1 &&
+                        (plan.planType == 'long' || plan.planType == 'Long')
+                      "
+                    >
+                      1 Year</span
+                    >
+                    <span
+                      *ngIf="
+                        plan.planDuration == 1 &&
+                        (plan.planType == 'short' || plan.planType == 'Short')
+                      "
+                    >
+                      1 Month</span
+                    >
+                    <span
+                      *ngIf="
+                        !(plan.planDuration == 1) &&
+                        (plan.planType == 'short' || plan.planType == 'Short')
+                      "
+                      >{{ plan.planDuration }} months</span
+                    >
+                    <span
+                      *ngIf="
+                        !(plan.planDuration == 1) &&
+                        (plan.planType == 'long' || plan.planType == 'Long')
+                      "
+                      >{{ plan.planDuration }} years</span
+                    >
                   </p>
                 </div>
                 <div class="plan__box">
@@ -587,21 +629,28 @@
                   <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
                 </div>
                 <button
-                  (click)="buying([plan.id])"
+                  (click)="addPlanContract(plan)"
                   class="btn btn--animated btn--light plan__btn"
-                  [disabled]="!plan.availability"
+                  *ngIf="plan.availability"
                 >
-                  {{ plan.availability ? "Buy Plan" : "Plan is not available" }}
+                  Buy Device
+                </button>
+                <button
+                  class="btn btn--disabled plan__btn"
+                  style="cursor: not-allowed"
+                  *ngIf="!plan.availability"
+                >
+                  Not Available Now
                 </button>
               </div>
             </div>
           </div>
         </div>
         <div class="custom-taps__body" *ngIf="longPlansOpend == 'tap4'">
-          <div class="row g-4 justify-content-center">
+          <div class="row g-4">
             <div
               class="col-7 col-md-6 col-xl-3"
-              *ngFor="let plan of LTCTPlansLong"
+              *ngFor="let plan of longPlansLTCT"
             >
               <div class="plan">
                 <h4 class="plan__title">{{ plan.planName }}</h4>
@@ -619,15 +668,38 @@
                   <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
                 </div>
                 <div class="plan__box">
-                  <h6 class="plan__box__sub">Power</h6>
+                  <h6 class="plan__box__sub">Plan Duration</h6>
                   <p class="plan__box__sub-value">
-                    {{ plan.hashrate.toFixed(8) }} GH/S
-                  </p>
-                </div>
-                <div class="plan__box">
-                  <h6 class="plan__box__sub">planDuration</h6>
-                  <p class="plan__box__sub-value">
-                    {{ plan.planDuration }} Years
+                    <span
+                      *ngIf="
+                        plan.planDuration == 1 &&
+                        (plan.planType == 'long' || plan.planType == 'Long')
+                      "
+                    >
+                      1 Year</span
+                    >
+                    <span
+                      *ngIf="
+                        plan.planDuration == 1 &&
+                        (plan.planType == 'short' || plan.planType == 'Short')
+                      "
+                    >
+                      1 Month</span
+                    >
+                    <span
+                      *ngIf="
+                        !(plan.planDuration == 1) &&
+                        (plan.planType == 'short' || plan.planType == 'Short')
+                      "
+                      >{{ plan.planDuration }} months</span
+                    >
+                    <span
+                      *ngIf="
+                        !(plan.planDuration == 1) &&
+                        (plan.planType == 'long' || plan.planType == 'Long')
+                      "
+                      >{{ plan.planDuration }} years</span
+                    >
                   </p>
                 </div>
                 <div class="plan__box">
@@ -638,12 +710,20 @@
                   <h6 class="plan__box__sub">Price</h6>
                   <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
                 </div>
+
                 <button
-                  (click)="buying([plan.id])"
+                  (click)="addPlanContract(plan)"
                   class="btn btn--animated btn--light plan__btn"
-                  [disabled]="!plan.availability"
+                  *ngIf="plan.availability"
                 >
-                  {{ plan.availability ? "Buy Plan" : "Plan is not available" }}
+                  Buy Device
+                </button>
+                <button
+                  class="btn btn--disabled plan__btn"
+                  style="cursor: not-allowed"
+                  *ngIf="!plan.availability"
+                >
+                  Not Available Now
                 </button>
               </div>
             </div>
@@ -651,5 +731,91 @@
         </div>
       </div>
     </div>
+  </div>
+  <div
+    class="confirmation--overlay"
+    *ngIf="buyFormOpend"
+    (click)="buyFormOpend = false"
+  ></div>
+  <div
+    class="confirmation"
+    *ngIf="buyFormOpend"
+    style="background: #2a2736; z-index: 999"
+  >
+    <div class="confirmation__heading">
+      <div class="row">
+        <div class="col-10">
+          <h3 class="plan-form__title">Choose the currency balance</h3>
+        </div>
+        <div class="col-2">
+          <div class="plan-form__close" (click)="buyFormOpend = false">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form
+      class="confirmation__body choose-currency"
+      (ngSubmit)="onSubmit()"
+      [formGroup]="buyForm"
+    >
+      <div class="radio-container">
+        <ul>
+          <li>
+            <input
+              type="radio"
+              id="btc"
+              name="currency"
+              value="btc"
+              formControlName="currency"
+            />
+            <label for="btc">BTC</label>
+
+            <div class="check"></div>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="eth"
+              name="currency"
+              value="eth"
+              formControlName="currency"
+            />
+            <label for="eth">ETH</label>
+
+            <div class="check"><div class="inside"></div></div>
+          </li>
+
+          <li>
+            <input
+              type="radio"
+              id="ltct"
+              name="currency"
+              value="ltct"
+              formControlName="currency"
+            />
+            <label for="ltct">LTCT</label>
+
+            <div class="check"><div class="inside"></div></div>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="rvn"
+              name="currency"
+              value="rvn"
+              formControlName="currency"
+            />
+            <label for="rvn"> RVN</label>
+
+            <div class="check"><div class="inside"></div></div>
+          </li>
+        </ul>
+      </div>
+
+      <button type="submit" class="login-box__btn btn btn--light btn--animated">
+        Buy Plan
+      </button>
+    </form>
   </div>
 </div>

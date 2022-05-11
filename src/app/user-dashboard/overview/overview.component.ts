@@ -157,22 +157,27 @@ export class OverviewComponent implements OnInit {
         this.plans.map((e) => {
           if (e.planStatus) {
             if (e.cryptoName == 'BTC') {
-              this.btcTotalMined += e.totalMined;
               this.btcTotalSpeed += e.hashPower;
               this.btcTotalActive++;
             } else if (e.cryptoName == 'ETH') {
-              this.ethTotalMined += e.totalMined;
               this.ethTotalSpeed += e.hashPower;
               this.ethTotalActive++;
             } else if (e.cryptoName == 'RVN') {
-              this.rvnTotalMined += e.totalMined;
               this.rvnTotalSpeed += e.hashPower;
               this.rvnTotalActive++;
             } else if (e.cryptoName == 'LTCT') {
-              this.ltctTotalMined += e.totalMined;
               this.ltctTotalSpeed += e.hashPower;
               this.ltctTotalActive++;
             }
+          }
+          if (e.cryptoName == 'BTC') {
+            this.btcTotalMined += e.totalMined;
+          } else if (e.cryptoName == 'ETH') {
+            this.ethTotalMined += e.totalMined;
+          } else if (e.cryptoName == 'RVN') {
+            this.rvnTotalMined += e.totalMined;
+          } else if (e.cryptoName == 'LTCT') {
+            this.ltctTotalMined += e.totalMined;
           }
         });
         // for (let i = 0; i < this.plans.length; i++) {

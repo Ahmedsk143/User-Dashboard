@@ -1,0 +1,150 @@
+<div class="dash-heading">
+  <h2 class="dash-heading__title">
+    <i class="fas fa-angle-left" [routerLink]="['../mining-devices']"></i>
+    Choose mining devices
+  </h2>
+</div>
+<div class="dashboard-container">
+  <div class="choose-miner">
+    <h2 class="choose-miner__title">Select desired device</h2>
+    <div class="row row g-4 mt-4">
+      <div class="col-12 col-md-6 col-xl-4" *ngFor="let miner of miners">
+        <div class="miner align-self-center">
+          <h3 class="miner__title">
+            {{ miner.asicName }}
+          </h3>
+          <img
+            src="../../../../assets/miner.svg"
+            alt="minerimg"
+            class="miner__img"
+          />
+          <div class="miner__box">
+            <h6 class="miner__box__title">Mining Currency</h6>
+            <p class="miner__box__sub">
+              {{ miner.cryptoName }}
+            </p>
+          </div>
+          <div class="miner__box">
+            <h6 class="miner__box__title">Algorithm</h6>
+            <p class="miner__box__sub">
+              {{ miner.algorithm }}
+            </p>
+          </div>
+          <div class="miner__box">
+            <h6 class="miner__box__title">power</h6>
+            <p class="miner__box__sub">{{ miner.hashPower }} GH/S</p>
+          </div>
+          <div class="miner__box">
+            <h6 class="miner__box__title">Host fees</h6>
+            <p class="miner__box__sub">{{ miner.hostFees }}%</p>
+          </div>
+          <div class="miner__box">
+            <h6 class="miner__box__title">Price</h6>
+            <p class="miner__box__sub--large">${{ miner.price }}</p>
+          </div>
+          <button
+            (click)="addAsicContract(miner)"
+            class="btn btn--animated btn--light miner__btn"
+            *ngIf="miner.availability"
+          >
+            Buy Device
+          </button>
+          <button
+            class="btn btn--disabled miner__btn"
+            style="cursor: not-allowed"
+            *ngIf="!miner.availability"
+          >
+            Not Available Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!------------------------ Choose currency  ---------------->
+  <div
+    class="confirmation--overlay"
+    *ngIf="buyFormOpend"
+    (click)="buyFormOpend = false"
+  ></div>
+  <div
+    class="confirmation"
+    *ngIf="buyFormOpend"
+    style="background: #2a2736; z-index: 999"
+  >
+    <div class="confirmation__heading">
+      <div class="row">
+        <div class="col-10">
+          <h3 class="plan-form__title">Choose the currency balance</h3>
+        </div>
+        <div class="col-2">
+          <div class="plan-form__close" (click)="buyFormOpend = false">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form
+      class="confirmation__body choose-currency"
+      (ngSubmit)="onSubmit()"
+      [formGroup]="buyForm"
+    >
+      <div class="radio-container">
+        <ul>
+          <li>
+            <input
+              type="radio"
+              id="btc"
+              name="currency"
+              value="btc"
+              formControlName="currency"
+            />
+            <label for="btc">BTC</label>
+
+            <div class="check"></div>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="eth"
+              name="currency"
+              value="eth"
+              formControlName="currency"
+            />
+            <label for="eth">ETH</label>
+
+            <div class="check"><div class="inside"></div></div>
+          </li>
+
+          <li>
+            <input
+              type="radio"
+              id="ltct"
+              name="currency"
+              value="ltct"
+              formControlName="currency"
+            />
+            <label for="ltct">LTCT</label>
+
+            <div class="check"><div class="inside"></div></div>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="rvn"
+              name="currency"
+              value="rvn"
+              formControlName="currency"
+            />
+            <label for="rvn"> RVN</label>
+
+            <div class="check"><div class="inside"></div></div>
+          </li>
+        </ul>
+      </div>
+
+      <button type="submit" class="login-box__btn btn btn--light btn--animated">
+        Buy Plan
+      </button>
+    </form>
+  </div>
+</div>

@@ -9,7 +9,7 @@ import { UserDashboardComponent } from './user-dashboard.component';
 import { MiningDevicesComponent } from './mining-devices/mining-devices.component';
 import { DashHeaderComponent } from './dash-header/dash-header.component';
 import { ChoosePlanComponent } from './choose-plan/choose-plan.component';
-import { ChooseMinerComponent } from './mining-devices/choose-miner/choose-miner.component';
+import { ChooseMinerComponent } from './choose-miner/choose-miner.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartModule } from 'primeng/chart';

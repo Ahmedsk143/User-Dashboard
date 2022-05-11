@@ -5,7 +5,7 @@
 <div class="dashboard-container">
   <div class="row">
     <div class="miners-header">
-      <h2 class="miners-header__title">Your Miners ({{ miners.length }})</h2>
+      <h2 class="miners-header__title">Your Miners ({{ minersLength }})</h2>
       <button
         class="miners-header__btn btn btn--animated btn--light"
         [routerLink]="['../choose-miner']"
@@ -15,9 +15,8 @@
     </div>
   </div>
   <div class="row g-5">
-    <!-- col-xl-4 replaced by col-xl-5 in the below line-->
     <div class="col-12 col-lg-6 col-xl-4" *ngFor="let miner of miners">
-      <ng-container>
+      <ng-container *ngIf="minersLength > 0">
         <div
           class="miner"
           [ngClass]="{
@@ -84,54 +83,11 @@
           </div>
         </div>
       </ng-container>
-      <!-- <ng-container *ngIf="checkLength()">
-        <div
-          class="miner"
-          [ngClass]="{
-            'miner--online': miner.asicStatus,
-            'miner--offline': miner.asicStatus
-          }"
-        >
-          
-          <h3 class="miner__title">{{ miner.asicName }}</h3>
-          <div class="miner__sub"></div>
-          <img class="miner__img" src="../../../assets/miner.svg" alt="" />
-          <div class="miner__details row g-3">
-            <div class="col-6">
-              <span class="miner__details__title">Contract Start</span>
-              <span class="miner__details__sub">{{ miner.startDate }}</span>
-            </div>
-            <div class="col-6">
-              <span class="miner__details__title">Asic status</span>
-              <span class="miner__details__sub">{{ miner.asicStatus }}</span>
-            </div>
-            <div class="col-6">
-              <span class="miner__details__title">hostFees</span>
-              <span class="miner__details__sub">{{ miner.hostFees }}%</span>
-            </div>
-            <div class="col-6">
-              <span class="miner__details__title">expiration</span>
-              <span class="miner__details__sub">{{ miner.expired }}</span>
-            </div>
-            <div class="col-6">
-              <span class="miner__details__title">Total Mined </span>
-              <span class="miner__details__sub">{{ miner.totalMined }}</span>
-            </div>
-            <div class="col-6">
-              <span class="miner__details__title">Worker ID </span>
-              <span class="miner__details__sub">{{ miner.workerID }}</span>
-            </div>
-            <div class="col-12">
-              <span class="miner__details__title d-block">Address: </span>
-              <span class="miner__details__sub"> {{ miner.address }}</span>
-            </div>
-          </div>
-        </div>
-      </ng-container> -->
     </div>
     <div
       class="col-12 col-lg-6 col-xl-4"
-      [ngClass]="{ 'offset-4': !checkLength() }"
+      [ngClass]="{ 'offset-4': !(minersLength > 0) }"
+      *ngIf="!(minersLength > 0)"
     >
       <div class="miner--add" [routerLink]="['../choose-miner']">
         <img class="miner--add__img" src="../../../assets/plus.svg" alt="" />

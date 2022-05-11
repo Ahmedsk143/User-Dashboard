@@ -9,6 +9,9 @@ import { MerchantUser } from './models/merchant-users.model';
 import { Merchant } from './models/merchant.model';
 import { UserData } from './models/user-data.model';
 import { PlanContract } from './models/plan-contract.model';
+import { AsicContract } from './models/asic-contract.model';
+import { Asic } from './models/asic.model';
+import { Plan } from './models/plan.model';
 
 @Injectable({
   providedIn: 'root',
@@ -47,125 +50,81 @@ export class DashboardService {
       'https://api.coinbase.com/v2/prices/LTC-USD/buy'
     );
   }
-  ////
+  // Get user data
   getUserData() {
     return this.http.get<UserData>(
       `${this.rootURL}/api/user/getUserData?key=${this.key}`
     );
   }
+  // Get plans' contrats
   getPlansContract() {
     return this.http.get<PlanContract[]>(
       `${this.rootURL}/api/plan/x/contract?key=${this.key}`
     );
   }
-  updateBalances() {
-    this.balances$.next([
-      {
-        currency: 'BTC',
-        currencyBalance: this.obj.balance.btc,
-        plans: this.obj.activePlans,
-        devices: this.obj.devices,
-        price: String(Number(this.btcPriceObj)),
-        miningSpeed: '8,299',
-        mined: 0.00999,
-        minWithdraw: 0.00005,
-      },
-      {
-        currency: 'ETH',
-        currencyBalance: this.obj.balance.eth,
-        plans: this.obj.activePlans,
-        devices: this.obj.devices,
-        price: this.ethPriceObj,
-        miningSpeed: '8,299',
-        mined: 0.00999,
-        minWithdraw: 0.0021879,
-      },
-      {
-        currency: 'RVN',
-        currencyBalance: 0.0,
-        plans: this.obj.activePlans,
-        devices: this.obj.devices,
-        price: this.rvnPriceObj,
-        miningSpeed: '2,222',
-        mined: 0.0,
-        minWithdraw: 0.000011,
-      },
-      {
-        currency: 'LTCT',
-        currencyBalance: 0.0,
-        plans: this.obj.activePlans,
-        devices: this.obj.devices,
-        price: this.LTCTPriceObj,
-        miningSpeed: '9,299',
-        mined: 0.0,
-        minWithdraw: 0.000099,
-      },
-    ]);
-  }
-
-  ////////////////////////////hashrate plans page
-  /////////////////////////////////////////////////////////// buy hasherate plans page
-  ////////////the generic function
-  getHashrateContractPlans(Currency: string, planType: string) {
-    return this.http.get<any>(
-      `${this.rootURL}/api/plan?cryptoName=${Currency}&planType=${planType}&key=${this.key}`
+  // get company plans
+  getCompanyPlans(currency: string, planType: string) {
+    return this.http.get<{ plans: Plan[] }>(
+      `${this.rootURL}/api/plan?cryptoName=${currency}&planType=${planType}&key=${this.key}`
     );
   }
-  //////////customized functions
-  get_BTC_Long_HashrateContractPlans() {
-    return this.getHashrateContractPlans('BTC', 'long');
+  getLongBTC() {
+    return this.getCompanyPlans('BTC', 'long');
   }
-  get_BTC_Short_HashrateContractPlans() {
-    return this.getHashrateContractPlans('BTC', 'short');
+  getShortBTC() {
+    return this.getCompanyPlans('BTC', 'short');
   }
-  get_ETH_Long_HashrateContractPlans() {
-    return this.getHashrateContractPlans('ETH', 'long');
+  getLongETH() {
+    return this.getCompanyPlans('ETH', 'long');
   }
-  get_ETH_Short_HashrateContractPlans() {
-    return this.getHashrateContractPlans('ETH', 'short');
+  getShortETH() {
+    return this.getCompanyPlans('ETH', 'short');
   }
-  get_RVN_Long_HashrateContractPlans() {
-    return this.getHashrateContractPlans('RVN', 'long');
+  getLongRVN() {
+    return this.getCompanyPlans('RVN', 'long');
   }
-  get_RVN_Short_HashrateContractPlans() {
-    return this.getHashrateContractPlans('RVN', 'short');
+  getShortRVN() {
+    return this.getCompanyPlans('RVN', 'short');
   }
-  get_LTCT_Long_HashrateContractPlans() {
-    return this.getHashrateContractPlans('LTCT', 'long');
+  getLongLTCT() {
+    return this.getCompanyPlans('LTCT', 'long');
   }
-  get_LTCT_Short_HashrateContractPlans() {
-    return this.getHashrateContractPlans('LTCT', 'short');
+  getShortLTCT() {
+    return this.getCompanyPlans('LTCT', 'short');
   }
-
-  ///////////////////////////////////////////////////mining devices page get data from asic contract(my contracts )
-
-  getMyAsicDevices() {
-    return this.http.get<any>(
+  addPlanContract(planID: string, currency: string) {
+    return this.http.post<any>(
+      `${this.rootURL}/api/plan/x/contract/add?key=${this.key}`,
+      {
+        planID,
+        currency: currency.toUpperCase(),
+      }
+    );
+  }
+  //Asic Contracts
+  getAsicContracts() {
+    return this.http.get<AsicContract[]>(
       `${this.rootURL}/api/asic/x/contract?key=${this.key}`
     );
   }
-  ///////////////////////////////////////////////////////////////mining devices page get data from asics(which i can join)
-
-  getAsicBTCDevicesContractPlans() {
-    return this.http.get<any>(`${this.rootURL}/api/asic?key=${this.key}`);
+  getAsicsToBuy() {
+    return this.http.get<Asic[]>(`${this.rootURL}/api/asic?key=${this.key}`);
   }
-
-  /////////////////////////////////////buy plan dummy method
-  buyplanAPI = `${this.rootURL}/api/plan/x/contract/add?key=${this.key}`;
   buyPlan(plan_id: String) {
-    return this.http.post<any>(this.buyplanAPI, {
-      planID: plan_id,
-      currency: 'ETH',
-    });
+    return this.http.post<any>(
+      `${this.rootURL}/api/plan/x/contract/add?key=${this.key}`,
+      {
+        planID: plan_id,
+        currency: 'ETH',
+      }
+    );
   }
-
-  ///////////////////////////////////////buy asic dummy
-  buyAsic(asic_id: String) {
+  addAsicContract(asicID: string, currency: string) {
     return this.http.post<any>(
       `${this.rootURL}/api/asic/x/contract/add?key=${this.key}`,
       {
-        asicID: asic_id,
-        currency: 'ETH',
+        asicID,
+        currency,
       }
     );
   }

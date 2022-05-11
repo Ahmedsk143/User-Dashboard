@@ -31,8 +31,6 @@ export class ChoosePlanSellerComponent implements OnInit {
         this.sellers.map((e) => {
           e.sellerPlans = [];
         });
-        console.log(res);
-        console.log(this.sellers);
       },
     });
   }
@@ -55,7 +53,6 @@ export class ChoosePlanSellerComponent implements OnInit {
     this.buyFormOpend = true;
   }
   onSubmit() {
-    console.log(this.selectedPlan._id, this.buyForm.value.currency);
     this.dashboardService
       .addPlanContractSeller(this.selectedPlan._id, this.buyForm.value.currency)
       .subscribe({

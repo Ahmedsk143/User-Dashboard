@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserDashboardComponent } from './user-dashboard.component';
-import { ChooseMinerComponent } from './mining-devices/choose-miner/choose-miner.component';
+import { ChooseMinerComponent } from './choose-miner/choose-miner.component';
 import { MiningDevicesComponent } from './mining-devices/mining-devices.component';
 import { OverviewComponent } from './overview/overview.component';
 import { ChoosePlanComponent } from './choose-plan/choose-plan.component';
