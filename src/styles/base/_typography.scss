@@ -1,5 +1,30 @@
 body {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: CircularStd, "Helvetica Neue", sans-serif;
   font-size: 1.6rem;
   color: #fff;
 }
+// @font-face {
+//   font-family: CircularStd;
+//   src: url("../../assets/CircularStd-Black.woff");
+//   font-weight: normal;
+//   font-style: normal;
+// }
+@font-face {
+  font-family: CircularStd;
+  src: url("../../assets/CircularStd-Bold.woff");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: CircularStd;
+  src: url("../../assets/CircularStd-Medium.woff");
+  font-weight: normal;
+  font-style: normal;
+}
+// @font-face {
+//   font-family: CircularStd;
+//   src: url("../../assets/CircularStd-Book.woff");
+//   font-weight: 600;
+//   font-style: normal;
+// }
