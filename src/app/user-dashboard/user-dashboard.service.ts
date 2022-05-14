@@ -12,6 +12,7 @@ import { PlanContract } from './models/plan-contract.model';
 import { AsicContract } from './models/asic-contract.model';
 import { Asic } from './models/asic.model';
 import { Plan } from './models/plan.model';
+import { TransLog } from './models/trans-log.model';
 
 @Injectable({
   providedIn: 'root',
@@ -128,12 +129,22 @@ export class DashboardService {
       }
     );
   }
-  //////////////////////////////////////////// deposite and withdraw logs
-  getUserDepositLogs() {
-    return this.http.get<any>(`${this.rootURL}/api/transaction/getdeposits`);
+  //Deposite
+  getDepositLogs() {
+    return this.http.get<TransLog[]>(
+      `${this.rootURL}/api/transaction/getdeposits`
+    );
   }
-  getUserWithdrawLogs() {
-    return this.http.get<any>(`${this.rootURL}/api/transaction/getwithdraws`);
+  getDepositAddress(currency: string) {
+    return this.http.get<{ address: string }>(
+      `${this.rootURL}/api/transaction/getdepositaddress?currency=${currency}`
+    );
+  }
+
+  getWithdrawLogs() {
+    return this.http.get<TransLog[]>(
+      `${this.rootURL}/api/transaction/getwithdraws`
+    );
   }
   //////////////////////////////////////////////////deposite and withdraw opertaions
   UserWithdrawRequest(Currency: string, Amount: number, Address: string) {
@@ -146,11 +157,7 @@ export class DashboardService {
       }
     );
   }
-  getUserDepositAddress(currency: string) {
-    return this.http.get<{ address: string }>(
-      `${this.rootURL}/api/transaction/getdepositaddress?currency=${currency}`
-    );
-  }
+
   /////////////// User buying//////////////
   getSellers() {
     return this.http.get(

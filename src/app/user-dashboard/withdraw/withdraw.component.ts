@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SharedService } from 'src/app/shared/shared.service';
+import { TransLog } from '../models/trans-log.model';
+import { UserData } from '../models/user-data.model';
 import { DashboardService } from '../user-dashboard.service';
 
 @Component({
@@ -9,6 +11,9 @@ import { DashboardService } from '../user-dashboard.service';
   styleUrls: ['./withdraw.component.scss'],
 })
 export class WithdrawComponent implements OnInit {
+  userData: UserData;
+  depositLogs: TransLog[];
+
   crypto = true;
   cryptoTapOpend = 'tap1';
 
@@ -44,12 +49,23 @@ export class WithdrawComponent implements OnInit {
   dashboard: any;
   constructor(
     private sharedService: SharedService,
-    private dashboardd: DashboardService
+    private dashboardService: DashboardService
   ) {}
 
-  async ngOnInit() {
+  ngOnInit() {
     this.sharedService.isLoading.next(true);
-    //////////////////////////////////
+    this.dashboardService.getUserData().subscribe({
+      next: (res) => {
+        this.userData = res;
+        this.sharedService.isLoading.next(false);
+      },
+    });
+    this.dashboardService.getWithdrawLogs().subscribe({
+      next: (res) => {
+        this.withdrawLogs = res;
+      },
+    });
+
     this.withdrawFormBTC = new FormGroup({
       addressBTC: new FormControl(null, {
         validators: [
@@ -62,7 +78,7 @@ export class WithdrawComponent implements OnInit {
       //   validators: [Validators.required, Validators.pattern(/^[0-9]+$/)],
       // }),
     });
-    //////////////////////////////////
+
     this.withdrawFormETH = new FormGroup({
       addressETH: new FormControl(null, {
         validators: [
@@ -101,59 +117,8 @@ export class WithdrawComponent implements OnInit {
       //   validators: [Validators.required, Validators.pattern(/^[0-9]+$/)],
       // }),
     });
-    /////////////////////////////////
-    this.dashboardd.getUserData().subscribe({
-      next: (res) => {
-        // console.log(res);
-        this.UserData = res;
-        this._balance_btc = this.UserData.balance.btc;
-        this._balance_eth = this.UserData.balance.eth;
-        this._balance_ltct = this.UserData.balance.ltct;
-        this._balance_rvn = this.UserData.balance.rvn;
-        // this.sharedService.isLoading.next(false);
-      },
-      error: (err) => {
-        console.log(err);
-        //  this.sharedService.isLoading.next(false);
-      },
-    });
-    setTimeout(() => {
-      this.balances = [
-        {
-          name: 'BTC',
-          value: this._balance_btc ? this._balance_btc.toFixed(8) : '0',
-        },
-        {
-          name: 'ETH',
-          value: this._balance_eth ? this._balance_eth.toFixed(8) : '0',
-        },
-        {
-          name: 'RVN',
-          value: this._balance_rvn ? this._balance_rvn.toFixed(8) : '0',
-        },
-        {
-          name: 'LTCT',
-          value: this._balance_ltct ? this._balance_ltct.toFixed(8) : '0',
-        },
-      ];
-    }, this.waitingTime);
-
-    ////////////////////////////////////////////////////////////
-
-    this.dashboardd.getUserWithdrawLogs().subscribe({
-      next: (res) => {
-        this.withdrawLogs = res;
-      },
-    });
-    ///////////////////////////
-
-    ///////////////////////////
-    setTimeout(() => {
-      this.sharedService.isLoading.next(false);
-    }, this.waitingTime + 200);
   }
 
-  ///////////////////////////////////////////////////// to withdraw
   onWithdraw(currency: string) {
     this.sharedService.isLoading.next(true);
     console.log('inside withdraw');
@@ -172,7 +137,7 @@ export class WithdrawComponent implements OnInit {
       _address = this.withdrawFormLTCT.value.addressLTCT;
     }
     if (Number(_amount) > 0.0 && _address != null) {
-      this.dashboardd
+      this.dashboardService
         .UserWithdrawRequest(currency, parseFloat(_amount), _address)
         .subscribe({
           next: (res) => {
@@ -194,7 +159,7 @@ export class WithdrawComponent implements OnInit {
     }
     this.sharedService.isLoading.next(false);
   }
-  ////////////////////////////////////////////////////////////////////
+
   cryptoPlansTap1() {
     this.cryptoTapOpend = 'tap1';
   }

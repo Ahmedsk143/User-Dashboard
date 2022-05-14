@@ -7,73 +7,63 @@
     <div class="wallet__balance">
       <h3 class="wallet__balance__title">Your balance</h3>
       <div class="row g-1">
-        <div class="col-12 col-md-6 col-xl-3" *ngFor="let balance of balances">
+        <div class="col-12 col-md-6 col-xl-3">
           <div class="wallet__balance__box">
             <div class="wallet__balance__box__icon">
-              <!-- //// this is the balance icons from the assets folder -->
+              <img src="../../../assets/BTC-Crypto.svg" class="icon icon--md" />
+            </div>
+            <div>
+              <h4 class="wallet__balance__box__name">BTC Balance</h4>
+              <p class="wallet__balance__box__value">
+                {{ userData?.balance?.btc | number: "1.0-8" }} BTC
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-3">
+          <div class="wallet__balance__box">
+            <div class="wallet__balance__box__icon">
               <img
-                *ngIf="balance.name == 'ETH'"
                 src="../../../assets/ETH-Crypto.svg"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 45px;
-                  padding: 4%;
-                  margin-right: 6px;
-                  height: 44px;
-                "
-              />
-              <img
-                *ngIf="balance.name == 'BTC'"
-                src="../../../assets/BTC-Crypto.svg"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 45px;
-                  padding: 4%;
-                  margin-right: 6px;
-                  height: 44px;
-                "
-              />
-              <img
-                *ngIf="balance.name == 'RVN'"
-                src="../../../assets/RVN-Crypto.svg"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 45px;
-                  padding: 4%;
-                  margin-right: 6px;
-                  height: 44px;
-                "
-              />
-              <img
-                *ngIf="balance.name == 'LTCT'"
-                src="../../../assets/LTCT-Crypto.png"
-                alt=""
-                style="
-                  vertical-align: middle;
-                  background: white;
-                  border-radius: 50%;
-                  width: 45px;
-                  padding: 4%;
-                  margin-right: 6px;
-                  height: 44px;
-                "
+                class="icon icon--md icon--bk"
               />
             </div>
             <div>
-              <h4 class="wallet__balance__box__name">
-                {{ balance.name }} Balance
-              </h4>
+              <h4 class="wallet__balance__box__name">ETH Balance</h4>
               <p class="wallet__balance__box__value">
-                {{ balance.value }} {{ balance.name }}
+                {{ userData?.balance?.eth | number: "1.0-8" }} ETH
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-3">
+          <div class="wallet__balance__box">
+            <div class="wallet__balance__box__icon">
+              <img
+                src="../../../assets/RVN-Crypto.svg"
+                class="icon icon--md icon--bk"
+              />
+            </div>
+            <div>
+              <h4 class="wallet__balance__box__name">RVN Balance</h4>
+              <p class="wallet__balance__box__value">
+                {{ userData?.balance?.rvn | number: "1.0-8" }} RVN
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-3">
+          <div class="wallet__balance__box">
+            <div class="wallet__balance__box__icon">
+              <img
+                src="../../../assets/LTCT-Crypto.png"
+                class="icon icon--md"
+              />
+            </div>
+            <div>
+              <h4 class="wallet__balance__box__name">LTCT Balance</h4>
+              <p class="wallet__balance__box__value">
+                {{ userData?.balance?.ltct | number: "1.0-8" }} LTCT
               </p>
             </div>
           </div>
@@ -106,9 +96,10 @@
           <div class="col-12 col-md-6">
             <button
               class="wallet__funds__heading__btn btn btn--disabled"
-              (click)="crypto = false"
               [ngClass]="{ 'btn--darker--2': !crypto }"
             >
+              <!-- (click)="crypto = false" -->
+
               <div
                 class="wallet__funds__heading__icon"
                 [ngClass]="{ 'wallet__funds__heading__icon--inactive': crypto }"
@@ -143,16 +134,7 @@
               >
                 <img
                   src="../../../assets/BTC-Crypto.svg"
-                  alt=""
-                  style="
-                    vertical-align: middle;
-                    background: white;
-                    border-radius: 50%;
-                    width: 29px;
-                    padding: 4%;
-                    margin-right: 6px;
-                    height: 26px;
-                  "
+                  class="icon icon--sm"
                 />
                 BTC
               </div>
@@ -166,16 +148,7 @@
               >
                 <img
                   src="../../../assets/ETH-Crypto.svg"
-                  alt=""
-                  style="
-                    vertical-align: middle;
-                    background: white;
-                    border-radius: 50%;
-                    width: 29px;
-                    padding: 4%;
-                    margin-right: 6px;
-                    height: 26px;
-                  "
+                  class="icon icon--sm icon--bk"
                 />
                 ETH
               </div>
@@ -189,16 +162,7 @@
               >
                 <img
                   src="../../../assets/RVN-Crypto.svg"
-                  alt=""
-                  style="
-                    vertical-align: middle;
-                    background: white;
-                    border-radius: 50%;
-                    width: 29px;
-                    padding: 4%;
-                    margin-right: 6px;
-                    height: 26px;
-                  "
+                  class="icon icon--sm icon--bk"
                 />
                 RVN
               </div>
@@ -212,16 +176,7 @@
               >
                 <img
                   src="../../../assets/LTCT-Crypto.png"
-                  alt=""
-                  style="
-                    vertical-align: middle;
-                    background: white;
-                    border-radius: 50%;
-                    width: 29px;
-                    padding: 4%;
-                    margin-right: 6px;
-                    height: 26px;
-                  "
+                  class="icon icon--sm"
                 />
                 LTCT
               </div>
