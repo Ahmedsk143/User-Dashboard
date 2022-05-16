@@ -64,7 +64,9 @@
             </div>
             <div class="col-6">
               <span class="miner__details__title">Total Mined</span>
-              <span class="miner__details__sub">{{ miner.totalMined }}</span>
+              <span class="miner__details__sub">{{
+                miner.totalMined!.toString().substring(0, 10)
+              }}</span>
             </div>
             <div class="col-6">
               <span class="miner__details__title">Expiration</span>

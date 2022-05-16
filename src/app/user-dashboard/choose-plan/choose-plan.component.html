@@ -108,8 +108,14 @@
                   <p class="plan__box__sub-value">{{ plan.cryptoName }}</p>
                 </div>
                 <div class="plan__box">
-                  <h6 class="plan__box__sub">Mining algorithm</h6>
+                  <h6 class="plan__box__sub">Mining Algorithm</h6>
                   <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Hash Power</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.hashPower! | number: "1.0-2" }} GH/S
+                  </p>
                 </div>
                 <div class="plan__box">
                   <h6 class="plan__box__sub">Plan Duration</h6>
@@ -135,14 +141,14 @@
                         !(plan.planDuration == 1) &&
                         (plan.planType == 'short' || plan.planType == 'Short')
                       "
-                      >{{ plan.planDuration }} months</span
+                      >{{ plan.planDuration }} Months</span
                     >
                     <span
                       *ngIf="
                         !(plan.planDuration == 1) &&
                         (plan.planType == 'long' || plan.planType == 'Long')
                       "
-                      >{{ plan.planDuration }} years</span
+                      >{{ plan.planDuration }} Years</span
                     >
                   </p>
                 </div>
@@ -190,14 +196,48 @@
                   <p class="plan__box__sub-value">{{ plan.cryptoName }}</p>
                 </div>
                 <div class="plan__box">
-                  <h6 class="plan__box__sub">Mining algorithm</h6>
+                  <h6 class="plan__box__sub">Mining Algorithm</h6>
                   <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
                 </div>
-
                 <div class="plan__box">
-                  <h6 class="plan__box__sub">planDuration</h6>
+                  <h6 class="plan__box__sub">Hash Power</h6>
                   <p class="plan__box__sub-value">
-                    {{ plan.planDuration }} Months
+                    {{ plan.hashPower! | number: "1.0-2" }} GH/S
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Plan Duration</h6>
+                  <p class="plan__box__sub-value">
+                    <span
+                      *ngIf="
+                        plan.planDuration == 1 &&
+                        (plan.planType == 'long' || plan.planType == 'Long')
+                      "
+                    >
+                      1 Year</span
+                    >
+                    <span
+                      *ngIf="
+                        plan.planDuration == 1 &&
+                        (plan.planType == 'short' || plan.planType == 'Short')
+                      "
+                    >
+                      1 Month</span
+                    >
+                    <span
+                      *ngIf="
+                        !(plan.planDuration == 1) &&
+                        (plan.planType == 'short' || plan.planType == 'Short')
+                      "
+                      >{{ plan.planDuration }} Months</span
+                    >
+                    <span
+                      *ngIf="
+                        !(plan.planDuration == 1) &&
+                        (plan.planType == 'long' || plan.planType == 'Long')
+                      "
+                      >{{ plan.planDuration }} Years</span
+                    >
                   </p>
                 </div>
                 <div class="plan__box">
@@ -244,14 +284,48 @@
                   <p class="plan__box__sub-value">{{ plan.cryptoName }}</p>
                 </div>
                 <div class="plan__box">
-                  <h6 class="plan__box__sub">Mining algorithm</h6>
+                  <h6 class="plan__box__sub">Mining Algorithm</h6>
                   <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
                 </div>
-
                 <div class="plan__box">
-                  <h6 class="plan__box__sub">planDuration</h6>
+                  <h6 class="plan__box__sub">Hash Power</h6>
                   <p class="plan__box__sub-value">
-                    {{ plan.planDuration }} Months
+                    {{ plan.hashPower! | number: "1.0-2" }} GH/S
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Plan Duration</h6>
+                  <p class="plan__box__sub-value">
+                    <span
+                      *ngIf="
+                        plan.planDuration == 1 &&
+                        (plan.planType == 'long' || plan.planType == 'Long')
+                      "
+                    >
+                      1 Year</span
+                    >
+                    <span
+                      *ngIf="
+                        plan.planDuration == 1 &&
+                        (plan.planType == 'short' || plan.planType == 'Short')
+                      "
+                    >
+                      1 Month</span
+                    >
+                    <span
+                      *ngIf="
+                        !(plan.planDuration == 1) &&
+                        (plan.planType == 'short' || plan.planType == 'Short')
+                      "
+                      >{{ plan.planDuration }} Months</span
+                    >
+                    <span
+                      *ngIf="
+                        !(plan.planDuration == 1) &&
+                        (plan.planType == 'long' || plan.planType == 'Long')
+                      "
+                      >{{ plan.planDuration }} Years</span
+                    >
                   </p>
                 </div>
                 <div class="plan__box">
@@ -298,14 +372,48 @@
                   <p class="plan__box__sub-value">{{ plan.cryptoName }}</p>
                 </div>
                 <div class="plan__box">
-                  <h6 class="plan__box__sub">Mining algorithm</h6>
+                  <h6 class="plan__box__sub">Mining Algorithm</h6>
                   <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
                 </div>
-
                 <div class="plan__box">
-                  <h6 class="plan__box__sub">planDuration</h6>
+                  <h6 class="plan__box__sub">Hash Power</h6>
                   <p class="plan__box__sub-value">
-                    {{ plan.planDuration }} Months
+                    {{ plan.hashPower! | number: "1.0-2" }} GH/S
+                  </p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Plan Duration</h6>
+                  <p class="plan__box__sub-value">
+                    <span
+                      *ngIf="
+                        plan.planDuration == 1 &&
+                        (plan.planType == 'long' || plan.planType == 'Long')
+                      "
+                    >
+                      1 Year</span
+                    >
+                    <span
+                      *ngIf="
+                        plan.planDuration == 1 &&
+                        (plan.planType == 'short' || plan.planType == 'Short')
+                      "
+                    >
+                      1 Month</span
+                    >
+                    <span
+                      *ngIf="
+                        !(plan.planDuration == 1) &&
+                        (plan.planType == 'short' || plan.planType == 'Short')
+                      "
+                      >{{ plan.planDuration }} Months</span
+                    >
+                    <span
+                      *ngIf="
+                        !(plan.planDuration == 1) &&
+                        (plan.planType == 'long' || plan.planType == 'Long')
+                      "
+                      >{{ plan.planDuration }} Years</span
+                    >
                   </p>
                 </div>
                 <div class="plan__box">
@@ -415,10 +523,15 @@
                   <p class="plan__box__sub-value">{{ plan.cryptoName }}</p>
                 </div>
                 <div class="plan__box">
-                  <h6 class="plan__box__sub">Mining algorithm</h6>
+                  <h6 class="plan__box__sub">Mining Algorithm</h6>
                   <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
                 </div>
-
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Hash Power</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.hashPower! | number: "1.0-2" }} GH/S
+                  </p>
+                </div>
                 <div class="plan__box">
                   <h6 class="plan__box__sub">Plan Duration</h6>
                   <p class="plan__box__sub-value">
@@ -443,14 +556,14 @@
                         !(plan.planDuration == 1) &&
                         (plan.planType == 'short' || plan.planType == 'Short')
                       "
-                      >{{ plan.planDuration }} months</span
+                      >{{ plan.planDuration }} Months</span
                     >
                     <span
                       *ngIf="
                         !(plan.planDuration == 1) &&
                         (plan.planType == 'long' || plan.planType == 'Long')
                       "
-                      >{{ plan.planDuration }} years</span
+                      >{{ plan.planDuration }} Years</span
                     >
                   </p>
                 </div>
@@ -498,10 +611,15 @@
                   <p class="plan__box__sub-value">{{ plan.cryptoName }}</p>
                 </div>
                 <div class="plan__box">
-                  <h6 class="plan__box__sub">Mining algorithm</h6>
+                  <h6 class="plan__box__sub">Mining Algorithm</h6>
                   <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
                 </div>
-
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Hash Power</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.hashPower! | number: "1.0-2" }} GH/S
+                  </p>
+                </div>
                 <div class="plan__box">
                   <h6 class="plan__box__sub">Plan Duration</h6>
                   <p class="plan__box__sub-value">
@@ -526,14 +644,14 @@
                         !(plan.planDuration == 1) &&
                         (plan.planType == 'short' || plan.planType == 'Short')
                       "
-                      >{{ plan.planDuration }} months</span
+                      >{{ plan.planDuration }} Months</span
                     >
                     <span
                       *ngIf="
                         !(plan.planDuration == 1) &&
                         (plan.planType == 'long' || plan.planType == 'Long')
                       "
-                      >{{ plan.planDuration }} years</span
+                      >{{ plan.planDuration }} Years</span
                     >
                   </p>
                 </div>
@@ -581,10 +699,15 @@
                   <p class="plan__box__sub-value">{{ plan.cryptoName }}</p>
                 </div>
                 <div class="plan__box">
-                  <h6 class="plan__box__sub">Mining algorithm</h6>
+                  <h6 class="plan__box__sub">Mining Algorithm</h6>
                   <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
                 </div>
-
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Hash Power</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.hashPower! | number: "1.0-2" }} GH/S
+                  </p>
+                </div>
                 <div class="plan__box">
                   <h6 class="plan__box__sub">Plan Duration</h6>
                   <p class="plan__box__sub-value">
@@ -609,14 +732,14 @@
                         !(plan.planDuration == 1) &&
                         (plan.planType == 'short' || plan.planType == 'Short')
                       "
-                      >{{ plan.planDuration }} months</span
+                      >{{ plan.planDuration }} Months</span
                     >
                     <span
                       *ngIf="
                         !(plan.planDuration == 1) &&
                         (plan.planType == 'long' || plan.planType == 'Long')
                       "
-                      >{{ plan.planDuration }} years</span
+                      >{{ plan.planDuration }} Years</span
                     >
                   </p>
                 </div>
@@ -664,8 +787,14 @@
                   <p class="plan__box__sub-value">{{ plan.cryptoName }}</p>
                 </div>
                 <div class="plan__box">
-                  <h6 class="plan__box__sub">Mining algorithm</h6>
+                  <h6 class="plan__box__sub">Mining Algorithm</h6>
                   <p class="plan__box__sub-value">{{ plan.algorithm }}</p>
+                </div>
+                <div class="plan__box">
+                  <h6 class="plan__box__sub">Hash Power</h6>
+                  <p class="plan__box__sub-value">
+                    {{ plan.hashPower! | number: "1.0-2" }} GH/S
+                  </p>
                 </div>
                 <div class="plan__box">
                   <h6 class="plan__box__sub">Plan Duration</h6>
@@ -691,14 +820,14 @@
                         !(plan.planDuration == 1) &&
                         (plan.planType == 'short' || plan.planType == 'Short')
                       "
-                      >{{ plan.planDuration }} months</span
+                      >{{ plan.planDuration }} Months</span
                     >
                     <span
                       *ngIf="
                         !(plan.planDuration == 1) &&
                         (plan.planType == 'long' || plan.planType == 'Long')
                       "
-                      >{{ plan.planDuration }} years</span
+                      >{{ plan.planDuration }} Years</span
                     >
                   </p>
                 </div>
@@ -710,7 +839,6 @@
                   <h6 class="plan__box__sub">Price</h6>
                   <p class="plan__box__sub-value--large">{{ plan.price }}$</p>
                 </div>
-
                 <button
                   (click)="addPlanContract(plan)"
                   class="btn btn--animated btn--light plan__btn"

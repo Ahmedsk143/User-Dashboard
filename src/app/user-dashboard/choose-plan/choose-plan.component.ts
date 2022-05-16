@@ -36,10 +36,14 @@ export class ChoosePlanComponent implements OnInit {
     });
     this.onShortBTC();
   }
+
   onShortBTC() {
     this.sharedService.isLoading.next(true);
     this.dashboard.getShortBTC().subscribe({
       next: (res) => {
+        for (let i = 0; i < res.plans.length; i++) {
+          res.plans[i].hashPower = res.PlansHashPower[i].hashrate;
+        }
         this.shortPlansBTC = res.plans;
         this.sharedService.isLoading.next(false);
       },
@@ -52,6 +56,9 @@ export class ChoosePlanComponent implements OnInit {
     this.sharedService.isLoading.next(true);
     this.dashboard.getLongBTC().subscribe({
       next: (res) => {
+        for (let i = 0; i < res.plans.length; i++) {
+          res.plans[i].hashPower = res.PlansHashPower[i].hashrate;
+        }
         this.shortPlansBTC = res.plans;
         this.sharedService.isLoading.next(false);
       },
@@ -64,6 +71,9 @@ export class ChoosePlanComponent implements OnInit {
     this.sharedService.isLoading.next(true);
     this.dashboard.getShortETH().subscribe({
       next: (res) => {
+        for (let i = 0; i < res.plans.length; i++) {
+          res.plans[i].hashPower = res.PlansHashPower[i].hashrate;
+        }
         this.shortPlansETH = res.plans;
         this.sharedService.isLoading.next(false);
       },
@@ -76,6 +86,9 @@ export class ChoosePlanComponent implements OnInit {
     this.sharedService.isLoading.next(true);
     this.dashboard.getLongETH().subscribe({
       next: (res) => {
+        for (let i = 0; i < res.plans.length; i++) {
+          res.plans[i].hashPower = res.PlansHashPower[i].hashrate;
+        }
         this.shortPlansETH = res.plans;
         this.sharedService.isLoading.next(false);
       },
@@ -88,6 +101,9 @@ export class ChoosePlanComponent implements OnInit {
     this.sharedService.isLoading.next(true);
     this.dashboard.getShortRVN().subscribe({
       next: (res) => {
+        for (let i = 0; i < res.plans.length; i++) {
+          res.plans[i].hashPower = res.PlansHashPower[i].hashrate;
+        }
         this.shortPlansRVN = res.plans;
         this.sharedService.isLoading.next(false);
       },
@@ -100,6 +116,9 @@ export class ChoosePlanComponent implements OnInit {
     this.sharedService.isLoading.next(true);
     this.dashboard.getLongRVN().subscribe({
       next: (res) => {
+        for (let i = 0; i < res.plans.length; i++) {
+          res.plans[i].hashPower = res.PlansHashPower[i].hashrate;
+        }
         this.shortPlansRVN = res.plans;
         this.sharedService.isLoading.next(false);
       },
@@ -112,6 +131,9 @@ export class ChoosePlanComponent implements OnInit {
     this.sharedService.isLoading.next(true);
     this.dashboard.getShortLTCT().subscribe({
       next: (res) => {
+        for (let i = 0; i < res.plans.length; i++) {
+          res.plans[i].hashPower = res.PlansHashPower[i].hashrate;
+        }
         this.shortPlansLTCT = res.plans;
         this.sharedService.isLoading.next(false);
       },
@@ -124,6 +146,9 @@ export class ChoosePlanComponent implements OnInit {
     this.sharedService.isLoading.next(true);
     this.dashboard.getLongLTCT().subscribe({
       next: (res) => {
+        for (let i = 0; i < res.plans.length; i++) {
+          res.plans[i].hashPower = res.PlansHashPower[i].hashrate;
+        }
         this.shortPlansLTCT = res.plans;
         this.sharedService.isLoading.next(false);
       },

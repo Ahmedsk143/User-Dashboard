@@ -32,7 +32,9 @@
           </div>
           <div class="miner__box">
             <h6 class="miner__box__title">power</h6>
-            <p class="miner__box__sub">{{ miner.hashPower }} GH/S</p>
+            <p class="miner__box__sub">
+              {{ miner.hashPower! | number:"1.0-2" }} GH/S
+            </p>
           </div>
           <div class="miner__box">
             <h6 class="miner__box__title">Host fees</h6>

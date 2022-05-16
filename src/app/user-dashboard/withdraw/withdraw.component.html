@@ -15,7 +15,7 @@
             <div>
               <h4 class="wallet__balance__box__name">BTC Balance</h4>
               <p class="wallet__balance__box__value">
-                {{ userData?.balance?.btc | number: "1.0-8" }} BTC
+                {{ userData?.balance?.btc!.toString().substring(0, 10) }} BTC
               </p>
             </div>
           </div>
@@ -31,7 +31,7 @@
             <div>
               <h4 class="wallet__balance__box__name">ETH Balance</h4>
               <p class="wallet__balance__box__value">
-                {{ userData?.balance?.eth | number: "1.0-8" }} ETH
+                {{ userData?.balance?.eth!.toString().substring(0, 10) }} ETH
               </p>
             </div>
           </div>
@@ -47,7 +47,7 @@
             <div>
               <h4 class="wallet__balance__box__name">RVN Balance</h4>
               <p class="wallet__balance__box__value">
-                {{ userData?.balance?.rvn | number: "1.0-8" }} RVN
+                {{ userData?.balance?.rvn!.toString().substring(0, 10) }} RVN
               </p>
             </div>
           </div>
@@ -63,7 +63,7 @@
             <div>
               <h4 class="wallet__balance__box__name">LTCT Balance</h4>
               <p class="wallet__balance__box__value">
-                {{ userData?.balance?.ltct | number: "1.0-8" }} LTCT
+                {{ userData?.balance?.ltct!.toString().substring(0, 10) }} LTCT
               </p>
             </div>
           </div>
@@ -194,10 +194,7 @@
                   wallet</span
                 >
               </div>
-              <form
-                (ngSubmit)="onWithdraw('BTC')"
-                [formGroup]="withdrawFormBTC"
-              >
+              <form (ngSubmit)="onWithdraw()" [formGroup]="withdrawFormBTC">
                 <div class="input-field-group">
                   <label class="input-field-group__label" for="addressBTC"
                     >BTC address</label
@@ -255,10 +252,7 @@
                   wallet</span
                 >
               </div>
-              <form
-                (ngSubmit)="onWithdraw('ETH')"
-                [formGroup]="withdrawFormETH"
-              >
+              <form (ngSubmit)="onWithdraw()" [formGroup]="withdrawFormETH">
                 <div class="input-field-group">
                   <label class="input-field-group__label" for="addressETH"
                     >Etherum address</label
@@ -315,10 +309,7 @@
                   You can only withdraw from RVN balance to RVN wallet</span
                 >
               </div>
-              <form
-                (ngSubmit)="onWithdraw('RVN')"
-                [formGroup]="withdrawFormRVN"
-              >
+              <form (ngSubmit)="onWithdraw()" [formGroup]="withdrawFormRVN">
                 <div class="input-field-group">
                   <label class="input-field-group__label" for="addressRVN"
                     >RVN address</label
@@ -375,10 +366,7 @@
                   You can only withdraw from LTCT balance to LTCT wallet</span
                 >
               </div>
-              <form
-                (ngSubmit)="onWithdraw('LTCT')"
-                [formGroup]="withdrawFormLTCT"
-              >
+              <form (ngSubmit)="onWithdraw()" [formGroup]="withdrawFormLTCT">
                 <div class="input-field-group">
                   <label class="input-field-group__label" for="addressLTCT"
                     >LTCT address</label

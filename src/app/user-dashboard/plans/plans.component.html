@@ -65,13 +65,13 @@
             <div class="plan__box">
               <h6 class="plan__box__sub">Total Mined</h6>
               <p class="plan__box__sub-value">
-                {{ plan.totalMined | number: "1.0-8" }}
+                {{ plan.totalMined!.toString().substring(0, 10) }}
               </p>
             </div>
             <div class="plan__box">
               <h6 class="plan__box__sub">Hash Power</h6>
               <p class="plan__box__sub-value">
-                {{ plan.hashPower | number: "1.0-2" }} GH/S
+                {{ plan.hashPower! | number: "1.0-2" }} GH/S
               </p>
             </div>
           </div>
@@ -132,13 +132,13 @@
             <div class="plan__box">
               <h6 class="plan__box__sub">Total Mined</h6>
               <p class="plan__box__sub-value">
-                {{ plan.totalMined | number: "1.0-8" }}
+                {{ plan.totalMined!.toString().substring(0, 10) }}
               </p>
             </div>
             <div class="plan__box">
               <h6 class="plan__box__sub">Hash Power</h6>
               <p class="plan__box__sub-value">
-                {{ plan.hashPower | number: "1.0-2" }} GH/S
+                {{ plan.hashPower! | number: "1.0-2" }} GH/S
               </p>
             </div>
           </div>

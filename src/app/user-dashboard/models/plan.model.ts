@@ -8,4 +8,5 @@ export class Plan {
   'profitability': number;
   'price': number;
   'availability': boolean;
+  'hashPower': number;
 }

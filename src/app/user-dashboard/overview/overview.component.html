@@ -28,7 +28,7 @@
                 BTC Balance
               </span>
               <span style="font-weight: bold; color: #fff; display: block">
-                {{ UserData?.balance?.btc | number: "1.0-8" }}
+                {{ UserData?.balance?.btc!.toString().substring(0, 10) }}
                 BTC
               </span>
             </div>
@@ -84,7 +84,7 @@
                 ETH Balance
               </span>
               <span style="font-weight: bold; color: #fff; display: block">
-                {{ UserData?.balance?.eth | number: ".0-8" }}
+                {{ UserData?.balance?.eth!.toString().substring(0, 10) }}
                 ETH
               </span>
             </div>
@@ -139,7 +139,7 @@
                 RVN Balance
               </span>
               <span style="font-weight: bold; color: #fff; display: block">
-                {{ UserData?.balance?.rvn | number: ".0-8" }}
+                {{ UserData?.balance?.rvn!.toString().substring(0, 8) }}
                 RVN
               </span>
             </div>
@@ -194,7 +194,7 @@
                 LTCT Balance
               </span>
               <span style="font-weight: bold; color: #fff; display: block">
-                {{ UserData?.balance?.ltct! | number: ".0-8" }}
+                {{ UserData?.balance?.ltct!.toString().substring(0, 10) }}
                 LTCT
               </span>
             </div>
@@ -312,7 +312,9 @@
                   <span>Mining speed </span>
                 </div>
                 <div class="summery__item__value">
-                  <span>{{ btcTotalSpeed | number: "1.0-2" }} GH/S</span>
+                  <span
+                    >{{ btcTotalSpeed!.toString().substring(0, 10) }} GH/S</span
+                  >
                   <i class="fas fa-plus"></i>
                 </div>
               </div>
@@ -322,7 +324,7 @@
                   <span>Total Mined </span>
                 </div>
                 <div class="summery__item__value">
-                  <h4>{{ btcTotalMined | number: "1.0-6" }} BTC</h4>
+                  <h4>{{ btcTotalMined!.toString().substring(0, 10) }} BTC</h4>
                 </div>
               </div>
               <div class="summery__item col-12 col-lg-4">
@@ -365,7 +367,9 @@
                   <span>Mining speed </span>
                 </div>
                 <div class="summery__item__value">
-                  <span>{{ ethTotalSpeed | number: "1.0-2" }} GH/S</span>
+                  <span
+                    >{{ ethTotalSpeed!.toString().substring(0, 10) }} GH/S</span
+                  >
                   <i class="fas fa-plus"></i>
                 </div>
               </div>
@@ -375,7 +379,7 @@
                   <span>Total Mined </span>
                 </div>
                 <div class="summery__item__value">
-                  <h4>{{ ethTotalMined | number: "1.0-6" }} ETH</h4>
+                  <h4>{{ ethTotalMined!.toString().substring(0, 10) }} ETH</h4>
                 </div>
               </div>
               <div class="summery__item col-12 col-md-4">
@@ -395,7 +399,12 @@
                   alt="ETH"
                   class="icon icon--md icon--bk"
                 />
-                <span>{{ UserData?.balance?.eth! | number: "1.0-8" }} ETH</span>
+                <span
+                  >{{
+                    UserData?.balance?.eth!.toString().substring(0, 10)
+                  }}
+                  ETH</span
+                >
               </div>
               <div class="balance__min">
                 <span>Min Withdraw: 0.0001 ETH</span>
@@ -418,7 +427,9 @@
                   <span>Mining speed </span>
                 </div>
                 <div class="summery__item__value">
-                  <span>{{ rvnTotalSpeed | number: "1.0-2" }} GH/S</span>
+                  <span
+                    >{{ rvnTotalSpeed!.toString().substring(0, 10) }} GH/S</span
+                  >
                   <i class="fas fa-plus"></i>
                 </div>
               </div>
@@ -428,7 +439,7 @@
                   <span>Total Mined </span>
                 </div>
                 <div class="summery__item__value">
-                  <h4>{{ rvnTotalMined | number: "1.0-6" }} RVN</h4>
+                  <h4>{{ rvnTotalMined!.toString().substring(0, 10) }} RVN</h4>
                 </div>
               </div>
               <div class="summery__item col-12 col-md-4">
@@ -448,7 +459,12 @@
                   alt="RVN"
                   class="icon icon--md icon--bk"
                 />
-                <span>{{ UserData?.balance?.rvn! | number: "1.0-8" }} RVN</span>
+                <span
+                  >{{
+                    UserData?.balance?.rvn!.toString().substring(0, 10)
+                  }}
+                  RVN</span
+                >
               </div>
               <div class="balance__min">
                 <span>Min Withdraw: 0.0001 RVN</span>
@@ -471,7 +487,12 @@
                   <span>Mining speed </span>
                 </div>
                 <div class="summery__item__value">
-                  <span>{{ ltctTotalSpeed | number: "1.0-2" }} GH/S</span>
+                  <span
+                    >{{
+                      ltctTotalSpeed!.toString().substring(0, 10)
+                    }}
+                    GH/S</span
+                  >
                   <i class="fas fa-plus"></i>
                 </div>
               </div>
@@ -481,7 +502,9 @@
                   <span>Total Mined </span>
                 </div>
                 <div class="summery__item__value">
-                  <h4>{{ ltctTotalMined | number: "1.0-6" }} LTCT</h4>
+                  <h4>
+                    {{ ltctTotalMined!.toString().substring(0, 10) }} LTCT
+                  </h4>
                 </div>
               </div>
               <div class="summery__item col-12 col-lg-4">
@@ -502,7 +525,10 @@
                   class="icon icon--md"
                 />
                 <span
-                  >{{ UserData?.balance?.ltct! | number: "1.0-8" }} LTCT</span
+                  >{{
+                    UserData?.balance?.ltct!.toString().substring(0, 10)
+                  }}
+                  LTCT</span
                 >
               </div>
               <div class="balance__min">

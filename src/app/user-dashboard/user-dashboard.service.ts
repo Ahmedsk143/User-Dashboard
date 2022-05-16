@@ -65,7 +65,10 @@ export class DashboardService {
   }
   // get company plans
   getCompanyPlans(currency: string, planType: string) {
-    return this.http.get<{ plans: Plan[] }>(
+    return this.http.get<{
+      plans: Plan[];
+      PlansHashPower: { hashrate: number; planid: string }[];
+    }>(
       `${this.rootURL}/api/plan?cryptoName=${currency}&planType=${planType}&key=${this.key}`
     );
   }
@@ -141,19 +144,19 @@ export class DashboardService {
     );
   }
 
+  //Withdraw
   getWithdrawLogs() {
     return this.http.get<TransLog[]>(
       `${this.rootURL}/api/transaction/getwithdraws`
     );
   }
-  //////////////////////////////////////////////////deposite and withdraw opertaions
-  UserWithdrawRequest(Currency: string, Amount: number, Address: string) {
+  withdrawRequest(currency: string, amount: string, address: string) {
     return this.http.post<any>(
       `${this.rootURL}/api/transaction/setwithdrawrequest`,
       {
-        currency: Currency,
-        amount: Amount + '',
-        address: Address,
+        currency,
+        amount,
+        address,
       }
     );
   }

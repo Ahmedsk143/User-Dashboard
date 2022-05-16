@@ -12,8 +12,8 @@ import { DashboardService } from '../user-dashboard.service';
 })
 export class WithdrawComponent implements OnInit {
   userData: UserData;
-  depositLogs: TransLog[];
-
+  withdrawLogs: TransLog[];
+  withdrawLogsLength = 0;
   crypto = true;
   cryptoTapOpend = 'tap1';
 
@@ -22,38 +22,13 @@ export class WithdrawComponent implements OnInit {
   withdrawFormRVN: FormGroup;
   withdrawFormLTCT: FormGroup;
 
-  _balance_btc: any;
-  _balance_eth: any;
-  _balance_rvn: any;
-  _balance_ltct: any;
-  UserData: any;
-
-  waitingTime = 1200;
-
-  withdrawLogsLength = 0;
-  withdrawLogs: any = [
-    {
-      _id: '',
-      address: '',
-      amount: 0,
-      currency: '',
-      transactionStatus: '',
-      userID: '',
-      createdAt: '',
-      updatedAt: '',
-      txn_id: '',
-    },
-  ];
-
-  balances: any;
-  dashboard: any;
   constructor(
     private sharedService: SharedService,
     private dashboardService: DashboardService
   ) {}
 
   ngOnInit() {
-    this.sharedService.isLoading.next(true);
+    // this.sharedService.isLoading.next(true);
     this.dashboardService.getUserData().subscribe({
       next: (res) => {
         this.userData = res;
@@ -118,47 +93,95 @@ export class WithdrawComponent implements OnInit {
       // }),
     });
   }
-
-  onWithdraw(currency: string) {
-    this.sharedService.isLoading.next(true);
-    console.log('inside withdraw');
-    let _amount, _address;
-    if (currency === 'BTC') {
-      _amount = this.withdrawFormBTC.value.amountBTC;
-      _address = this.withdrawFormBTC.value.addressBTC;
-    } else if (currency === 'ETH') {
-      _amount = this.withdrawFormETH.value.amountETH;
-      _address = this.withdrawFormETH.value.addressETH;
-    } else if (currency === 'RVN') {
-      _amount = this.withdrawFormRVN.value.amountRVN;
-      _address = this.withdrawFormRVN.value.addressRVN;
-    } else if (currency === 'LTCT') {
-      _amount = this.withdrawFormLTCT.value.amountLTCT;
-      _address = this.withdrawFormLTCT.value.addressLTCT;
+  onWithdraw() {
+    let currency = '';
+    let amount = '';
+    let address = '';
+    if (this.cryptoTapOpend == 'tap1') {
+      currency = 'BTC';
+      amount = this.withdrawFormBTC.value.amountBTC;
+      address = this.withdrawFormBTC.value.addressBTC;
+    } else if (this.cryptoTapOpend == 'tap2') {
+      currency = 'ETH';
+      amount = this.withdrawFormETH.value.amountETH;
+      address = this.withdrawFormETH.value.addressETH;
+    } else if (this.cryptoTapOpend == 'tap3') {
+      currency = 'RVN';
+      amount = this.withdrawFormRVN.value.amountRVN;
+      address = this.withdrawFormRVN.value.addressRVN;
+    } else if (this.cryptoTapOpend == 'tap4') {
+      currency = 'LTCT';
+      amount = this.withdrawFormLTCT.value.amountLTCT;
+      address = this.withdrawFormLTCT.value.addressLTCT;
     }
-    if (Number(_amount) > 0.0 && _address != null) {
-      this.dashboardService
-        .UserWithdrawRequest(currency, parseFloat(_amount), _address)
-        .subscribe({
-          next: (res) => {
-            ///this is to display the notification
-            this.sharedService.sentMessage.next({
-              message:
-                'the property has been added successfully wait for the confirmation',
-              error: false,
-            });
-          },
-          error: (err) => {
-            console.log(err);
-            this.sharedService.sentMessage.next({
-              message: 'something went wrong ',
-              error: true,
-            });
-          },
+    console.log(currency, amount, address);
+    this.dashboardService.withdrawRequest(currency, amount, address).subscribe({
+      next: (res) => {
+        this.withdrawFormBTC.reset();
+        this.withdrawFormETH.reset();
+        this.withdrawFormRVN.reset();
+        this.withdrawFormLTCT.reset();
+        if (currency == 'BTC') {
+          this.userData.balance.btc -= Number(amount);
+        } else if (currency == 'ETH') {
+          this.userData.balance.eth -= Number(amount);
+        } else if (currency == 'RVN') {
+          this.userData.balance.rvn -= Number(amount);
+        } else if (currency == 'LTCT') {
+          this.userData.balance.ltct -= Number(amount);
+        }
+        this.sharedService.sentMessage.next({
+          message: 'Withdrawed Successfully',
+          error: false,
         });
-    }
-    this.sharedService.isLoading.next(false);
+      },
+      error: () => {
+        this.sharedService.sentMessage.next({
+          message: 'An error occured, try again!',
+          error: true,
+        });
+      },
+    });
   }
+  // onWithdraw(currency: string) {
+  //   this.sharedService.isLoading.next(true);
+  //   let _amount, _address;
+  //   if (currency === 'BTC') {
+  //     _amount = this.withdrawFormBTC.value.amountBTC;
+  //     _address = this.withdrawFormBTC.value.addressBTC;
+  //   } else if (currency === 'ETH') {
+  //     _amount = this.withdrawFormETH.value.amountETH;
+  //     _address = this.withdrawFormETH.value.addressETH;
+  //   } else if (currency === 'RVN') {
+  //     _amount = this.withdrawFormRVN.value.amountRVN;
+  //     _address = this.withdrawFormRVN.value.addressRVN;
+  //   } else if (currency === 'LTCT') {
+  //     _amount = this.withdrawFormLTCT.value.amountLTCT;
+  //     _address = this.withdrawFormLTCT.value.addressLTCT;
+  //   }
+  //   if (Number(_amount) > 0.0 && _address != null) {
+  //     this.dashboardService
+  //       .UserWithdrawRequest(currency, parseFloat(_amount), _address)
+  //       .subscribe({
+  //         next: (res) => {
+  //           ///this is to display the notification
+  //           this.sharedService.sentMessage.next({
+  //             message:
+  //               'the property has been added successfully wait for the confirmation',
+  //             error: false,
+  //           });
+  //         },
+  //         error: (err) => {
+  //           console.log(err);
+  //           this.sharedService.sentMessage.next({
+  //             message: 'something went wrong ',
+  //             error: true,
+  //           });
+  //         },
+  //       });
+  //   }
+  //   this.sharedService.isLoading.next(false);
+  // }
 
   cryptoPlansTap1() {
     this.cryptoTapOpend = 'tap1';
