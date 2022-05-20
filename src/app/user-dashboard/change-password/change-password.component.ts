@@ -67,6 +67,10 @@ export class ChangePasswordComponent implements OnInit {
                 message: 'Password has been changed',
                 error: false,
               });
+              this.changeFormOpened = false;
+              this.changePasswordForm.reset();
+              this.matchError = false;
+              this.wrongPasswordError = false;
             },
             error: () => {
               this.matchError = false;

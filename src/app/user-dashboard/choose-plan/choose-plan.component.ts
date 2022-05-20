@@ -59,7 +59,7 @@ export class ChoosePlanComponent implements OnInit {
         for (let i = 0; i < res.plans.length; i++) {
           res.plans[i].hashPower = res.PlansHashPower[i].hashrate;
         }
-        this.shortPlansBTC = res.plans;
+        this.longPlansBTC = res.plans;
         this.sharedService.isLoading.next(false);
       },
       error: (err) => {
@@ -89,7 +89,7 @@ export class ChoosePlanComponent implements OnInit {
         for (let i = 0; i < res.plans.length; i++) {
           res.plans[i].hashPower = res.PlansHashPower[i].hashrate;
         }
-        this.shortPlansETH = res.plans;
+        this.longPlansETH = res.plans;
         this.sharedService.isLoading.next(false);
       },
       error: (err) => {
@@ -119,7 +119,7 @@ export class ChoosePlanComponent implements OnInit {
         for (let i = 0; i < res.plans.length; i++) {
           res.plans[i].hashPower = res.PlansHashPower[i].hashrate;
         }
-        this.shortPlansRVN = res.plans;
+        this.longPlansRVN = res.plans;
         this.sharedService.isLoading.next(false);
       },
       error: (err) => {
@@ -149,7 +149,7 @@ export class ChoosePlanComponent implements OnInit {
         for (let i = 0; i < res.plans.length; i++) {
           res.plans[i].hashPower = res.PlansHashPower[i].hashrate;
         }
-        this.shortPlansLTCT = res.plans;
+        this.longPlansLTCT = res.plans;
         this.sharedService.isLoading.next(false);
       },
       error: (err) => {

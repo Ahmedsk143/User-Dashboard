@@ -29,11 +29,7 @@ export class ResetCodeComponent implements OnInit {
   ngOnInit(): void {
     this.codeForm = new FormGroup({
       code: new FormControl(null, {
-        validators: [
-          Validators.required,
-          Validators.minLength(7),
-          Validators.maxLength(7),
-        ],
+        validators: [Validators.required],
       }),
     });
     this.authService.codeError$.subscribe((err) => {

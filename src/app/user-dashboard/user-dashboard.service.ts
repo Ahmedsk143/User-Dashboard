@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Subject } from 'rxjs';
-import { Balance } from './balance.model';
-import { AuthService } from '../Auth/auth.service';
 import { DistAsic } from './models/dist-asic.model';
 import { WorkerPlan } from './models/worker-plan.model';
 import { MerchantUser } from './models/merchant-users.model';
@@ -21,14 +18,7 @@ export class DashboardService {
   rootURL: string = 'https://cominer.herokuapp.com';
   key: string =
     'c3fe929c35dd0cbcc8f062bb60e9d2ce7d14be21513d07c53e370d81ba9de4a4';
-  //to store the user data
-  obj: any;
-  //to stor the currency data
-  btcPriceObj: any = { USD: 0.0 };
-  ethPriceObj: any = { USD: 0.0 };
-  rvnPriceObj: any = { USD: 0.0 };
-  LTCTPriceObj: any = { USD: 0.0 };
-  balances$ = new Subject<Balance[]>();
+
   constructor(private http: HttpClient) {}
   // Get prices
   getBTCPrice() {
