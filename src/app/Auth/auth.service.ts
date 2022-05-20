@@ -113,7 +113,6 @@ export class AuthService {
       this.code = sessionStorage.getItem('code')!;
     }
     this.sharedService.isLoading.next(true);
-    console.log(this.email, this.code);
     this.http
       .post<any>(`${this.rootURL}/user/verifyCode?key=${this.key}`, {
         email: this.email,
@@ -122,15 +121,16 @@ export class AuthService {
       .subscribe({
         next: (res) => {
           this.sharedService.isLoading.next(false);
-          this.token = res.token;
+          console.log('this is ');
           console.log(res);
-          sessionStorage.setItem('token', this.token);
+          console.log('this is ');
+          this.token = res;
+          sessionStorage.setItem('token', res);
           this.router.navigate(['/user/new-password']);
         },
         error: (err) => {
           this.sharedService.isLoading.next(false);
           this.codeError$.next(true);
-          console.log(err);
         },
       });
   }
