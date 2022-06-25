@@ -25,6 +25,7 @@ import { ErrorHandlerInterceptor } from './Auth/error-interceptor';
 // import { MerchantComponent } from './merchant/merchant.component';
 import { HomeModule } from './home/home.module';
 import { AuthInterceptor } from './Auth/auth-interceptor';
+import { LandingModule } from './landing/landing.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +52,7 @@ import { AuthInterceptor } from './Auth/auth-interceptor';
     HttpClientModule,
     ChartModule,
     HomeModule,
+    LandingModule,
   ],
 
   providers: [

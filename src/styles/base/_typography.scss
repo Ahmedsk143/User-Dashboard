@@ -18,7 +18,7 @@ body {
 
 @font-face {
   font-family: CircularStd;
-  src: url("../../assets/CircularStd-Medium.woff");
+  src: url("../../assets/CircularStd-Book.woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -28,3 +28,12 @@ body {
 //   font-weight: 600;
 //   font-style: normal;
 // }
+.logo {
+  font-family: "CircularStd";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 2.5rem;
+  color: #ffffff;
+  cursor: pointer;
+}
