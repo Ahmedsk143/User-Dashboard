@@ -34,6 +34,7 @@
     - [Deleting a plan confirmation box](#deleting-a-plan-confirmation-box)
   - [Withdraw Page](#withdraw-page)
   - [User Settings](#user-settings)
+  - [Admin Dashboard](https://github.com/Ahmedsk143/Admin-Dashboard)
 
 # Getting Started
 
