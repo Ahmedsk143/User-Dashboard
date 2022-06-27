@@ -2,9 +2,9 @@
 
 ## Table of contents
 
-- [Ebitcoiner Cloud mining System](#ebitcoiner-cloud-mining-system)
-  - [Table of contents](#table-of-contents)
-- [Overview](#overview)
+- [Live Demo](https://user-dashboard-azure.vercel.app/)
+- [Getting Started](#getting-started)
+- [Project Overview](#overview)
 - [Landing Page](#landing-page)
 - [Sign up Page](#sign-up-page)
 - [Sign in Page](#sign-in-page)
@@ -22,8 +22,27 @@
     - [The Peer-to-Peer Marketplace](#the-peer-to-peer-marketplace)
     - [Buying a plan Popup](#buying-a-plan-popup)
     - [Notifications](#notifications)
-  - [Mining Devices page](#mining-devices-page)
-  - [Wallet page](#wallet-page)
+    - [Mining Devices page](#mining-devices-page)
+    - [Buying mining devices page](#buying-mining-devices-page)
+  - [Merchant Distribution page](#merchant-distribution-page)
+    - [Register as a seller page](#register-as-a-seller-page)
+    - [Online Mining devices](#online-mining-devices)
+    - [The mining device page](#the-mining-device-page)
+    - [Adding New Plan Form](#adding-new-plan-form)
+    - [Edit Plan Form](#edit-plan-form)
+    - [Subscribed users table](#subscribed-users-table)
+    - [Deleting a plan confirmation box](#deleting-a-plan-confirmation-box)
+  - [Withdraw Page](#withdraw-page)
+  - [User Settings](#user-settings)
+
+# Getting Started
+
+```bash
+git clone https://github.com/tomastrajan/angular-ngrx-material-starter.git new-project
+cd new-project
+npm install
+npm start
+```
 
 # Overview
 
@@ -42,8 +61,6 @@
 - An Admin dashboard is implemented for adding, editing, or deleting plans for the users.
 
 - The admin accepts the user’s buying or booking requests.
-
----
 
 # Landing Page
 
@@ -102,6 +119,8 @@ You can reset your password in **3** simple steps
 
 ## Overview Page
 
+---
+
 - View _balances_ and the real-time _prices_ of different crypto currencies.
 - View the _Mining Speed_ ,_Total Mined_ ,and _Total Acitve Plans_ for each crypto currency avaliable.
 - Navigate to The [Withdraw Page](#withdraw-page) and The [Deposit Page](#deposit-page)
@@ -109,6 +128,8 @@ You can reset your password in **3** simple steps
 ![Overview page](https://i.imgur.com/seaqtVa.png)
 
 ## Hashrate Plans page
+
+---
 
 - View details about Acitve and Inactive plans with cool graph that shows the hourly gains for each plan.
 
@@ -146,6 +167,89 @@ You can reset your password in **3** simple steps
   ![](https://i.imgur.com/730brZu.png)
 
 ## Mining Devices page
-* Users can view their mining devices, buy new devices, rigister as sellers, create and manage plans for the P2P marketplace and more! 
-### Miners Page
 
+---
+
+- View details about mining devices that have been bought.
+- Buy new device by pressing "New Miner" button.
+
+![](https://i.imgur.com/9hrjtuy.png)
+
+### Buying mining devices page
+
+- View mining devices offered by the system admin.
+- Press buy button to selected the desired balance to use for paying.
+- A notification shows after a device has been bought or an error occured.
+
+![](https://i.imgur.com/21ANjd1.png)
+
+## Merchant Distribution page
+
+---
+
+### Register as a seller page
+
+- Register as a seller and start creating plans for the P2P marketplace
+  ![](https://i.imgur.com/Jb0ww2b.png)
+
+### Online Mining devices
+
+- View details about all devices
+  ![](https://i.imgur.com/hm31AbK.png)
+
+### The mining device page
+
+- View details of a specefic device
+- Add new plans to that device
+- Edit & Delete plans
+- View Subscribed users
+
+![](https://i.imgur.com/ofZqaAi.png)
+
+### Adding New Plan Form
+
+![](https://i.imgur.com/aDFrXSw.png)
+
+### Edit Plan Form
+
+![](https://i.imgur.com/Y43YPKS.png)
+
+### Subscribed users table
+
+![](https://i.imgur.com/JcKnzX8.png)
+
+### Deleting a plan confirmation box
+
+![](https://i.imgur.com/1Zj1CKX.png)
+
+## Withdraw Page
+
+---
+
+- View Balances
+- Withdraw funds through the desired wallet
+- Track Transactions in three status: Success, Pending, Failed
+
+![](https://i.imgur.com/PxWLpNq.png)
+
+## Deposit Page
+
+---
+
+- View Balances
+- Deposit funds in the desired wallet
+- Copy the system wallet address
+- or Scan the QR code for better secuirty
+- Track Transactions in three status: Success, Pending, Failed
+
+![](https://i.imgur.com/cNNmHIF.png)
+
+## User Settings
+
+---
+
+- Change your password
+- View your datails
+- Logout
+
+![](https://i.imgur.com/Zi8wdA1.png)
