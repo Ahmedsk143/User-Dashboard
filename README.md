@@ -1,4 +1,4 @@
-# Ebitcoiner Cloud mining System
+# Ebitcoiner Cloud Mining System - Landing page & User Dashboard
 
 ## Table of contents
 
