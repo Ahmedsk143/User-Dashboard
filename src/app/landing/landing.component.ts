@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./landing.component.scss'],
 })
 export class LandingComponent implements OnInit {
-  accordion1 = true;
+  accordion1 = false;
   accordion2 = false;
   accordion3 = false;
   accordion4 = false;
