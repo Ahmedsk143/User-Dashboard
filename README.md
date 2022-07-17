@@ -5,42 +5,13 @@
 - [Live Demo](https://user-dashboard-azure.vercel.app/)
 - [Getting Started](#getting-started)
 - [Project Overview](#overview)
-- [Landing Page](#landing-page)
-- [Sign up Page](#sign-up-page)
-- [Sign in Page](#sign-in-page)
-  - [Step 1](#step-1)
-  - [Step 2](#step-2)
-- [Forgot Password?](#forgot-password)
-  - [Step 1](#step-1-1)
-  - [Step 2](#step-2-1)
-  - [Step 3](#step-3)
-- [User Dashboard](#user-dashboard)
-  - [Overview Page](#overview-page)
-  - [Hashrate Plans page](#hashrate-plans-page)
-    - [Choose the plan provider](#choose-the-plan-provider)
-    - [The System Plans](#the-system-plans)
-    - [The Peer-to-Peer Marketplace](#the-peer-to-peer-marketplace)
-    - [Buying a plan Popup](#buying-a-plan-popup)
-    - [Notifications](#notifications)
-    - [Mining Devices page](#mining-devices-page)
-    - [Buying mining devices page](#buying-mining-devices-page)
-  - [Merchant Distribution page](#merchant-distribution-page)
-    - [Register as a seller page](#register-as-a-seller-page)
-    - [Online Mining devices](#online-mining-devices)
-    - [The mining device page](#the-mining-device-page)
-    - [Adding New Plan Form](#adding-new-plan-form)
-    - [Edit Plan Form](#edit-plan-form)
-    - [Subscribed users table](#subscribed-users-table)
-    - [Deleting a plan confirmation box](#deleting-a-plan-confirmation-box)
-  - [Withdraw Page](#withdraw-page)
-  - [User Settings](#user-settings)
-  - [Admin Dashboard](https://github.com/Ahmedsk143/Admin-Dashboard)
+-
 
 # Getting Started
 
 ```bash
-git clone https://github.com/tomastrajan/angular-ngrx-material-starter.git new-project
-cd new-project
+git clone https://github.com/Ahmedsk143/User-Dashboard
+cd User-Dashboard
 npm install
 npm start
 ```
@@ -83,7 +54,7 @@ You can sign in in **2** simple steps
 - Current users can log in to their dashboard.
 - A 30s valid code is sent to the user email
   ![Sign in page](https://i.imgur.com/Gwppj7v.png)
-- Code Examole
+- Code Example
   ![Code example](https://i.imgur.com/2rKuzpt.png)
 
 ## Step 2
@@ -116,14 +87,14 @@ You can reset your password in **3** simple steps
 
 # User Dashboard
 
-- Users can **view** their plans, **buy** plans & mining devices, become **sellers**, **edit** profile, **deposit** & **withdraw** money, and **more!**.
+- Users can **view** their plans, **buy** plans & mining devices, become **sellers, **edit** profiles, **deposit\***\* & **withdraw** money, and **more!\*\*.
 
 ## Overview Page
 
 ---
 
-- View _balances_ and the real-time _prices_ of different crypto currencies.
-- View the _Mining Speed_ ,_Total Mined_ ,and _Total Acitve Plans_ for each crypto currency avaliable.
+- View _balances_ and the real-time _prices_ of different cryptocurrencies.
+- View the _Mining Speed_, _Total** Mined**, and \_Total_ Active* Plans* for each cryptocurrency available.
 - Navigate to The [Withdraw Page](#withdraw-page) and The [Deposit Page](#deposit-page)
 
 ![Overview page](https://i.imgur.com/seaqtVa.png)
@@ -132,14 +103,14 @@ You can reset your password in **3** simple steps
 
 ---
 
-- View details about Acitve and Inactive plans with cool graph that shows the hourly gains for each plan.
+- View details about Active and Inactive plans with a cool graph that shows the hourly gains for each plan.
 
 ![](https://i.imgur.com/Dla8PhC.png)
 
 ### Choose the plan provider
 
 - **The System Plans** are plans provided by the system admin dashboard.
-- The **Peer-to-Peer Marketplace** are provided by different sellers that are registered on the system.
+- The **Peer-to-Peer Marketplace** is provided by different sellers that are registered on the system.
 
 ![](https://i.imgur.com/qp3YvjU.png)
 
@@ -151,7 +122,7 @@ You can reset your password in **3** simple steps
 
 ### The Peer-to-Peer Marketplace
 
-- Sellers are viewed in accordion way for easier navigation.
+- Sellers are viewed in the accordion way for easier navigation.
 
 ![](https://i.imgur.com/Boo6153.png)
 
@@ -164,7 +135,7 @@ You can reset your password in **3** simple steps
 
 - If the buying went correct a notification shows as a popup.
   ![](https://i.imgur.com/EWgQeXn.png)
-- if the buying went wrong a notification shows as a popup.
+- if the buying process went wrong a notification shows as a popup.
   ![](https://i.imgur.com/730brZu.png)
 
 ## Mining Devices page
@@ -172,15 +143,15 @@ You can reset your password in **3** simple steps
 ---
 
 - View details about mining devices that have been bought.
-- Buy new device by pressing "New Miner" button.
+- Buy a new device by pressing the "New Miner" button.
 
 ![](https://i.imgur.com/9hrjtuy.png)
 
 ### Buying mining devices page
 
 - View mining devices offered by the system admin.
-- Press buy button to selected the desired balance to use for paying.
-- A notification shows after a device has been bought or an error occured.
+- Press the buy button to select the desired balance to use for paying.
+- A notification shows after a device has been bought or an error occurred.
 
 ![](https://i.imgur.com/21ANjd1.png)
 
@@ -200,7 +171,7 @@ You can reset your password in **3** simple steps
 
 ### The mining device page
 
-- View details of a specefic device
+- View details of a specific device
 - Add new plans to that device
 - Edit & Delete plans
 - View Subscribed users
@@ -229,7 +200,7 @@ You can reset your password in **3** simple steps
 
 - View Balances
 - Withdraw funds through the desired wallet
-- Track Transactions in three status: Success, Pending, Failed
+- Track Transactions in three statuses: Success, Pending, Failed
 
 ![](https://i.imgur.com/PxWLpNq.png)
 
@@ -240,8 +211,8 @@ You can reset your password in **3** simple steps
 - View Balances
 - Deposit funds in the desired wallet
 - Copy the system wallet address
-- or Scan the QR code for better secuirty
-- Track Transactions in three status: Success, Pending, Failed
+- or Scan the QR code for better security
+- Track Transactions in three statuses: Success, Pending, Failed
 
 ![](https://i.imgur.com/cNNmHIF.png)
 
@@ -250,7 +221,7 @@ You can reset your password in **3** simple steps
 ---
 
 - Change your password
-- View your datails
+- View your details
 - Logout
 
 ![](https://i.imgur.com/Zi8wdA1.png)
