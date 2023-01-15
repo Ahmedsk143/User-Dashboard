@@ -9,7 +9,7 @@ import { SharedService } from '../shared/shared.service';
   providedIn: 'root',
 })
 export class AuthService {
-  rootURL: string = 'https://cominer.herokuapp.com/api';
+  rootURL: string = 'https://hashstore.onrender.com/api';
   key: string =
     'c3fe929c35dd0cbcc8f062bb60e9d2ce7d14be21513d07c53e370d81ba9de4a4';
   authStatusListener$ = new BehaviorSubject<boolean>(false);

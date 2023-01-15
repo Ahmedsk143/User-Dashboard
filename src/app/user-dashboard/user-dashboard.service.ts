@@ -15,7 +15,7 @@ import { TransLog } from './models/trans-log.model';
   providedIn: 'root',
 })
 export class DashboardService {
-  rootURL: string = 'https://cominer.herokuapp.com';
+  rootURL: string = 'https://hashstore.onrender.com';
   key: string =
     'c3fe929c35dd0cbcc8f062bb60e9d2ce7d14be21513d07c53e370d81ba9de4a4';
 
